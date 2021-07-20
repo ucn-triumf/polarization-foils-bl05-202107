@@ -1,0 +1,169 @@
+// raman_spectra.cxx
+//
+// program reads and displays ascii FT-Raman spectra
+// of the 2 column format: wavenumber   value
+//
+// it then fits the line intensities and fits the
+// temperature and ortho/para concentration to the
+// measured intensities
+//
+// created: Nov 14, 2001 KK
+//
+// last modified: 12-13-01 KK
+// last modified: 02-10-02 KK
+
+
+
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <sstream>
+#include <iostream>
+//#include <iostream.h>
+#include <fstream>
+#include <stdlib.h>
+#include <iomanip>
+using namespace std;   //to use <iostream> not <iostream.h>
+
+  
+#include "TROOT.h"
+#include "TApplication.h"
+#include "TCanvas.h"
+#include "TClass.h"
+#include "TClassTable.h"
+#include "TCollection.h"
+#include "TObject.h"
+#include "TH1.h"
+#include "TH2.h"    
+#include "TH3.h"    
+#include "TF1.h" 
+#include "TF2.h" 
+#include "TGraph.h"   
+#include "TGraphErrors.h"   
+#include "TMinuit.h"   
+#include "TMath.h"
+#include "TLine.h"
+#include "TLegend.h"
+#include "TPaveText.h"                                                         
+#include "TPaveLabel.h"
+#include "TRandom.h"
+#include "TRandom3.h"
+#include "TStopwatch.h"
+#include "TStyle.h"
+#include "TTree.h"
+#include "TNtuple.h"
+#include "TFile.h"
+
+#define PI 3.14159265
+#define sq(x)  ((x)*(x))
+
+extern void InitGui();
+ 
+
+VoidFuncPtr_t initfuncs[] = { InitGui, 0 };
+Int_t *MakeIwatsuUCN(char* DataFileName);
+
+TROOT api("proton_spectrum","proton spectrum display",initfuncs);
+
+//int main(int argc, char **argv)
+int main(int argc, char *argv[])
+{
+
+  //  TApplication theApp("App",&argc,argv); //??? why was the filename which exists ignored???
+  //  gROOT->Reset();
+  //  gStyle->SetPalette(1);
+  //  gStyle->SetScreenFactor(2);
+  // ******************************************************************************
+  // timer for information about running time of code
+  TStopwatch timer;
+  timer.Start();
+  
+  if(argc!=2){
+    std::cerr<<"Usage: ./MakeIwatsuUCN [DataFileName]" <<std::endl;
+    return -1;
+  }
+
+  //  std::ostringstream DataFileName;
+  // DataFileName << argv[1];
+  //  std::cout <<"Making ROOT file from "<<DataFileName.str().c_str()<<std::endl;
+  std::ostringstream os;
+  os <<argv[1];
+  char DataFileName[128];
+
+  sprintf(DataFileName,os.str().c_str());
+  std::cout <<"Making ROOT file from "<<DataFileName<<std::endl;
+  MakeIwatsuUCN(DataFileName);
+  
+  // ******************************************************************************
+  // timer for information about running time of code
+  cout<<"*********************************"<<endl;
+  cout<<"ROOT - Time at the end of job:"<<endl;
+  cout<<"CpuTime = "<<timer.CpuTime()<<" seconds"<<endl;
+  cout<<"RealTime = "<<timer.RealTime()<<" seconds"<<endl;
+  cout<<"*********************************"<<endl<<flush;
+
+  timer.Stop();
+
+  return 0;
+
+ }
+
+#if 1
+Int_t *MakeIwatsuUCN(char* DataFileName)
+{
+  Int_t i=0,k=0,nlines=0;
+  Int_t kp=0,tp=0;
+  Int_t x,ch,e,dummy; 
+  long long int t=0,tzero=0;    // use long long t t!!
+  
+  TNtuple *six = new  TNtuple("Six","Six","e:t:tof:kp:tp"); //"f" is coincidence number of event: use f==4
+  
+  //fscan is used because of token ","
+  FILE *fp;
+  fp = fopen(DataFileName, "r");
+  if (!fp) {
+    cerr << "File could not be opened \n"<<DataFileName<<endl;
+    return 0;
+  }
+
+  // data read start
+  while(fscanf(fp, "%d,%d,%d,%lld,%d",&x,&ch,&e,&t,&dummy)!=EOF){
+
+    if (nlines%1000000==0) cout <<" nlines =  "<<nlines<<endl;
+    //for noise reduction
+    if(!(nlines<20 && t>1e8)){
+      //if data is Trigger(ch4), then change Tzero.
+    if(ch==4 && e > 512 && e<8190){
+      tzero=t;
+      kp++;
+    }
+    else if(ch==5 && e > 512 && e<8190){
+      tp++;
+    }
+    else if(ch==6){
+      six->Fill(e,t,t-tzero,kp,tp);
+    }
+    }
+  nlines++;
+  }  
+
+  //for last event
+  if(ch==4) kp++;
+  else if(ch==5) tp++;
+  else if(ch==6) six->Fill(e,t,t-tzero,kp,tp);
+  fclose(fp);
+  cout <<"KP= "<<kp<<endl;
+  
+  char RootFileName[64];
+  sprintf(RootFileName,"%s.kp.root",DataFileName);
+  TFile file(RootFileName,"RECREATE");
+  six->Write();
+  cout << RootFileName << " has been created" << endl;
+  file.Close();
+  
+  //  gROOT->LoadMacro("~/data/ReadUCN.C");
+  //   Int_t readFlag =  ReadUCN(RootFileName);
+
+  return 0;
+}
+#endif

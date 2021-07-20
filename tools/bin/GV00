@@ -1,0 +1,1 @@
+ssh nop@epsonvme2 ./UCN/script/DSshutter.sh 00A0

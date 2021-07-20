@@ -6,12 +6,11 @@
 #include <TEventList.h>
 #include <TH1.h>
 #include <TH2.h>
-#include <TCanvas.h>
 #include "RPMT.h"
 
 // void DrawOneScan(TString rootfile_num ="20210612181251", Int_t iscan = 44*10+10) {
 // void DrawOneScan(TString rootfile_num ="20210613082746", Int_t iscan = 24+44*19) {
-void DrawOneScan(TString rootfile_num ="20210613082746", Int_t iscan = 5) {
+void DrawOneScan(TString rootfile_num ="20210613082746", Int_t iscan = 29+44*15) {
   auto *rootfile  = TFile::Open(Form("%s_list.root",  rootfile_num.Data()));
   auto *elistfile = TFile::Open(Form("%s_elist.root", rootfile_num.Data()));
   auto *tree      = rootfile->Get<TTree>("T");

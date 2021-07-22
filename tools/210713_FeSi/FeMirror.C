@@ -1,5 +1,5 @@
-#include "/home/nop/bin/MakeNiki.h"
-#include "/home/nop/data/Tools/GetMRcut.C"
+#include "../bin/MakeNiki.h"
+//#include "/home/nop/data/Tools/GetMRcut.C"
 #include <TH3.h>
 
 Double_t Distance = 20.000; //tentative
@@ -23,10 +23,13 @@ void InitColor(){
 
 TTree* GetTree(TString filestr){
 
-  TString ROOTstr = filestr(0,19);
+  TString ROOTstr = filestr(0,19);//filestr　ファイルを番号によって読むものを変える
   ROOTstr += ".root";
+  TString path = "data/210713_SiFe/";
+  TString ROOTstr_path = path+ROOTstr;
+  TFile *file = TFile::Open(ROOTstr_path.Data());
 
-  TFile *file = TFile::Open(ROOTstr.Data());
+  //TFile *file = TFile::Open(ROOTstr.Data());
   if ( file->IsOpen() ) printf("ROOT file opened successfully\n");
   TTree* tup=(TTree*)file->Get("T");
   if(useThinout==1)tup->SetMaxEntryLoop(10000);
@@ -158,7 +161,12 @@ Int_t FeMirror(){
     Double_t twopirad = 2*TMath::Pi()*angle[i];
     Double_t lambda_coeff = 1.e-6*Conversion/Distance;
 
+    //tup[i] = GetTree(namestr[i]);
+    
+    //TString str1 = namestr[i]; 
+    //TString str2 = "data/210713_SiFe/"; 
     tup[i] = GetTree(namestr[i]);
+    //tup[i] = GetTree(str2+str1);
     tup[i]->SetAlias("toffo","(tof>9.e3)*(tof)+(tof<9.e3)*(tof+40.e3)");
     //    tup[i]->SetAlias("toffo","tof");
     if(useMRfirst) kp[i] = tup[i]->GetMaximum("mp");

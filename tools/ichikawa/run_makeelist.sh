@@ -1,7 +1,8 @@
 #!/bin/bash
 ROOTFILE_NUM="20210714000204"
 SCANFILE_NAME="scan20210713_x_m2_scan_1"
-GATENETLOG_NAME="../gatenetlog/gatenetlog_${SCANFILE_NAME}.txt"
+GATENETLOG_NAME="../02107013_Polarizer//gatenetlog_${SCANFILE_NAME}.txt"
+# GATENETLOG_NAME="../gatenetlog/gatenetlog_${SCANFILE_NAME}.txt"
 echo "root MakeElist.C+(\"$ROOTFILE_NUM\",\"$GATENETLOG_NAME\")"
 #root 'MakeElist.C+("'"$ROOTFILE_NUM"'","'"$GATENETLOG_NAME"'")'
 

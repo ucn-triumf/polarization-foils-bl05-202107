@@ -1,5 +1,6 @@
 # Custom
 data/*
+data_arch/*
 
 # Prerequisites
 *.d

@@ -9,7 +9,10 @@ Double_t xdirect    = 64.71;
 Bool_t useMRfirst = 0; //use only MR events to avoid frame overlap
 Bool_t useThinout = 0; //thinning out the event <1e4.
 
+TString path_R = "results/";
+
 void InitColor(){
+  
   //set default color
   gROOT->GetColor(2)->SetRGB(220./255.,  50./255.,  47./255.); // Red
   gROOT->GetColor(3)->SetRGB(135./255., 194./255.,  63./255.); // Green
@@ -20,7 +23,6 @@ void InitColor(){
   gROOT->GetColor(8)->SetRGB(102./255., 205./255., 170./255.); // Lightgreen
   return;
 }
-
 TTree* GetTree(TString filestr){
 
   TString ROOTstr = filestr(0,19);//filestr　ファイルを番号によって読むものを変える
@@ -240,8 +242,8 @@ Int_t FeMirror(){
   c1->cd(3); gPad->SetGrid();
   c1->cd(4); gPad->SetGrid();
 
-  c1->SaveAs(Form("FeMirror.png"));
-  c1->SaveAs(Form("FeMirror.root"));
+  c1->SaveAs(Form(path_R+"FeMirror.png"));
+  c1->SaveAs(Form(path_R+"FeMirror.root"));
 
 #if 1
   TFile *outfile = TFile::Open("FeMirrorhist.root","RECREATE");

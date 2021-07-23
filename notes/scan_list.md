@@ -1,4 +1,4 @@
-|index|file name                    |scan name      |      |
+|index |file name                |scan name      |             |
 |------|-------------------------|--------------|--------------|
 |0     |gatenetlog_scan20210713_theta_m2_scan_1.txt|scan20210713_theta_m2_scan_1.txt||
 |1     |gatenetlog_scan20210713_x_m2_scan_1.txt|scan20210713_x_m2_scan_1.txt||

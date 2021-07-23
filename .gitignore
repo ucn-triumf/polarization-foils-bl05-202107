@@ -1,15 +1,21 @@
 # Custom
 data/*
 data_arch/*
+DS_Store
+.DS_Store
 
 # Prerequisites
 *.d
+tools/*.d
+codes/*.d
 
 # Compiled Object files
 *.slo
 *.lo
 *.o
 *.obj
+codes/*.o
+tools/*.o
 
 # Precompiled Headers
 *.gch
@@ -19,6 +25,9 @@ data_arch/*
 *.so
 *.dylib
 *.dll
+codes/*.so
+tools/*.so
+
 
 # Fortran module files
 *.mod

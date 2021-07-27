@@ -1,0 +1,9 @@
+
+2016/04/25
+MakeNikiを改造。
+MakeNiki 201603290750_list_000.dat 2
+で連続してfileを読むようにした.
+Fileを最後まで読んだのち,
+201603290750_list.root 2
+というroot fileを作る。
+

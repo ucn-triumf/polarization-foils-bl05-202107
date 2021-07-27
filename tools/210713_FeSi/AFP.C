@@ -1,6 +1,7 @@
-#include "/home/nop/bin/MakeNiki.h"
-#include "/home/nop/data/Tools/GetMRcut.C"
+#include "../bin/MakeNiki.h"
+//#include "/home/nop/data/Tools/GetMRcut.C"
 #include <TH3.h>
+TString path_R = "results/";
 
 Double_t Distance = 20.000; //tentative
 Double_t Conversion = 395.6;
@@ -11,10 +12,13 @@ Bool_t useThinout = 0; //thinning out the event <1e4.
 
 TTree* GetTree(TString filestr){
 
-  TString ROOTstr = filestr(0,19);
+  TString ROOTstr = filestr(0,19);//filestr　ファイルを番号によって読むものを変える
   ROOTstr += ".root";
+  TString path = "data/210713_SiFe/";
+  TString ROOTstr_path = path+ROOTstr;
+  TFile *file = TFile::Open(ROOTstr_path.Data());
 
-  TFile *file = TFile::Open(ROOTstr.Data());
+  //TFile *file = TFile::Open(ROOTstr.Data());
   if ( file->IsOpen() ) printf("ROOT file opened successfully\n");
   TTree* tup=(TTree*)file->Get("T");
   if(useThinout==1)tup->SetMaxEntryLoop(10000);
@@ -186,8 +190,8 @@ Int_t AFP(){
   c1->cd(3); gPad->SetGridx(); gPad->SetGridy();
   c1->cd(4); gPad->SetGridx(); gPad->SetGridy();
 
-  c1->SaveAs(Form("AFP.png"));
-  c1->SaveAs(Form("AFP.root"));
+  c1->SaveAs(Form(path_R+"AFP.png"));
+  c1->SaveAs(Form(path_R+"AFP.root"));
 
 #if 1
   TFile *outfile = TFile::Open("AFPhist.root","RECREATE");

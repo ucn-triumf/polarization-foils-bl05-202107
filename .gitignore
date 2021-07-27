@@ -3,6 +3,8 @@ data/*
 data_arch/*
 DS_Store
 .DS_Store
+.vscode/*
+README~
 
 # Prerequisites
 *.d

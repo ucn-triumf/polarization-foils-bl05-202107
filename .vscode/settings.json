@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "FeMirror4a.C": "cpp",
+        "FeMirror3a.C": "cpp",
+        "DrawExample.C": "cpp",
+        "DrawOneScan.C": "cpp"
+    }
+}

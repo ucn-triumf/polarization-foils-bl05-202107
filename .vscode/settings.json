@@ -3,6 +3,11 @@
         "FeMirror4a.C": "cpp",
         "FeMirror3a.C": "cpp",
         "DrawExample.C": "cpp",
-        "DrawOneScan.C": "cpp"
+        "DrawOneScan.C": "cpp",
+        "FeMirror.C": "cpp",
+        "GetMRcut.C": "cpp",
+        "Draw2D.C": "cpp",
+        "nikicontrollerx.c": "cpp",
+        "UCNMirror.C": "cpp"
     }
 }

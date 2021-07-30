@@ -253,8 +253,8 @@ Int_t FeMirror_11(){
   //c1->cd(3); gPad->SetGrid();
   //c1->cd(4); gPad->SetGrid();
 
-  c1->SaveAs(Form(path_R+"FeMirror.png"));
-  c1->SaveAs(Form(path_R+"FeMirror.root"));
+  c1->SaveAs(path_R+"FeMirror.png");
+  c1->SaveAs(path_R+"FeMirror.root");
 
 #if 1
   TFile *outfile = TFile::Open("FeMirrorhist.root","RECREATE");

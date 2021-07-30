@@ -8,6 +8,14 @@
         "GetMRcut.C": "cpp",
         "Draw2D.C": "cpp",
         "nikicontrollerx.c": "cpp",
-        "UCNMirror.C": "cpp"
+        "UCNMirror.C": "cpp",
+        "AFP.C": "cpp",
+        "CheckKPBoundary.C": "cpp",
+        "FeMirror2.C": "cpp",
+        "DrawScan.C": "cpp",
+        "FeMirror_1.C": "cpp",
+        "Polarizer.C": "cpp",
+        "MakeElist.C": "cpp",
+        "FeMirror_11.C": "cpp"
     }
 }

@@ -16,6 +16,13 @@
         "FeMirror_1.C": "cpp",
         "Polarizer.C": "cpp",
         "MakeElist.C": "cpp",
-        "FeMirror_11.C": "cpp"
+        "FeMirror_11.C": "cpp",
+        "FeMirror_q_R.C": "cpp",
+        "FeMirror_lambda_R.C": "cpp",
+        "FeMirror_lambda_counts.C": "cpp",
+        "FeMirror_lambda_countsのコピー.C": "cpp",
+        "FeMirror_lambda_countsのコピー.C": "cpp",
+        "AFP2.C": "cpp",
+        "AFP2のコピー.C": "cpp"
     }
 }

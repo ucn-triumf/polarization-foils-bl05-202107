@@ -99,6 +99,7 @@ Int_t AFP2(){
   TCut cut_y = Form("y*%f>%f && y*%f<%f",range,ybegin,range,yend);
   TCut cut_dir = Form("x*%f>%f && x*%f<%f",range,xcenter,range,xend);
   TCut cut_ref = Form("x*%f>%f && x*%f<%f",range,xbegin,range,xcenter);
+  //センターの右か左かで反射か透過を区別
   //  TCut cut_tof = Form("tof>1.0e3 && tof<39.9e3");
   TCut cut_tof = "";
   TCut MRcut = "MRflag>0";
@@ -131,19 +132,19 @@ Int_t AFP2(){
     hxylambda[i] = new TH3F(Form("hxylambda%d",i),Form("%s;x [mm]; y [mm]; Wavelength [nm];count/bin/25kp",degstr[i].Data()), nbin/nrebinx,0.,range,nbin/nrebiny,0.,range,nbin_lambda,0.,lambda_max);
 
     tup[i]->Draw(Form("x*%f>>hx%d",range,i), thecut,"goff");
-    //if(i==0) tup[i]->Draw(Form("toffo*%f>>hlambda%d",lambda_coeff,i), thecut && cut_dir,"goff");
-    //else tup[i]->Draw(Form("toffo*%f>>hlambda%d",lambda_coeff,i), thecut && cut_ref,"goff");
+    if(i==0) tup[i]->Draw(Form("toffo*%f>>hlambda%d",lambda_coeff,i), thecut && cut_dir,"goff");
+    else tup[i]->Draw(Form("toffo*%f>>hlambda%d",lambda_coeff,i), thecut && cut_ref,"goff");
     
     //if(i==0) tup[i]->Draw(Form("%f/(toffo*%f)>>hq%d",twopirad,lambda_coeff,i), thecut0 && cut_ref,"goff");
     //else tup[i]->Draw(Form("%f/(toffo*%f)>>hq%d",twopirad,lambda_coeff,i), thecut && cut_ref,"goff");
-    tup[0]->Draw(Form("%f/(toffo*%f)>>hq0%d",twopirad,lambda_coeff,i), thecut0 && cut_ref,"goff");
+    tup[0]->Draw(Form("%f/(toffo*%f)>>hq0%d",twopirad,lambda_coeff,i), thecut0 && cut_dir,"goff");
     tup[i]->Draw(Form("%f/(toffo*%f)>>hq%d",twopirad,lambda_coeff,i), thecut && cut_ref,"goff");
     //tup[i]->Draw(Form("toffo*%f:y*%f:x*%f>>hxylambda%d",lambda_coeff,range,range,i),cut_rpmt_basic && MRcut,"goff");
 
     leg->AddEntry(hx[i],degstr[i],"l");
     hx[i]->Scale(25./kp[i]);
     //hlambda[i]->Scale(25./kp[i]);
-    hq[i]->Scale(25./kp[0]);
+    hq[i]->Scale(25./kp[i]);
     hq0[i]->Scale(25./kp[0]);
     //hxylambda[i]->Scale(25./kp[i]);
 

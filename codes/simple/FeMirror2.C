@@ -146,9 +146,9 @@ Int_t FeMirror2(){
   Double_t angle[num];
   angle[0] = TMath::Abs(70.5 - xdirect)/dist_det; //rad
   angle[1] = TMath::Abs(56. - xdirect)/dist_det; //rad
-  // angle[2] = TMath::Abs(51. - xdirect)/dist_det; //rad
-  // angle[3] = TMath::Abs(51. - xdirect)/dist_det; //rad
-  // angle[4] = TMath::Abs(51. - xdirect)/dist_det; //rad
+  angle[2] = TMath::Abs(51. - xdirect)/dist_det; //rad
+  angle[3] = TMath::Abs(51. - xdirect)/dist_det; //rad
+  angle[4] = TMath::Abs(51. - xdirect)/dist_det; //rad
 
   //  TLegend* leg = new TLegend(0.15, 0.75, 0.4, 0.98,"");
   TLegend* leg = new TLegend(0.70, 0.20, 0.98, 0.70,"Fe 30 nm");
@@ -215,7 +215,7 @@ Int_t FeMirror2(){
     tup[i]->Draw(Form("x*%f>>hx%d",range,i), thecut,"goff");
     if(i==0) tup[i]->Draw(Form("toffo*%f>>hlambda%d",lambda_coeff,i), thecut && cut_dir,"goff");
     else tup[i]->Draw(Form("toffo*%f>>hlambda%d",lambda_coeff,i), thecut && cut_ref,"goff");
-    tup[0]->Draw(Form("%f/(toffo*%f)>>hq0%d",twopirad,lambda_coeff,i), thecut0 && cut_ref,"goff");
+    tup[0]->Draw(Form("%f/(toffo*%f)>>hq0%d",twopirad,lambda_coeff,i), thecut0 && cut_dir,"goff");
     tup[i]->Draw(Form("%f/(toffo*%f)>>hq%d",twopirad,lambda_coeff,i), thecut && cut_ref,"goff");
     tup[i]->Draw(Form("toffo*%f:y*%f:x*%f>>hxylambda%d",lambda_coeff,range,range,i),cut_rpmt_basic && MRcut,"goff");
 

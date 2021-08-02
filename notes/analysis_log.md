@@ -11,11 +11,13 @@ change path "AFP.C, FeMirror.C, FeMirror2.C, Polarizer.C"
 made a simple code to draw a 2D histogram of the (x,y) beam spot 
 
 ## 2021-07-31  TH
-主に編集したのは、AFP2.C
+主に編集したのは、AFP2.C(色々変えてコード理解)
 疑問点には?をつけた
 その他疑問点
 ・q-Rの図でなぜ反射率>1となってしまうのかがわからない
+答え　cut_refをcut_dirへ 150ぎょうめ
 
+simple/FeMirror2.C　が正しいq-Rのスケーリング
 
 
 

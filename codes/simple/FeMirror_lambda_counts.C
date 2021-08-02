@@ -40,7 +40,7 @@ TTree* GetTree(TString filestr){
   return tup;
 }
 
-Int_t FeMirror_lambda_R(){
+Int_t FeMirror_lambda_counts(){
 
   InitColor();
   TH1::SetDefaultSumw2();

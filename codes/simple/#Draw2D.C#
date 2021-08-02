@@ -39,5 +39,5 @@ void Draw2D() {
   std::cout << "time: " << time     << " s"   << std::endl;
   std::cout << "rate: " << sum/time << " cps" << std::endl;
   
-
+  c_xy->Ssave_
 }

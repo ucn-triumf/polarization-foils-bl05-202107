@@ -19,5 +19,9 @@ made a simple code to draw a 2D histogram of the (x,y) beam spot
 
 simple/FeMirror2.C　が正しいq-Rのスケーリング
 
+## 2021-08-02 TH
+Added codes/simple/Draw2D_av.C
+This code can be used to extract the peak value for a given root file 
+
 
 

@@ -4,7 +4,7 @@ import os
 from glob  import glob
 from pathlib import Path
 
-os.chdir("data/202107013_Polarizer")
+os.chdir("../../data/202107013_Polarizer")
 scanfiles = glob("gatenetlog_scan20210713_*")
 
 scanfiles_sorted = sorted(scanfiles, key=os.path.getmtime)

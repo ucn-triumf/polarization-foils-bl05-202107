@@ -3,10 +3,17 @@
 #include <TH3.h>
 TString path_R = "results/";
 
-Double_t Distance = 20.000; //tentative
+// Double_t Distance = 20.000; //tentative
+// Double_t Conversion = 395.6;
+// Double_t dist_det   = 337.; //sample to detector [mm]
+// Double_t xdirect    = 64.71;
+// Bool_t useMRfirst = 0; //use only MR events to avoid frame overlap
+// Bool_t useThinout = 0; //thinning out the event <1e4.
+
+Double_t Distance = 18.101;//[m]
 Double_t Conversion = 395.6;
-Double_t dist_det   = 337.; //sample to detector [mm]
-Double_t xdirect    = 64.71;
+Double_t dist_det   = 666.; //sample to detector [mm]
+Double_t xdirect    = 63.29;
 Bool_t useMRfirst = 0; //use only MR events to avoid frame overlap
 Bool_t useThinout = 0; //thinning out the event <1e4.
 

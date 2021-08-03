@@ -27,7 +27,7 @@ The contents of the respoistory are organized as follows:
 
 - results/ : use this to place your analysis results
 
-- tools/ : a place for codes and C++ headers needed for analysis. Don't the codes in this directory with care  
+- tools/ : a place for codes and C++ headers needed for analysis. Edit the codes in this directory with care  
 	- tools/210713_FeSi : codes which were originally placed in /home/nop/data/210713_FeSi of niki
 	- tools/bin : copied from /home/nop/bin/ of niki
 	- tools/ichikawa : codes provided by G. Ichikawa which can be used to split a .root file of scans using sacn logs 

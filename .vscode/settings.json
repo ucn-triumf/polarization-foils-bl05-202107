@@ -26,6 +26,11 @@
         "AFP2のコピー.C": "cpp",
         "AFP2のコピー.C": "cpp",
         "Draw2D_fit.C": "cpp",
-        "new": "cpp"
+        "new": "cpp",
+        "Draw2D_av.C": "cpp",
+        "FeMirror3.C": "cpp",
+        "q_R_I.C": "cpp",
+        "q_R_I_on.C": "cpp",
+        "q_R_I_off.C": "cpp"
     }
 }

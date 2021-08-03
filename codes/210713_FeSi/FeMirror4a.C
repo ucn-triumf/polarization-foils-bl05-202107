@@ -1,6 +1,7 @@
-#include "/home/nop/bin/MakeNiki.h"
-#include "/home/nop/data/Tools/GetMRcut.C"
+#include "../bin/MakeNiki.h"
+//#include "/home/nop/data/Tools/GetMRcut.C"
 #include <TH3.h>
+TString path_R = "results/";
 
 Double_t Distance = 20.000; //tentative
 Double_t Conversion = 395.6;
@@ -23,10 +24,13 @@ void InitColor(){
 
 TTree* GetTree(TString filestr){
 
-  TString ROOTstr = filestr(0,19);
+  TString ROOTstr = filestr(0,19);//filestr　ファイルを番号によって読むものを変える
   ROOTstr += ".root";
+  TString path = "data/210713_SiFe/";
+  TString ROOTstr_path = path+ROOTstr;
+  TFile *file = TFile::Open(ROOTstr_path.Data());
 
-  TFile *file = TFile::Open(ROOTstr.Data());
+  //TFile *file = TFile::Open(ROOTstr.Data());
   if ( file->IsOpen() ) printf("ROOT file opened successfully\n");
   TTree* tup=(TTree*)file->Get("T");
   if(useThinout==1)tup->SetMaxEntryLoop(10000);
@@ -278,8 +282,8 @@ Int_t FeMirror4a(){
   c1->cd(3); gPad->SetGrid();
   c1->cd(4); gPad->SetGrid();
 
-  c1->SaveAs(Form("FeMirror.png"));
-  c1->SaveAs(Form("FeMirror.root"));
+  c1->SaveAs(path_R+"FeMirror.png");
+  c1->SaveAs(path_R+"FeMirror.root");
 
 #if 1
   TFile *outfile = TFile::Open("FeMirrorhist.root","RECREATE");

@@ -40,8 +40,14 @@ FeMirror_lambda_counts.C　は一つのグラフのみプロット
 20210715073913 	1.97	1.745851	-8.01302	on	47.11
 
 
-## 2021-08-3  AH
+## 2021-08-03  AH
 正確な距離 20m?
 angleの70.5, 56,51,64.71 がどこから来たか不明
 Draw2D_av.Cの使い方
 反射波のxの位置
+
+## 2021-08-03 19:39 TH
+- Added README
+- Fixed the order of the table of run # on notes/run_list.md. Re-exported it by codes/python/parse.python
+- Updated the geometrical infromation of codes/simple/q_R_I_off.C and codes/simple/q_R_I_on.C
+- AH reported this morning that a behavior of (R,q) plot produced by q_R_I_off.C for data at i=1, with a legend "AFP OFF B=8.01 mT", but I didn;t observe the same. Bug in a local file on AH's PC?

@@ -32,3 +32,10 @@ The contents of the respoistory are organized as follows:
 	- tools/bin : copied from /home/nop/bin/ of niki
 	- tools/ichikawa : codes provided by G. Ichikawa which can be used to split a .root file of scans using sacn logs 
 
+## How to get data 
+The contents of data/ is found in the followinf location:
+http://www.rcnp.osaka-u.ac.jp/~thiguchi/shared/data/jparc_202107/data_210721.tar.gz
+Clone this repository to your computer, move data_210721.tar.gz inside polarization-foils-bl05-202107, and then extract the tar file.
+
+
+

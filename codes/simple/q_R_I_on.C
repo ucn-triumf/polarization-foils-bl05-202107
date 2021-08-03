@@ -248,7 +248,9 @@ Int_t q_R_I_on(){
     Double_t lambda_coeff = 1.e-6*Conversion/Distance;
 
     tup[i] = GetTree(namestr[i]);
-    tup[i]->SetAlias("toffo","(tof>9.e3)*(tof)+(tof<9.e3)*(tof+40.e3)");
+    // tup[i]->SetAlias("toffo","(tof>9.e3)*(tof)+(tof<9.e3)*(tof+40.e3)");
+    tup[i]->SetAlias("toffo","(tof>10.e3)*(tof)+(tof<10.e3)*(tof+40.e3)"); // editted based on suggestion by KM on the August 3rd
+
     //    tup[i]->SetAlias("toffo","tof");
     if(useMRfirst) kp[i] = tup[i]->GetMaximum("mp");
     else kp[i] = tup[i]->GetMaximum("kp");

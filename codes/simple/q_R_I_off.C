@@ -3,6 +3,14 @@
 #include <TH3.h>
 TString path_R = "results/";
 
+// Double_t Distance = 20.000; //tentative
+// Double_t Conversion = 395.6;
+// Double_t dist_det   = 337.; //sample to detector [mm]
+// Double_t xdirect    = 64.71;
+// Bool_t useMRfirst = 0; //use only MR events to avoid frame overlap
+// Bool_t useThinout = 0; //thinning out the event <1e4.
+
+
 Double_t Distance = 18.101;//[m]
 Double_t Conversion = 395.6;
 Double_t dist_det   = 666.; //sample to detector [mm]
@@ -44,7 +52,7 @@ Int_t q_R_I_off(){
   InitColor();
   TH1::SetDefaultSumw2();
 
-  const Int_t num = 8;
+  const Int_t num = 7;
   Int_t kp[num];
   TTree* tup[num];
   TH1F* hx[num];
@@ -240,6 +248,8 @@ Int_t q_R_I_off(){
   c1->cd(1);
   gPad->SetLogy();
 
+  // for(Int_t i=0; i<2; i++){
+
   for(Int_t i=0; i<num; i++){
     thecut.Print();
     if(i==0) thecut0=thecut;
@@ -249,7 +259,7 @@ Int_t q_R_I_off(){
 
     tup[i] = GetTree(namestr[i]);
     // tup[i]->SetAlias("toffo","(tof>9.e3)*(tof)+(tof<9.e3)*(tof+40.e3)");
-    tup[i]->SetAlias("toffo","(tof>10.e3)*(tof)+(tof<10.e3)*(tof+40.e3)");
+    tup[i]->SetAlias("toffo","(tof>10.e3)*(tof)+(tof<10.e3)*(tof+40.e3)"); // editted based on suggestion by KM on the August 3rd
 
     //    tup[i]->SetAlias("toffo","tof");
     if(useMRfirst) kp[i] = tup[i]->GetMaximum("mp");
@@ -313,10 +323,12 @@ Int_t q_R_I_off(){
     if(i==1)hq[i]->Draw("eh");
     else hq[i]->Draw("ehsames");
     leg->Draw();
-  }
+  hratio[i]->GetYaxis()->SetRangeUser(0.,2.);
+  hq[i]->GetYaxis()->SetRangeUser(0.1,0.9);
+  hq[i]->GetYaxis()->SetRangeUser(0.,1.);
+  hq[i]->GetXaxis()->SetRangeUser(0.1,0.9);
 
-  hratio[1]->GetYaxis()->SetRangeUser(0.,2.);
-  hq[1]->GetYaxis()->SetRangeUser(0.,2.);
+  }
 
   c1->cd(1); gPad->SetGrid();
   c1->cd(2); gPad->SetGrid(); gPad->SetLogy();
@@ -327,7 +339,7 @@ Int_t q_R_I_off(){
   c1->SaveAs(path_R+"q_R_I_off.root");
 
 #if 1
-  TFile *outfile = TFile::Open("FeMirrorhist.root","RECREATE");
+  TFile *outfile = TFile::Open(path_R+"FeMirrorhist.root","RECREATE");
   for(Int_t i=0; i<num; i++){
     hx[i]->Write();
     hlambda[i]->Write();

@@ -51,7 +51,7 @@ Int_t q_R_I_on(){
   InitColor();
   TH1::SetDefaultSumw2();
 
-  const Int_t num = 8;
+  const Int_t num = 7;
   Int_t kp[num];
   TTree* tup[num];
   TH1F* hx[num];
@@ -247,6 +247,7 @@ Int_t q_R_I_on(){
   c1->cd(1);
   gPad->SetLogy();
 
+  // for(Int_t i=0; i<2; i++){
   for(Int_t i=0; i<num; i++){
     thecut.Print();
     if(i==0) thecut0=thecut;
@@ -256,7 +257,7 @@ Int_t q_R_I_on(){
 
     tup[i] = GetTree(namestr[i]);
     // tup[i]->SetAlias("toffo","(tof>9.e3)*(tof)+(tof<9.e3)*(tof+40.e3)");
-    tup[i]->SetAlias("toffo","(tof>10.e3)*(tof)+(tof<10.e3)*(tof+40.e3)"); // editted based on suggestion by KM on the August 3rd
+    tup[i]->SetAlias("toffo","(tof>10.e3)*(tof)+(tof<10.e3)*(tof+40.e3)"); // edited based on suggestion by KM on the August 3rd
 
     //    tup[i]->SetAlias("toffo","tof");
     if(useMRfirst) kp[i] = tup[i]->GetMaximum("mp");
@@ -320,6 +321,12 @@ Int_t q_R_I_on(){
     if(i==1)hq[i]->Draw("eh");
     else hq[i]->Draw("ehsames");
     leg->Draw();
+
+    hratio[i]->GetYaxis()->SetRangeUser(0.,2.);
+    hq[i]->GetYaxis()->SetRangeUser(0.1,0.9);
+    hq[i]->GetYaxis()->SetRangeUser(0.,1.);
+    hq[i]->GetXaxis()->SetRangeUser(0.1,0.9);
+
   }
 
   hratio[1]->GetYaxis()->SetRangeUser(0.,2.);
@@ -334,7 +341,7 @@ Int_t q_R_I_on(){
   c1->SaveAs(path_R+"q_R_I_on.root");
 
 #if 1
-  TFile *outfile = TFile::Open("FeMirrorhist.root","RECREATE");
+  TFile *outfile = TFile::Open(path_R+"FeMirrorhist.root","RECREATE");
   for(Int_t i=0; i<num; i++){
     hx[i]->Write();
     hlambda[i]->Write();

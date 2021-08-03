@@ -15,6 +15,13 @@ The contents of the respoistory are organized as follows:
 	- data/gatenetlog : directory copied from niki. Contains scan logs.
 	- data/sample_magenticfield_0715 : results of magnetic field measurements by a Hall probe on the July 15th after the first two days of the beamtime. It was done while a sample was in place in the magnet  
 	- data/sample_magenticfield_0717 : results of magnetic field measurements by a Hall probe on the July 17th after the beamtime. The sample was removed and the probe was placed near the center of the magnet.
+
+- docs/ : place for documentations
+	- docs/AFP_SF.pdf : summary of characterization measurements of AFP spin flipper  	
+	- docs/BL05v21_17_82.pdf : scan of the BL05 log book  	
+	- docs/electromagnet_drawing.pdf : the drawing of the electromagnet used for the measurement.
+	- docs/I_correction1.pdf : H. Akatsuka's summary on calibration of currents applied to the magnet and the magnetic field produced
+	- docs/Measurement_plan_polarizer_CN_2021_final.pdf : T. Higuchi's summary of measurement plans prepared before the beamtime
    
 - notes/ : miscellaneous notes for analysis
 	- notes/analysis_lod.md : the analysis log. fill this in when you make major work of analysis
@@ -33,8 +40,10 @@ The contents of the respoistory are organized as follows:
 	- tools/ichikawa : codes provided by G. Ichikawa which can be used to split a .root file of scans using sacn logs 
 
 ## How to get data 
-The contents of data/ is found in the followinf location:
+The contents of data/ is found in the following location:
+
 http://www.rcnp.osaka-u.ac.jp/~thiguchi/shared/data/jparc_202107/data_210721.tar.gz
+
 Clone this repository to your computer, move data_210721.tar.gz inside polarization-foils-bl05-202107, and then extract the tar file.
 
 

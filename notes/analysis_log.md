@@ -41,6 +41,7 @@ FeMirror_lambda_counts.C　は一つのグラフのみプロット
 
 
 ## 2021-08-03  AH
+質問まとめ
 正確な距離 20m?
 angleの70.5, 56,51,64.71 がどこから来たか不明
 Draw2D_av.Cの使い方
@@ -51,3 +52,7 @@ Draw2D_av.Cの使い方
 - Fixed the order of the table of run # on notes/run_list.md. Re-exported it by codes/python/parse.python
 - Updated the geometrical infromation of codes/simple/q_R_I_off.C and codes/simple/q_R_I_on.C
 - AH reported this morning that a behavior of (R,q) plot produced by q_R_I_off.C for data at i=1, with a legend "AFP OFF B=8.01 mT", but I didn;t observe the same. Bug in a local file on AH's PC?
+
+## 2021-08-05  AH
+- Added Pol_Power.C (only draw Graph "q - Polarizing Power" )
+- Added Pol_Power2.C (draw Graph "q - Polarizing Power" with other 3 graphs)

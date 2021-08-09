@@ -63,31 +63,17 @@ Int_t q_R_I_on_demo(){
 
   TString namestr[num];
   namestr[0]="20210714193654_list.root"; //M1 reflect (direct) 1hour
-  namestr[1]="20210717054725_list.root";
-  namestr[2]="20210717055945_list.root";
-  
-  //AH's original 
-  // namestr[1]="20210715073913_list.root";
-  // namestr[2]="20210715082018_list.root";
-  // namestr[3]="20210715085144_list.root"; //Fe 30 nm, theta = 0.69 deg., x = 0.0 mm, B = 1 mT from -8 mT  with AFP 760 mV
-  // namestr[4]="20210715085714_list.root"; //Fe 30 nm, theta = 0.69 deg., x = 0.0 mm, B = 1.5 mT from -8 mT  with AFP 760 mV
-  // namestr[5]="20210715083141_list.root"; 
-  // namestr[6]="20210715084052_list.root";
+  namestr[1]="20210717054725_list.root"; // Fe 50 nm, 2A, SF OFF
+  namestr[2]="20210717055945_list.root"; // Fe 50 nm, 2A, SF ON
   
 
 
   TString degstr[num];
   degstr[0]="Direct(M1 reflect)";
 
-// AH's original
-  // degstr[1]="AFP OFF B = 8.01 mT";
-  // degstr[2]="B = 0.322 mT from -8 mT";
-  // degstr[3]="B = 0.908 mT from -8mT";
-  // degstr[4]="B = 1.35 mT from -8mT";
-  // degstr[5]="B = 1.80 mT from -8mT";
-  // degstr[6]="B = 2.66 mT from -8mT";
 
-  degstr[1]="H = 8.13 mT, SF OFF";;
+
+  degstr[1]="H = 8.13 mT, SF OFF";
   degstr[2]="H = 8.13 mT, SF ON";
   
 
@@ -96,13 +82,10 @@ Int_t q_R_I_on_demo(){
   angle[0] = TMath::Abs(70.5 - xdirect)/dist_det; //rad
   angle[1] = TMath::Abs(47.15 - xdirect)/dist_det; //rad
   angle[2] = TMath::Abs(47.1 - xdirect)/dist_det; //rad
-  // angle[3] = TMath::Abs(47.19 - xdirect)/dist_det; //rad
-  // angle[4] = TMath::Abs(47.24 - xdirect)/dist_det; //rad
-  // angle[5] = TMath::Abs(47.21 - xdirect)/dist_det; //rad
-  // angle[6] = TMath::Abs(47.11 - xdirect)/dist_det; //rad
+
 
   //  TLegend* leg = new TLegend(0.15, 0.75, 0.4, 0.98,"");
-  TLegend* leg = new TLegend(0.70, 0.20, 0.98, 0.70,"Fe 30 nm");
+  TLegend* leg = new TLegend(0.70, 0.20, 0.98, 0.70,"Fe 50 nm");
   leg->SetFillColor(0);
 
   Int_t nbin = 512;
@@ -234,8 +217,8 @@ Int_t q_R_I_on_demo(){
   c1->cd(3); gPad->SetGrid();
   c1->cd(4); gPad->SetGrid();
 
-  c1->SaveAs(path_R+"q_R_I_on.png");
-  c1->SaveAs(path_R+"q_R_I_on.root");
+  c1->SaveAs(path_R+"q_R_I_50nm.png");
+  c1->SaveAs(path_R+"q_R_I_50nm.root");
 
 #if 1
   TFile *outfile = TFile::Open(path_R+"FeMirrorhist.root","RECREATE");

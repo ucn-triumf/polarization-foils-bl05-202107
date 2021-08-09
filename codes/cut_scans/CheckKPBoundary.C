@@ -12,8 +12,8 @@ void CheckKPBoundary(Int_t kpmin, Int_t kpmax) {
   const TString data_path = "data/210713_SiFe/";
   const TString scan_path = "data/gatenetlog/";
   const TString result_path = "results/check_scans/";
-  const TString rootfile_num    = data_path + "20210716235619";
-  const TString scan_name = "scan20210713_flipper_agilent_scan_rough_1";
+  const TString rootfile_num    = data_path + "20210714000204";
+  const TString scan_name = "scan20210713_x_m2_scan_1";
   const TString gatenetlog_name = scan_path + Form("gatenetlog_%s.txt", scan_name.Data());
   const TString rootfile_name   = Form("%s_list.root", rootfile_num.Data());
   TCut cut_rpmt = "f==4";
@@ -92,7 +92,8 @@ void CheckKPBoundary(Int_t kpmin, Int_t kpmax) {
   //   line_kp_tail->Draw();
   // }
   c->Update();
-  c->SaveAs(result_path + scan_name + ".png");
+  // c->SaveAs(result_path + scan_name + Form("_%d.png", iscan));
+  c->SaveAs(result_path + scan_name + "_%d.png");
 }
 
 void CheckKPBoundary() {

@@ -289,6 +289,7 @@ Int_t Pol_power(){
 
   c1->SaveAs(path_R+"q_R_I_off.png");
   c1->SaveAs(path_R+"q_R_I_off.root");
+  hpolratio[0]->SaveAs(path_R+"test.root");
 
 #if 1
   TFile *outfile = TFile::Open(path_R+"FeMirrorhist.root","RECREATE");

@@ -47,7 +47,7 @@ TTree* GetTree(TString filestr){
   return tup;
 }
 
-Int_t Pol_Power(){
+Int_t Pol_power(){
 
   InitColor();
   TH1::SetDefaultSumw2();

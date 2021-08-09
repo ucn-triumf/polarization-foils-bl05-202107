@@ -18,12 +18,13 @@
 
 TString path_R = "results/"; // path to the results directory 
 TString path_D = "data/210713_SiFe/"; // path to the data directory 
-//TString rootfile  = "20210714000204_list.root"; // name of the target root file
-TString rootfile  = "20210714193654_list.root"; // name of the target root file
-Double_t x_cut_low = 60;
-//Double_t x_cut_low = 40;
-//Double_t x_cut_up =  55;
-Double_t x_cut_up =  68;
+TString rootfile  = "20210717054725_list.root"; // name of the target root file
+
+
+// Double_t x_cut_low = 60;
+// Double_t x_cut_up =  68;
+Double_t x_cut_low = 40;
+Double_t x_cut_up =  55;
 Double_t y_cut_low = 50;
 Double_t y_cut_up = 80;
 Double_t range=128;

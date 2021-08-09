@@ -8,14 +8,19 @@
 #include <TH2.h>
 #include <TH1.h>
 
-#include "RPMT.h"
-#include "NikiControllerX.C"
+#include "../../tools/ichikawa/RPMT.h"
+#include "../../tools/ichikawa/NikiControllerX.C"
+
+TString scan_path = "data/gatenetlog/";
+TString data_path = "data/210713_SiFe/";
 
 void DrawExample() {
-  TString rootfile_num    = "20210714000204";
-  TString scanfile_name   = "scan20210713_x_m2_scan_1";
+  // TString rootfile_num    = "20210716235619";
+  TString rootfile_num    = "20210717002421";
+  TString rootfile_path = data_path + rootfile_num;
+  TString scanfile_name   = "scan20210713_flipper_agilent_scan_rough_1";
   TString gatenetlog_name =
-    Form("../gatenetlog/gatenetlog_%s.txt", scanfile_name.Data());
+    Form(scan_path + "gatenetlog_%s.txt", scanfile_name.Data());
   Int_t iscan = 5;
 
   const Int_t kp_lag       = 5;
@@ -25,10 +30,10 @@ void DrawExample() {
   const TString cut_str    = "f==4";
 
   TObjArray *arr_elist
-    = NikiControllerX::GetArrayElist(rootfile_num, gatenetlog_name,
+    = NikiControllerX::GetArrayElist(rootfile_path, gatenetlog_name,
 				     kp_lag, kp_kill_head, kp_kill_tail,
 				     tree_name, cut_str);
-  TFile *rootfile  = TFile::Open(Form("%s_list.root",  rootfile_num.Data()));
+  TFile *rootfile  = TFile::Open(Form("%s_list.root",  rootfile_path.Data()));
   TTree *tree = rootfile->Get<TTree>(tree_name);
   TEventList *elist = dynamic_cast<TEventList*>(arr_elist->At(iscan));
   const Double_t time = (tree->GetMaximum("kp")-tree->GetMinimum("kp"))/25.;

@@ -65,6 +65,7 @@ Int_t Pol_Power2(){
 
   TH1F* hpolratio[num];
   TH1F* hpolratio2[num];
+  TH1F* hpolratio3[num];
   TH1F* hq2[num];
   TH1F* hq02[num];
 
@@ -170,7 +171,7 @@ Int_t Pol_Power2(){
   TCanvas *c1 = new TCanvas("c1","",1200,800);
   c1->Divide(2,2);
   c1->cd(1);
-  gPad->SetLogy();
+  //gPad->SetLogy();
 
   // for(Int_t i=0; i<2; i++){
 
@@ -207,19 +208,22 @@ Int_t Pol_Power2(){
     tup2[i]->SetAlias("toffo","(tof>10.e3)*(tof)+(tof<10.e3)*(tof+40.e3)"); // edited based on suggestion by KM on the August 3rd
     tup2[0]->Draw(Form("%f/(toffo*%f)>>hq02%d",twopirad,lambda_coeff,i), thecut0 && cut_dir,"goff");
     tup2[i]->Draw(Form("%f/(toffo*%f)>>hq2%d",twopirad,lambda_coeff,i), thecut && cut_ref,"goff");
-    hq02[i] = new TH1F(Form("hq0%d",i),Form("%s;q [nm^{-1}];count/bin/25kp",degstr[i].Data()),nbin_q,0.,q_max);
-    hq2[i] = new TH1F(Form("hq%d",i),Form("%s;q [nm^{-1}];count/bin/25kp",degstr[i].Data()),nbin_q,0.,q_max);
+    hq02[i] = new TH1F(Form("hq02%d",i),Form("%s;q [nm^{-1}];count/bin/25kp",degstr[i].Data()),nbin_q,0.,q_max);
+    hq2[i] = new TH1F(Form("hq2%d",i),Form("%s;q [nm^{-1}];count/bin/25kp",degstr[i].Data()),nbin_q,0.,q_max);
     hq2[i]->Scale(25./kp[i]);
     hq02[i]->Scale(25./kp[0]);
     hq2[i]->Divide(hq02[i]);
     hq2[i]->GetYaxis()->SetTitle("Reflectivity2");
 
     hpolratio[i]=(TH1F*)hq[i]->Clone(Form("hpolratio%d",i));
-    hpolratio[i]->Add(hq2[i],-1.);//各binの値=x*hist1の値+y*hist2の値
-    hpolratio2[i]=(TH1F*)hq[i]->Clone(Form("hpolratio2%d",i));
-    hpolratio2[i]->Add(hq2[i],1.);//各binの値=x*hist1の値+y*hist2の値
+    //hpolratio[i]->Add(hq2[i],-2.);//各binの値=x*hist1の値+y*hist2の値
+    hpolratio2[i]=(TH1F*)hq2[i]->Clone(Form("hpolratio2%d",i));
+    //hpolratio2[i]->Add(hq2[i],1.);//各binの値=x*hist1の値+y*hist2の値
     
-    hpolratio[i]->Divide(hpolratio2[i]);
+    //hpolratio[i]->Rebin(10);
+    //hpolratio2[i]->Rebin(10);
+
+    //hpolratio[i]->Divide(hpolratio2[i]);
 
 
     leg->AddEntry(hx[i],degstr[i],"l");
@@ -242,6 +246,7 @@ Int_t Pol_Power2(){
       hq[i]->SetLineColor(i+2);
       hq0[i]->SetLineColor(i+2);
       hpolratio[i]->SetLineColor(i+2);
+      hpolratio2[i]->SetLineColor(i+2);
     } else {
       hx[i]->SetLineColor(i+1);
       hlambda[i]->SetLineColor(i+1);
@@ -249,12 +254,18 @@ Int_t Pol_Power2(){
       hq[i]->SetLineColor(i+1);
       hq0[i]->SetLineColor(i+1);
       hpolratio[i]->SetLineColor(i+1);
+      hpolratio2[i]->SetLineColor(i+1);
     }
 
+    //hpolratio[i]->Rebin(10);
+    //hpolratio[i]->Scale(10);
+    //hpolratio3[i]->hpolratio[i]/10.;
+
     c1->cd(1);
-    if(i==0)hx[i]->Draw("eh");
-    else hx[i]->Draw("ehsames");
+    if(i==1)hpolratio2[i]->Draw("eh");
+    else hpolratio2[i]->Draw("ehsames");
     leg->Draw();
+    
     c1->cd(2);
     if(i==0)hlambda[i]->Draw("eh");
     else hlambda[i]->Draw("ehsames");
@@ -269,7 +280,8 @@ Int_t Pol_Power2(){
     if(i==1)hq[i]->Draw("eh");
     else hq[i]->Draw("ehsames");
     leg->Draw();
-    hpolratio[i]->GetYaxis()->SetRangeUser(0.,2.);
+    hpolratio[i]->GetYaxis()->SetRangeUser(0.,500.);
+    hpolratio2[i]->GetYaxis()->SetRangeUser(0.,500.);
     hq[i]->GetYaxis()->SetRangeUser(0.1,0.9);
     hq[i]->GetYaxis()->SetRangeUser(0.,1.);
     hq[i]->GetXaxis()->SetRangeUser(0.1,0.9);
@@ -277,7 +289,8 @@ Int_t Pol_Power2(){
   }
 
   c1->cd(1); gPad->SetGrid();
-  c1->cd(2); gPad->SetGrid(); gPad->SetLogy();
+  c1->cd(2); gPad->SetGrid(); 
+  //gPad->SetLogy();
   c1->cd(3); gPad->SetGrid();
   c1->cd(4); gPad->SetGrid();
 

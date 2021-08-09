@@ -34,6 +34,9 @@
         "q_R_I_off.C": "cpp",
         "Pol power.C": "cpp",
         "Pol_power.C": "cpp",
-        "Pol_Power2.C": "cpp"
+        "Pol_Power2.C": "cpp",
+        "Pol_Power3.C": "cpp",
+        "q_R_I_off2.C": "cpp",
+        "q_R_I_on2.C": "cpp"
     }
 }

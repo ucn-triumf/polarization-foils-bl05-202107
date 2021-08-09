@@ -176,7 +176,7 @@ Int_t q_R_I_on(){
   degstr[6]="B = 1.80 mT from -8mT";
   degstr[7]="B = 2.66 mT from -8mT";
 */
-  degstr[1]="AFP OFF B = 8.01 mT";
+  degstr[1]="AFP ON B = 8.01 mT";
   degstr[2]="B = 0.322 mT from -8 mT";
   degstr[3]="B = 0.908 mT from -8mT";
   degstr[4]="B = 1.35 mT from -8mT";

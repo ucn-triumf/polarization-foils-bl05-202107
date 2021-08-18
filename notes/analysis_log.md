@@ -54,5 +54,13 @@ Draw2D_av.Cの使い方
 - AH reported this morning that a behavior of (R,q) plot produced by q_R_I_off.C for data at i=1, with a legend "AFP OFF B=8.01 mT", but I didn;t observe the same. Bug in a local file on AH's PC?
 
 ## 2021-08-05  AH
-- Added Pol_Power.C (only draw Graph "q - Polarizing Power" )
-- Added Pol_Power2.C (draw Graph "q - Polarizing Power" with other 3 graphs)
+- (mistaken) Added Pol_Power.C (only draw Graph "q - Polarizing Power" )
+- (mistaken) Added Pol_Power2.C (draw Graph "q - Polarizing Power" with other 3 graphs)
+
+## 2021-08-18  AH
+- Added Pol_Power4.C (draw Graph "q - Polarizing Power", Lower left)
+(upper left -> off, upper right -> on)
+
+Pol_Power3.C -> Pol_Power4.C Correction Point
+if(useMRfirst) kp2[i] = tup2[i]->GetMaximum("mp");//"mp2"->"mp"
+    else kp2[i] = tup2[i]->GetMaximum("kp");//"kp2"->"kp"

@@ -330,7 +330,7 @@ Int_t q_R_I_on(){
   }
 
   hratio[1]->GetYaxis()->SetRangeUser(0.,2.);
-  hq[1]->GetYaxis()->SetRangeUser(0.,2.);
+  hq[1]->GetYaxis()->SetRangeUser(0.,1.);
 
   c1->cd(1); gPad->SetGrid();
   c1->cd(2); gPad->SetGrid(); gPad->SetLogy();

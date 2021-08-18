@@ -148,7 +148,7 @@ Int_t FeMirror(){
   TCut cut_tof = "";
   TCut MRcut = "MRflag>0";
   TCut thecut = cut_rpmt_basic && cut_x && cut_y && cut_tof;
-  if(useMRfirst) thecut = thecut && MRcut;
+  if(useMRfirst) thecut = thecut && MRcut;//?
   TCut thecut0;
 
   TCanvas *c1 = new TCanvas("c1","",1200,800);

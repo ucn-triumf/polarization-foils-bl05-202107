@@ -200,7 +200,7 @@ Int_t FeMirror_q_R(){
     //hxylambda[i]->Scale(25./kp[i]);
 
     //hratio[i]=(TH1F*)hlambda[i]->Clone(Form("hratio%d",i));
-    //hratio[i]->Divide(hlambda[0]);
+    hratio[i]->Divide(hlambda[0]);
     //hratio[i]->GetYaxis()->SetTitle("Reflectivity");
     hq[i]->Divide(hq0[i]);//反射率に直している
     hq[i]->GetYaxis()->SetTitle("Reflectivity");

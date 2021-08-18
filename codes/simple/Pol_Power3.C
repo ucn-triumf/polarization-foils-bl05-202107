@@ -191,23 +191,17 @@ Int_t Pol_Power3(){
     tup2[i]->SetAlias("toffo2","(tof>10.e3)*(tof)+(tof<10.e3)*(tof+40.e3)"); // edited based on suggestion by KM on the August 3rd
     
 
-
     //    tup[i]->SetAlias("toffo","tof");
     if(useMRfirst) kp[i] = tup[i]->GetMaximum("mp");
     else kp[i] = tup[i]->GetMaximum("kp");
     cout << kp[i]<<endl;
+
     hx[i] = new TH1F(Form("hx%d",i),Form("%s;X [mm];count/bin/25kp",degstr[i].Data()),nbin,0.,range);
     hlambda[i] = new TH1F(Form("hlambda%d",i),Form("%s;Wavelength [nm];count/bin/25k",degstr[i].Data()),nbin_lambda,0.,lambda_max);
     hq0[i] = new TH1F(Form("hq0%d",i),Form("%s;q [nm^{-1}];count/bin/25kp",degstr[i].Data()),nbin_q,0.,q_max);
     hq[i] = new TH1F(Form("hq%d",i),Form("%s;q [nm^{-1}];count/bin/25kp",degstr[i].Data()),nbin_q,0.,q_max);
     hxylambda[i] = new TH3F(Form("hxylambda%d",i),Form("%s;x [mm]; y [mm]; Wavelength [nm];count/bin/25kp",degstr[i].Data()), nbin/nrebinx,0.,range,nbin/nrebiny,0.,range,nbin_lambda,0.,lambda_max);
-
-    if(useMRfirst) kp2[i] = tup2[i]->GetMaximum("mp");
-    else kp2[i] = tup2[i]->GetMaximum("kp2");
-    hq02[i] = new TH1F(Form("hq02%d",i),Form("%s;q [nm^{-1}];count/bin/25kp",degstr2[i].Data()),nbin_q,0.,q_max);
-    hq2[i] = new TH1F(Form("hq2%d",i),Form("%s;q [nm^{-1}];count/bin/25kp",degstr2[i].Data()),nbin_q,0.,q_max);
-    
-    
+  
     tup[i]->Draw(Form("x*%f>>hx%d",range,i), thecut,"goff");
     if(i==0) tup[i]->Draw(Form("toffo*%f>>hlambda%d",lambda_coeff,i), thecut && cut_dir,"goff");
     else tup[i]->Draw(Form("toffo*%f>>hlambda%d",lambda_coeff,i), thecut && cut_ref,"goff");
@@ -215,6 +209,12 @@ Int_t Pol_Power3(){
     tup[i]->Draw(Form("%f/(toffo*%f)>>hq%d",twopirad,lambda_coeff,i), thecut && cut_ref,"goff");
     tup[i]->Draw(Form("toffo*%f:y*%f:x*%f>>hxylambda%d",lambda_coeff,range,range,i),cut_rpmt_basic && MRcut,"goff");
 
+    if(useMRfirst) kp2[i] = tup2[i]->GetMaximum("mp2");
+    else kp2[i] = tup2[i]->GetMaximum("kp2");
+    cout << kp2[i]<<endl;
+    hq02[i] = new TH1F(Form("hq02%d",i),Form("%s;q [nm^{-1}];count/bin/25kp",degstr2[i].Data()),nbin_q,0.,q_max);
+    hq2[i] = new TH1F(Form("hq2%d",i),Form("%s;q [nm^{-1}];count/bin/25kp",degstr2[i].Data()),nbin_q,0.,q_max);
+    
     tup2[0]->Draw(Form("%f/(toffo2*%f)>>hq02%d",twopirad,lambda_coeff,i), thecut0 && cut_dir,"goff");
     tup2[i]->Draw(Form("%f/(toffo2*%f)>>hq2%d",twopirad,lambda_coeff,i), thecut && cut_ref,"goff");
     
@@ -244,14 +244,9 @@ Int_t Pol_Power3(){
 
     hq[i]->Divide(hq0[i]);
     hq[i]->GetYaxis()->SetTitle("Reflectivity");
-    hq2[i]->Divide(hq02[i]);
+    //hq2[i]->Divide(hq02[i]);
     hq2[i]->GetYaxis()->SetTitle("Reflectivity2");
     hq02[i]->GetYaxis()->SetTitle("Reflectivity02");
-
-  
-    
-
-    
     
 
     if(i==9){

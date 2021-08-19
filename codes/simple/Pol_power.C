@@ -172,9 +172,9 @@ Int_t Pol_power(){
   c1->cd(1);
   gPad->SetLogy();
 
-  // for(Int_t i=0; i<2; i++){
+  for(Int_t i=0; i<2; i++){
 
-  for(Int_t i=0; i<num; i++){
+ //for(Int_t i=0; i<num; i++){
     thecut.Print();
     if(i==0) thecut0=thecut;
 
@@ -256,8 +256,10 @@ Int_t Pol_power(){
 
     c1->cd(1);
     if(i==1)hpolratio[i]->Draw("eh");
+    //if(i==1)hpolratio[i]->Draw("h");    
     else hpolratio[i]->Draw("ehsames");
-    leg->Draw();
+    //else hpolratio[i]->Draw("hsames");    
+    leg->Draw();		
 
     /*
     c1->cd(2);

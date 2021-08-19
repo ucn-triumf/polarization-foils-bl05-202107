@@ -64,3 +64,14 @@ Draw2D_av.Cの使い方
 Pol_Power3.C -> Pol_Power4.C Correction Point
 if(useMRfirst) kp2[i] = tup2[i]->GetMaximum("mp");//"mp2"->"mp"
     else kp2[i] = tup2[i]->GetMaximum("kp");//"kp2"->"kp"
+
+
+## 2021-08-19 TH
+- Updated Draw2D_av.C: Added y histogram
+- Made some corrections on Pol_power.C. Major editions are,
+ - around l. 143: defined q_min: the minium value of the bins 
+ - around l. 183: defined twopirad2. The same angle as hq was used for hq2. Defined twopirad2 for hq2. Used around l. 232
+ - around l. 230: division by the max kp value. In the previous code the same max kp as hq was used for hq2. Corrected tov kp2 
+
+ 
+

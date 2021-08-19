@@ -54,6 +54,7 @@ Int_t Pol_power(){
 
   const Int_t num = 7;
   Int_t kp[num];
+  Int_t kp2[num];
   TTree* tup[num];
   TTree* tup2[num];
   TH1F* hx[num];
@@ -136,9 +137,11 @@ Int_t Pol_power(){
   Int_t nbin = 512;
   Double_t range = 128.;
   Int_t nbin_lambda = 200;
-  Double_t lambda_max  = 1.5;
-  Double_t nbin_q  = 300;
-  Double_t q_max  = 1.0;//0.6
+  Double_t lambda_min = 0.1;
+  Double_t lambda_max  = 1.7;
+  Double_t nbin_q  = 50;
+  Double_t q_min  = 0.1;//0.6
+  Double_t q_max  = 0.7;//0.6
   Int_t nrebinx = 1;
   Int_t nrebiny = 2;
 
@@ -153,7 +156,6 @@ Int_t Pol_power(){
   Double_t yend=82.;
   //  Double_t ybegin=70.;
   //  Double_t yend=77.;
-
   TCut cut_rpmt_basic = Form("a>%d && b>%d && c>%d && d>%d && a<%d && b<%d && c< %d && d<%d && f==4",
 			     LLD,LLD,LLD,LLD,rpmt_HLD,rpmt_HLD,rpmt_HLD,rpmt_HLD);
   TCut cut_x = Form("x*%f>20 && x*%f<100",range,range);
@@ -170,15 +172,15 @@ Int_t Pol_power(){
   TCanvas *c1 = new TCanvas("c1","",1200,800);
   //c1->Divide(2,2);
   c1->cd(1);
-  gPad->SetLogy();
 
-  for(Int_t i=0; i<2; i++){
+  for(Int_t i=0; i<3; i++){
 
  //for(Int_t i=0; i<num; i++){
     thecut.Print();
     if(i==0) thecut0=thecut;
 
     Double_t twopirad = 2*TMath::Pi()*angle[i];
+    Double_t twopirad2 = 2*TMath::Pi()*angle2[i]; // This was forgoten. Added on August 19
     Double_t lambda_coeff = 1.e-6*Conversion/Distance;
 
     tup[i] = GetTree(namestr[i]);
@@ -190,10 +192,13 @@ Int_t Pol_power(){
     else kp[i] = tup[i]->GetMaximum("kp");
     cout << kp[i]<<endl;
     hx[i] = new TH1F(Form("hx%d",i),Form("%s;X [mm];count/bin/25kp",degstr[i].Data()),nbin,0.,range);
-    hlambda[i] = new TH1F(Form("hlambda%d",i),Form("%s;Wavelength [nm];count/bin/25k",degstr[i].Data()),nbin_lambda,0.,lambda_max);
-    hq0[i] = new TH1F(Form("hq0%d",i),Form("%s;q [nm^{-1}];count/bin/25kp",degstr[i].Data()),nbin_q,0.,q_max);
-    hq[i] = new TH1F(Form("hq%d",i),Form("%s;q [nm^{-1}];count/bin/25kp",degstr[i].Data()),nbin_q,0.,q_max);
+    hlambda[i] = new TH1F(Form("hlambda%d",i),Form("%s;Wavelength [nm];count/bin/25k",degstr[i].Data()),nbin_lambda,lambda_min,lambda_max);
+    hq0[i] = new TH1F(Form("hq0%d",i),Form("%s;q [nm^{-1}];count/bin/25kp",degstr[i].Data()),nbin_q,q_min,q_max);
+    hq[i] = new TH1F(Form("hq%d",i),Form("%s;q [nm^{-1}];count/bin/25kp",degstr[i].Data()),nbin_q,q_min,q_max);
     hxylambda[i] = new TH3F(Form("hxylambda%d",i),Form("%s;x [mm]; y [mm]; Wavelength [nm];count/bin/25kp",degstr[i].Data()), nbin/nrebinx,0.,range,nbin/nrebiny,0.,range,nbin_lambda,0.,lambda_max);
+    
+    hq02[i] = new TH1F(Form("hq0%d",i),Form("%s;q [nm^{-1}];count/bin/25kp",degstr[i].Data()),nbin_q,q_min,q_max);
+    hq2[i] = new TH1F(Form("hq%d",i),Form("%s;q [nm^{-1}];count/bin/25kp",degstr[i].Data()),nbin_q,q_min,q_max);
 
     tup[i]->Draw(Form("x*%f>>hx%d",range,i), thecut,"goff");
     if(i==0) tup[i]->Draw(Form("toffo*%f>>hlambda%d",lambda_coeff,i), thecut && cut_dir,"goff");
@@ -201,30 +206,11 @@ Int_t Pol_power(){
     tup[0]->Draw(Form("%f/(toffo*%f)>>hq0%d",twopirad,lambda_coeff,i), thecut0 && cut_dir,"goff");
     tup[i]->Draw(Form("%f/(toffo*%f)>>hq%d",twopirad,lambda_coeff,i), thecut && cut_ref,"goff");
     tup[i]->Draw(Form("toffo*%f:y*%f:x*%f>>hxylambda%d",lambda_coeff,range,range,i),cut_rpmt_basic && MRcut,"goff");
-
-
-    tup2[i] = GetTree(namestr2[i]);
-    tup2[i]->SetAlias("toffo","(tof>10.e3)*(tof)+(tof<10.e3)*(tof+40.e3)"); // edited based on suggestion by KM on the August 3rd
-    tup2[0]->Draw(Form("%f/(toffo*%f)>>hq02%d",twopirad,lambda_coeff,i), thecut0 && cut_dir,"goff");
-    tup2[i]->Draw(Form("%f/(toffo*%f)>>hq2%d",twopirad,lambda_coeff,i), thecut && cut_ref,"goff");
-    hq02[i] = new TH1F(Form("hq0%d",i),Form("%s;q [nm^{-1}];count/bin/25kp",degstr[i].Data()),nbin_q,0.,q_max);
-    hq2[i] = new TH1F(Form("hq%d",i),Form("%s;q [nm^{-1}];count/bin/25kp",degstr[i].Data()),nbin_q,0.,q_max);
-    hq2[i]->Scale(25./kp[i]);
-    hq02[i]->Scale(25./kp[0]);
-    hq2[i]->Divide(hq02[i]);
-    hq2[i]->GetYaxis()->SetTitle("Reflectivity2");
-
-    hpolratio[i]=(TH1F*)hq[i]->Clone(Form("hpolratio%d",i));
-    hpolratio[i]->Add(hq2[i],-1.);//各binの値=x*hist1の値+y*hist2の値
-    hpolratio2[i]=(TH1F*)hq[i]->Clone(Form("hpolratio2%d",i));
-    hpolratio2[i]->Add(hq2[i],1.);//各binの値=x*hist1の値+y*hist2の値
     
-    hpolratio[i]->Divide(hpolratio2[i]);
-
-
     leg->AddEntry(hx[i],degstr[i],"l");
     hx[i]->Scale(25./kp[i]);
     hlambda[i]->Scale(25./kp[i]);
+    
     hq[i]->Scale(25./kp[i]);
     hq0[i]->Scale(25./kp[0]);
     hxylambda[i]->Scale(25./kp[i]);
@@ -232,8 +218,47 @@ Int_t Pol_power(){
     hratio[i]=(TH1F*)hlambda[i]->Clone(Form("hratio%d",i));
     hratio[i]->Divide(hlambda[0]);
     hratio[i]->GetYaxis()->SetTitle("Reflectivity");
+    
     hq[i]->Divide(hq0[i]);
     hq[i]->GetYaxis()->SetTitle("Reflectivity");
+    // hq[i]->SaveAs(Form("results/h_q_on_%d.root", i));
+
+    
+    tup2[i] = GetTree(namestr2[i]);
+    if(useMRfirst) kp2[i] = tup2[i]->GetMaximum("mp");
+    else kp2[i] = tup2[i]->GetMaximum("kp");
+    cout << "kp2 max: "<<kp2[i]<<endl;
+    tup2[i]->SetAlias("toffo","(tof>10.e3)*(tof)+(tof<10.e3)*(tof+40.e3)"); 
+    tup2[0]->Draw(Form("%f/(toffo*%f)>>hq02%d",twopirad2,lambda_coeff,i), thecut0 && cut_dir,"goff");
+    tup2[i]->Draw(Form("%f/(toffo*%f)>>hq2%d",twopirad2,lambda_coeff,i), thecut && cut_ref,"goff");
+    
+    hq2[i]->Scale(25./kp2[i]);
+    hq02[i]->Scale(25./kp2[0]);
+
+    hq2[i]->Divide(hq02[i]);
+    hq2[i]->GetYaxis()->SetTitle("Reflectivity2");
+
+    // hq2[i]->SaveAs(Form("results/h_q_off_%d.root", i));
+
+    hpolratio[i]=(TH1F*)hq[i]->Clone(Form("hpolratio%d",i));
+    hpolratio[i]->Add(hq[i], hq2[i],1., -1.);//各binの値=x*hist1の値+y*hist2の値
+    // hpolratio[i]->SaveAs(Form("results/h_pn_%d.root", i)); // 分子
+    hpolratio2[i]=(TH1F*)hq[i]->Clone(Form("hpolratio2%d",i));
+    hpolratio2[i]->Add(hq[i], hq2[i],1., 1.);//各binの値=x*hist1の値+y*hist2の値
+    // hpolratio2[i]->SaveAs(Form("results/h_pd_%d.root", i)); //分母
+    hpolratio[i]->Divide(hpolratio2[i]);
+    // hpolratio[i]->SaveAs(Form("results/h_p_%d.root", i));
+
+// from documentation of TH1
+// https://root.cern.ch/doc/master/classTH1.html#a1913bea50293a57b9ee65bf7f65a26e1
+  //   Bool_t TH1::Add 	( 	const TH1 *  	h1,
+	// 	const TH1 *  	h2,
+	// 	Double_t  	c1 = 1,
+	// 	Double_t  	c2 = 1 
+  //   // returns c1*h1 + c2*h2 
+	// ) 	
+
+
 
     if(i==9){
       
@@ -258,7 +283,7 @@ Int_t Pol_power(){
     if(i==1)hpolratio[i]->Draw("eh");
     //if(i==1)hpolratio[i]->Draw("h");    
     else hpolratio[i]->Draw("ehsames");
-    //else hpolratio[i]->Draw("hsames");    
+    // else hpolratio[i]->Draw("hsames");    
     leg->Draw();		
 
     /*
@@ -285,25 +310,24 @@ Int_t Pol_power(){
   }
 
   c1->cd(1); gPad->SetGrid();
-  c1->cd(2); gPad->SetGrid(); gPad->SetLogy();
+  // c1->cd(2); gPad->SetGrid(); gPad->SetLogy();
   c1->cd(3); gPad->SetGrid();
   c1->cd(4); gPad->SetGrid();
 
   c1->SaveAs(path_R+"q_R_I_off.png");
   c1->SaveAs(path_R+"q_R_I_off.root");
-  hpolratio[0]->SaveAs(path_R+"test.root");
 
-#if 1
-  TFile *outfile = TFile::Open(path_R+"FeMirrorhist.root","RECREATE");
-  for(Int_t i=0; i<num; i++){
-    hx[i]->Write();
-    hlambda[i]->Write();
-    hratio[i]->Write();
-    hq[i]->Write();
-    hxylambda[i]->Write();
-  }
-  outfile->Close();
-#endif
+// #if 1
+//   TFile *outfile = TFile::Open(path_R+"FeMirrorhist.root","RECREATE");
+//   for(Int_t i=0; i<num; i++){
+//     hx[i]->Write();
+//     hlambda[i]->Write();
+//     hratio[i]->Write();
+//     hq[i]->Write();
+//     hxylambda[i]->Write();
+//   }
+//   outfile->Close();
+// #endif
 
 
   return 0 ;

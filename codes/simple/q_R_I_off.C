@@ -328,6 +328,8 @@ Int_t q_R_I_off(){
   hq[i]->GetYaxis()->SetRangeUser(0.,1.);
   hq[i]->GetXaxis()->SetRangeUser(0.1,0.9);
 
+  hq[i]->SaveAs(path_R+"q_R_I_off.root");
+
   }
 
   c1->cd(1); gPad->SetGrid();
@@ -337,6 +339,7 @@ Int_t q_R_I_off(){
 
   c1->SaveAs(path_R+"q_R_I_off.png");
   c1->SaveAs(path_R+"q_R_I_off.root");
+  
 
 #if 1
   TFile *outfile = TFile::Open(path_R+"FeMirrorhist.root","RECREATE");

@@ -141,8 +141,10 @@ Int_t Pol_Power4(){
   Double_t range = 128.;
   Int_t nbin_lambda = 200;
   Double_t lambda_max  = 1.5;
-  Double_t nbin_q  = 300;
-  Double_t q_max  = 1.0;//0.6
+  Double_t nbin_q  = 60;//300
+  Double_t q_min  = 0.1;//0.6
+  Double_t q_max  = 0.7;//0.6
+  //Double_t q_max  = 1.0;//0.6
   Int_t nrebinx = 1;
   Int_t nrebiny = 2;
 
@@ -183,6 +185,7 @@ Int_t Pol_Power4(){
     if(i==0) thecut0=thecut;
 
     Double_t twopirad = 2*TMath::Pi()*angle[i];
+    Double_t twopirad2 = 2*TMath::Pi()*angle2[i];
     Double_t lambda_coeff = 1.e-6*Conversion/Distance;
 
     tup[i] = GetTree(namestr[i]);
@@ -200,8 +203,8 @@ Int_t Pol_Power4(){
 
     //hx[i] = new TH1F(Form("hx%d",i),Form("%s;X [mm];count/bin/25kp",degstr[i].Data()),nbin,0.,range);
     //hlambda[i] = new TH1F(Form("hlambda%d",i),Form("%s;Wavelength [nm];count/bin/25k",degstr[i].Data()),nbin_lambda,0.,lambda_max);
-    hq0[i] = new TH1F(Form("hq0%d",i),Form("%s;q [nm^{-1}];count/bin/25kp",degstr[i].Data()),nbin_q,0.,q_max);
-    hq[i] = new TH1F(Form("hq%d",i),Form("%s;q [nm^{-1}];count/bin/25kp",degstr[i].Data()),nbin_q,0.,q_max);
+    hq0[i] = new TH1F(Form("hq0%d",i),Form("%s;q [nm^{-1}];count/bin/25kp",degstr[i].Data()),nbin_q,q_min,q_max);
+    hq[i] = new TH1F(Form("hq%d",i),Form("%s;q [nm^{-1}];count/bin/25kp",degstr[i].Data()),nbin_q,q_min,q_max);
     hxylambda[i] = new TH3F(Form("hxylambda%d",i),Form("%s;x [mm]; y [mm]; Wavelength [nm];count/bin/25kp",degstr[i].Data()), nbin/nrebinx,0.,range,nbin/nrebiny,0.,range,nbin_lambda,0.,lambda_max);
   
     //tup[i]->Draw(Form("x*%f>>hx%d",range,i), thecut,"goff");
@@ -243,11 +246,11 @@ Int_t Pol_Power4(){
     if(useMRfirst) kp2[i] = tup2[i]->GetMaximum("mp");
     else kp2[i] = tup2[i]->GetMaximum("kp");
     //cout << kp2[i]<<endl;
-    hq02[i] = new TH1F(Form("hq02%d",i),Form("%s;q [nm^{-1}];count/bin/25kp",degstr2[i].Data()),nbin_q,0.,q_max);
-    hq2[i] = new TH1F(Form("hq2%d",i),Form("%s;q [nm^{-1}];count/bin/25kp",degstr2[i].Data()),nbin_q,0.,q_max);
+    hq02[i] = new TH1F(Form("hq02%d",i),Form("%s;q [nm^{-1}];count/bin/25kp",degstr2[i].Data()),nbin_q,q_min,q_max);
+    hq2[i] = new TH1F(Form("hq2%d",i),Form("%s;q [nm^{-1}];count/bin/25kp",degstr2[i].Data()),nbin_q,q_min,q_max);
     
-    tup2[0]->Draw(Form("%f/(toffo2*%f)>>hq02%d",twopirad,lambda_coeff,i), thecut0 && cut_dir,"goff");
-    tup2[i]->Draw(Form("%f/(toffo2*%f)>>hq2%d",twopirad,lambda_coeff,i), thecut && cut_ref,"goff");
+    tup2[0]->Draw(Form("%f/(toffo2*%f)>>hq02%d",twopirad2,lambda_coeff,i), thecut0 && cut_dir,"goff");
+    tup2[i]->Draw(Form("%f/(toffo2*%f)>>hq2%d",twopirad2,lambda_coeff,i), thecut && cut_ref,"goff");
     
     hq2[i]->Scale(25./kp2[i]);
     hq02[i]->Scale(25./kp2[0]);
@@ -316,8 +319,8 @@ Int_t Pol_Power4(){
 */
     
   
-    hpolratio[i]->GetYaxis()->SetRangeUser(0.,2.);
-    hpolratio2[i]->GetYaxis()->SetRangeUser(0.,2.);
+    hpolratio[i]->GetYaxis()->SetRangeUser(0.,1.);
+    hpolratio2[i]->GetYaxis()->SetRangeUser(0.,1.);
     hq[i]->GetYaxis()->SetRangeUser(0.1,0.9);
     hq[i]->GetYaxis()->SetRangeUser(0.,1.);
     hq2[i]->GetYaxis()->SetRangeUser(0.,1.);
@@ -325,11 +328,11 @@ Int_t Pol_Power4(){
 
   }
 
-  c1->cd(1); gPad->SetGrid();
-  c1->cd(2); gPad->SetGrid(); 
+  c1->cd(1); gPad->SetGrid();//gPad->SetLogy();
+  c1->cd(2); gPad->SetGrid();//gPad->SetLogy();
   //gPad->SetLogy();
-  c1->cd(3); gPad->SetGrid();
-  c1->cd(4); gPad->SetGrid();
+  c1->cd(3); gPad->SetGrid();//gPad->SetLogy();
+  c1->cd(4); gPad->SetGrid();//gPad->SetLogy();
 
   c1->SaveAs(path_R+"pol.png");
   c1->SaveAs(path_R+"pol.root");

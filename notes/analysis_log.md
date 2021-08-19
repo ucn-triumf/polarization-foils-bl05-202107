@@ -64,3 +64,7 @@ Draw2D_av.Cの使い方
 Pol_Power3.C -> Pol_Power4.C Correction Point
 if(useMRfirst) kp2[i] = tup2[i]->GetMaximum("mp");//"mp2"->"mp"
     else kp2[i] = tup2[i]->GetMaximum("kp");//"kp2"->"kp"
+
+## 2021-08-18  AH
+- Added Pol_Power5.C (Rebin(5.) Graph "q - Polarizing Power", Lower left)
+(upper left -> off, upper right -> on)

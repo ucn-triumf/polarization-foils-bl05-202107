@@ -95,21 +95,21 @@ Int_t Pol_Power4(){
   TString degstr2[num];
   //off
   degstr[0]="Direct(M1 reflect)";
-  degstr[1]="B = 8.01 mT from -8 mT";
-  degstr[2]="B = 0.322 mT from -8 mT";
-  degstr[3]="B = 0.908 mT from -8mT";
-  degstr[4]="B = 1.35 mT from -8mT";
-  degstr[5]="B = 1.80 mT from -8mT";
-  degstr[6]="B = 2.66 mT from -8mT";
+  degstr[1]="B = 8.01 mT";
+  degstr[2]="B = 0.322 mT";
+  degstr[3]="B = 0.908 mT";
+  degstr[4]="B = 1.35 mT";
+  degstr[5]="B = 1.80 mT";
+  degstr[6]="B = 2.66 mT";
 
   //on
   degstr2[0]="Direct(M1 reflect)";
-  degstr2[1]="B = 8.01 mT from -8 mTmT";
-  degstr2[2]="B = 0.322 mT from -8 mT";
-  degstr2[3]="B = 0.908 mT from -8mT";
-  degstr2[4]="B = 1.35 mT from -8mT";
-  degstr2[5]="B = 1.80 mT from -8mT";
-  degstr2[6]="B = 2.66 mT from -8mT";
+  degstr2[1]="B = 8.01 mT";
+  degstr2[2]="B = 0.322 mT";
+  degstr2[3]="B = 0.908 mT";
+  degstr2[4]="B = 1.35 mT";
+  degstr2[5]="B = 1.80 mT";
+  degstr2[6]="B = 2.66 mT";
   
 
   Double_t angle[num];
@@ -142,8 +142,8 @@ Int_t Pol_Power4(){
   Int_t nbin_lambda = 200;
   Double_t lambda_max  = 1.5;
   Double_t nbin_q  = 60;//300
-  Double_t q_min  = 0.1;//0.6
-  Double_t q_max  = 0.7;//0.6
+  Double_t q_min  = 0.15;//0.6
+  Double_t q_max  = 0.65;//0.6
   //Double_t q_max  = 1.0;//0.6
   Int_t nrebinx = 1;
   Int_t nrebiny = 2;
@@ -176,7 +176,7 @@ Int_t Pol_Power4(){
   TCanvas *c1 = new TCanvas("c1","",1200,800);
   c1->Divide(2,2);
   c1->cd(1);
-  //gPad->SetLogy();
+  
 
   // for(Int_t i=0; i<2; i++){
 
@@ -205,14 +205,14 @@ Int_t Pol_Power4(){
     //hlambda[i] = new TH1F(Form("hlambda%d",i),Form("%s;Wavelength [nm];count/bin/25k",degstr[i].Data()),nbin_lambda,0.,lambda_max);
     hq0[i] = new TH1F(Form("hq0%d",i),Form("%s;q [nm^{-1}];count/bin/25kp",degstr[i].Data()),nbin_q,q_min,q_max);
     hq[i] = new TH1F(Form("hq%d",i),Form("%s;q [nm^{-1}];count/bin/25kp",degstr[i].Data()),nbin_q,q_min,q_max);
-    hxylambda[i] = new TH3F(Form("hxylambda%d",i),Form("%s;x [mm]; y [mm]; Wavelength [nm];count/bin/25kp",degstr[i].Data()), nbin/nrebinx,0.,range,nbin/nrebiny,0.,range,nbin_lambda,0.,lambda_max);
+    // hxylambda[i] = new TH3F(Form("hxylambda%d",i),Form("%s;x [mm]; y [mm]; Wavelength [nm];count/bin/25kp",degstr[i].Data()), nbin/nrebinx,0.,range,nbin/nrebiny,0.,range,nbin_lambda,0.,lambda_max);
   
     //tup[i]->Draw(Form("x*%f>>hx%d",range,i), thecut,"goff");
     //if(i==0) tup[i]->Draw(Form("toffo*%f>>hlambda%d",lambda_coeff,i), thecut && cut_dir,"goff");
     //else tup[i]->Draw(Form("toffo*%f>>hlambda%d",lambda_coeff,i), thecut && cut_ref,"goff");
     tup[0]->Draw(Form("%f/(toffo*%f)>>hq0%d",twopirad,lambda_coeff,i), thecut0 && cut_dir,"goff");
     tup[i]->Draw(Form("%f/(toffo*%f)>>hq%d",twopirad,lambda_coeff,i), thecut && cut_ref,"goff");
-    tup[i]->Draw(Form("toffo*%f:y*%f:x*%f>>hxylambda%d",lambda_coeff,range,range,i),cut_rpmt_basic && MRcut,"goff");
+    // tup[i]->Draw(Form("toffo*%f:y*%f:x*%f>>hxylambda%d",lambda_coeff,range,range,i),cut_rpmt_basic && MRcut,"goff");
 
     
     //hpolratio[i]->Rebin(10);
@@ -241,6 +241,7 @@ Int_t Pol_Power4(){
 
     hq[i]->Divide(hq0[i]);
     hq[i]->GetYaxis()->SetTitle("Reflectivity");
+    hq[i]->SetTitle("Reflectivity (SF OFF)");
     //hq2[i]->Divide(hq02[i]);
 
     if(useMRfirst) kp2[i] = tup2[i]->GetMaximum("mp");
@@ -257,15 +258,18 @@ Int_t Pol_Power4(){
 
     hq2[i]->Divide(hq02[i]);
 
-    hq2[i]->GetYaxis()->SetTitle("Reflectivity2");
+    hq2[i]->GetYaxis()->SetTitle("Reflectivity");
+    hq2[i]->SetTitle("Reflectivity (SF ON)");
     //hq02[i]->GetYaxis()->SetTitle("Reflectivity02");
 
     hpolratio[i]=(TH1F*)hq[i]->Clone(Form("hpolratio%d",i));
-    hpolratio[i]->Add(hq2[i],-1.);//各binの値=x*hist1の値+y*hist2の値
+    hpolratio[i]->Add(hq[i], hq2[i],-1, 1); // hq: OFF, hq2: ON, calculate Non - Noff
+    // hpolratio[i]->Add(hq2[i],-1.);//各binの値=x*hist1の値+y*hist2の値
     hpolratio2[i]=(TH1F*)hq[i]->Clone(Form("hpolratio2%d",i));
-    hpolratio2[i]->Add(hq2[i],1.);//各binの値=x*hist1の値+y*hist2の値
+    hpolratio2[i]->Add(hq[i], hq2[i],1, 1); // hq: OFF, hq2: ON, calculate Non + Noff
     hpolratio[i]->Divide(hpolratio2[i]);
-    
+    hpolratio[i]->GetYaxis()->SetTitle("Polarization power (R_{on}-R_{off})/(R_{on}+R_{off})");
+    hpolratio[i]->SetTitle("Polarization power");
 
     if(i==9){
       //hx[i]->SetLineColor(i+2);
@@ -319,8 +323,8 @@ Int_t Pol_Power4(){
 */
     
   
-    hpolratio[i]->GetYaxis()->SetRangeUser(0.,1.);
-    hpolratio2[i]->GetYaxis()->SetRangeUser(0.,1.);
+    hpolratio[i]->GetYaxis()->SetRangeUser(-1.,1.);
+    hpolratio2[i]->GetYaxis()->SetRangeUser(-1.,1.);
     hq[i]->GetYaxis()->SetRangeUser(0.1,0.9);
     hq[i]->GetYaxis()->SetRangeUser(0.,1.);
     hq2[i]->GetYaxis()->SetRangeUser(0.,1.);
@@ -330,9 +334,9 @@ Int_t Pol_Power4(){
 
   c1->cd(1); gPad->SetGrid();//gPad->SetLogy();
   c1->cd(2); gPad->SetGrid();//gPad->SetLogy();
-  //gPad->SetLogy();
+  
   c1->cd(3); gPad->SetGrid();//gPad->SetLogy();
-  c1->cd(4); gPad->SetGrid();//gPad->SetLogy();
+  // c1->cd(4); gPad->SetGrid();//gPad->SetLogy();
 
   c1->SaveAs(path_R+"pol.png");
   c1->SaveAs(path_R+"pol.root");

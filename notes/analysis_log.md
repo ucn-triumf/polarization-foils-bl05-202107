@@ -84,6 +84,13 @@ if(useMRfirst) kp2[i] = tup2[i]->GetMaximum("mp");//"mp2"->"mp"
  - Copy Pol_power4.C->Pol_power5.C . 
 
 ## 2021-08-20 TH
-- Edited Pol_Power5.C. Fixed the problem that the y axis could not be set to log. 
+- Edited Pol_Power5.C. Fixed the problem that the y axis could not be set to log.
+(hq[i]->GetYaxis()->SetRangeUser(1E-3,2.);) 
  - The section from l.299: cleared the canvas before plotting hq, hq2. Used if statement in order not to plot hq0 (Direct beam data)
  - From l.134: Adjusted the position of TLegend 
+
+  ## 2021-08-20  AH
+ - Added Pol_Power_30nm.C, Pol_Power_50nm.C, Pol_Power_90nm.C
+ edit namestr, degstr, angle
+ - Added q025_30nm.C (AFP magnetic field - Polarizing Power)
+ 

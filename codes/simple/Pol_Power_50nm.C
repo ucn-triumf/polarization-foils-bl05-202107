@@ -72,69 +72,70 @@ Int_t Pol_Power_50nm(){
 
   TString namestr[num];
   TString namestr2[num];
-  //off
+   //off
   namestr[0]="20210714193654_list.root";
-  namestr[1]="20210715072653_list.root"; //1.97A Fe 30 nm, theta = 0.69 deg., x = 0.0 mm, B = 8 mT
-  //namestr[2]="20210715075452_list.root"; //0A Fe 30 nm, theta = 0.69 deg. x = 0.0 mm , B = 0 mT
-  namestr[2]="20210715081447_list.root"; //0A Fe 30 nm, theta = 0.69 deg. x = 0.0 mm , B = -8 mT -> 0 mT
-  namestr[3]="20210715084835_list.root"; //0.15A Fe 30 nm, theta = 0.69 deg., x = 0.0 mm, B = 1 mT from -8 mT
-  namestr[4]="20210715085349_list.root"; //0.264A Fe 30 nm, theta = 0.69 deg., x = 0.0 mm, B = 1.5 mT from -8 mT
-  namestr[5]="20210715082606_list.root"; //0.378A Fe 30 nm, theta = 0.69 deg. x = 0.0 mm , B = 0 mT  -> 2 mT
-  namestr[6]="20210715083711_list.root"; //0.6A Fe 30 nm, theta = 0.69 deg. x = 0.0 mm , B = 2 mT  -> 3 mT
+  namestr[1]="20210717054725_list.root"; //2A Fe 90 nm,  x = 0.0 mm, B = -8.13 mT
+  namestr[2]="20210717052755_list.root"; //0A Fe 90 nm, theta = 0.69 deg. x = 0.0 mm , B = -0.32198 mT
+  //namestr[3]="20210717022140_list.root"; //0.265A Fe 90 nm, theta = 0.69 deg., x = 0.0 mm, B = -1.35656  mT 
+  
+  //namestr[4]="20210715085349_list.root"; //0.264A Fe 30 nm, theta = 0.69 deg., x = 0.0 mm, B = 1.5 mT from -8 mT
+  //namestr[5]="20210715082606_list.root"; //0.378A Fe 30 nm, theta = 0.69 deg. x = 0.0 mm , B = 0 mT  -> 2 mT
+  //namestr[6]="20210715083711_list.root"; //0.6A Fe 30 nm, theta = 0.69 deg. x = 0.0 mm , B = 2 mT  -> 3 mT
 
   //on
-  namestr2[0]="20210714193654_list.root"; //M1 reflect (direct) 1hour
-  namestr2[1]="20210715073913_list.root";
-  namestr2[2]="20210715082018_list.root";
-  namestr2[3]="20210715085144_list.root"; //Fe 30 nm, theta = 0.69 deg., x = 0.0 mm, B = 1 mT from -8 mT  with AFP 760 mV
-  namestr2[4]="20210715085714_list.root"; //Fe 30 nm, theta = 0.69 deg., x = 0.0 mm, B = 1.5 mT from -8 mT  with AFP 760 mV
-  namestr2[5]="20210715083141_list.root"; 
-  namestr2[6]="20210715084052_list.root";
- 
+  namestr2[0]="20210714193654_list.root";
+  namestr2[1]="20210717055945_list.root"; //2A Fe 90 nm,  x = 0.0 mm, B = -8.13 mT
+  namestr2[2]="20210717051355_list.root"; //0A Fe 90 nm, theta = 0.69 deg. x = 0.0 mm , B = -0.32198 mT
+  //namestr2[3]="20210717022920_list.root"; //0.265A Fe 90 nm, theta = 0.69 deg., x = 0.0 mm, B = -1.35656  mT 
+  
+  
   TString degstr[num];
   TString degstr2[num];
   //off
   degstr[0]="Direct(M1 reflect)";
   degstr[1]="B = 8.01 mT";
   degstr[2]="B = 0.322 mT";
-  degstr[3]="B = 0.908 mT";
-  degstr[4]="B = 1.35 mT";
-  degstr[5]="B = 1.80 mT";
-  degstr[6]="B = 2.66 mT";
+  //degstr[3]="B = 0.908 mT";
+  //degstr[4]="B = 1.35 mT";
+  //degstr[5]="B = 1.80 mT";
+  //degstr[6]="B = 2.66 mT";
 
   //on
   degstr2[0]="Direct(M1 reflect)";
   degstr2[1]="B = 8.01 mT";
   degstr2[2]="B = 0.322 mT";
-  degstr2[3]="B = 0.908 mT";
-  degstr2[4]="B = 1.35 mT";
-  degstr2[5]="B = 1.80 mT";
-  degstr2[6]="B = 2.66 mT";
+  //degstr2[3]="B = 0.908 mT";
+  //degstr2[4]="B = 1.35 mT";
+  //degstr2[5]="B = 1.80 mT";
+  //degstr2[6]="B = 2.66 mT";
   
 
   Double_t angle[num];
   Double_t angle2[num];
   angle[0] = TMath::Abs(70.5 - xdirect)/dist_det; //rad
-  angle[1] = TMath::Abs(47.1868 - xdirect)/dist_det; //rad 47.1868
+  angle[1] = TMath::Abs(47.3126 - xdirect)/dist_det; //rad 47.1868
   //angle[2] = TMath::Abs(47.09 - xdirect)/dist_det; //rad
-  angle[2] = TMath::Abs(47.04 - xdirect)/dist_det; //rad
-  angle[3] = TMath::Abs(47.2 - xdirect)/dist_det; //rad
-  angle[4] = TMath::Abs(47.2 - xdirect)/dist_det; //rad
-  angle[5] = TMath::Abs(47.2 - xdirect)/dist_det; //rad
-  angle[6] = TMath::Abs(47.2 - xdirect)/dist_det; //rad
+  angle[2] = TMath::Abs(47.2567 - xdirect)/dist_det; //rad
+  //angle[3] = TMath::Abs(47.2 - xdirect)/dist_det; //rad
+  //angle[4] = TMath::Abs(47.2 - xdirect)/dist_det; //rad
+  //angle[5] = TMath::Abs(47.2 - xdirect)/dist_det; //rad
+  //angle[6] = TMath::Abs(47.2 - xdirect)/dist_det; //rad
 
   angle2[0] = TMath::Abs(70.5 - xdirect)/dist_det; //rad
-  angle2[1] = TMath::Abs(47.07 - xdirect)/dist_det; //rad
-  angle2[2] = TMath::Abs(47.1 - xdirect)/dist_det; //rad
-  angle2[3] = TMath::Abs(47.19 - xdirect)/dist_det; //rad
-  angle2[4] = TMath::Abs(47.24 - xdirect)/dist_det; //rad
-  angle2[5] = TMath::Abs(47.21 - xdirect)/dist_det; //rad
-  angle2[6] = TMath::Abs(47.11 - xdirect)/dist_det; //rad
+  angle2[1] = TMath::Abs(47.2604 - xdirect)/dist_det; //rad
+  angle2[2] = TMath::Abs(47.3356 - xdirect)/dist_det; //rad
+  //angle2[3] = TMath::Abs(47.19 - xdirect)/dist_det; //rad
+  //angle2[4] = TMath::Abs(47.24 - xdirect)/dist_det; //rad
+  //angle2[5] = TMath::Abs(47.21 - xdirect)/dist_det; //rad
+  //angle2[6] = TMath::Abs(47.11 - xdirect)/dist_det; //rad
 
   //  TLegend* leg = new TLegend(0.15, 0.75, 0.4, 0.98,"");
-  TLegend* leg = new TLegend(0.70, 0.20, 0.98, 0.70,"Fe 30 nm OFF");
-  TLegend* leg2 = new TLegend(0.70, 0.20, 0.98, 0.70,"Fe 30 nm ON");
-  TLegend* leg3 = new TLegend(0.70, 0.20, 0.98, 0.70,"Fe 30 nm (OFF-ON)/(OFF+ON)");
+  //TLegend* leg = new TLegend(0.70, 0.20, 0.98, 0.70,"Fe 30 nm OFF");
+  //TLegend* leg2 = new TLegend(0.70, 0.20, 0.98, 0.70,"Fe 30 nm ON");
+  //TLegend* leg3 = new TLegend(0.70, 0.20, 0.98, 0.70,"Fe 30 nm (OFF-ON)/(OFF+ON)");
+  TLegend* leg = new TLegend(0.8, 0.20, 1.0, 0.70,"Fe 30 nm OFF");
+  TLegend* leg2 = new TLegend(0.8, 0.20, 1.0, 0.70,"Fe 30 nm ON");
+  TLegend* leg3 = new TLegend(0.8, 0.20, 1.0, 0.70,"Fe 30 nm (ON-OFF)/(OFF+ON)");
   leg->SetFillColor(0);
 
   Int_t nbin = 512;
@@ -336,9 +337,9 @@ Int_t Pol_Power_50nm(){
     hpolratio[i]->GetYaxis()->SetRangeUser(-1.,1.);
     hpolratio2[i]->GetYaxis()->SetRangeUser(-1.,1.);
     hq[i]->GetXaxis()->SetRangeUser(q_min,q_max);
-    hq[i]->GetYaxis()->SetRangeUser(0.,1.);
+    hq[i]->GetYaxis()->SetRangeUser(1.e-3,2.);
     hq2[i]->GetXaxis()->SetRangeUser(q_min,q_max);
-    hq2[i]->GetYaxis()->SetRangeUser(0.,1.);
+    hq2[i]->GetYaxis()->SetRangeUser(1.e-3,2.);
     hq[i]->SaveAs(path_R + Form("hq_off_%d.root", i));
     hq2[i]->SaveAs(path_R + Form("hq_on_%d.root", i));
   }

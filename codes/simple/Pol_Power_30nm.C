@@ -18,6 +18,8 @@ Double_t xdirect    = 63.29;
 Bool_t useMRfirst = 0; //use only MR events to avoid frame overlap
 Bool_t useThinout = 0; //thinning out the event <1e4.
 
+
+
 void InitColor(){
   //set default color
   gROOT->GetColor(2)->SetRGB(220./255.,  50./255.,  47./255.); // Red
@@ -132,9 +134,12 @@ Int_t Pol_Power_30nm(){
   angle2[6] = TMath::Abs(47.11 - xdirect)/dist_det; //rad
 
   //  TLegend* leg = new TLegend(0.15, 0.75, 0.4, 0.98,"");
-  TLegend* leg = new TLegend(0.70, 0.20, 0.98, 0.70,"Fe 30 nm OFF");
-  TLegend* leg2 = new TLegend(0.70, 0.20, 0.98, 0.70,"Fe 30 nm ON");
-  TLegend* leg3 = new TLegend(0.70, 0.20, 0.98, 0.70,"Fe 30 nm (OFF-ON)/(OFF+ON)");
+  //TLegend* leg = new TLegend(0.70, 0.20, 0.98, 0.70,"Fe 30 nm OFF");
+  //TLegend* leg2 = new TLegend(0.70, 0.20, 0.98, 0.70,"Fe 30 nm ON");
+  //TLegend* leg3 = new TLegend(0.70, 0.20, 0.98, 0.70,"Fe 30 nm (OFF-ON)/(OFF+ON)");
+  TLegend* leg = new TLegend(0.8, 0.20, 1.0, 0.70,"Fe 30 nm OFF");
+  TLegend* leg2 = new TLegend(0.8, 0.20, 1.0, 0.70,"Fe 30 nm ON");
+  TLegend* leg3 = new TLegend(0.8, 0.20, 1.0, 0.70,"Fe 30 nm (ON-OFF)/(OFF+ON)");
   leg->SetFillColor(0);
 
   Int_t nbin = 512;
@@ -142,8 +147,8 @@ Int_t Pol_Power_30nm(){
   Int_t nbin_lambda = 200;
   Double_t lambda_max  = 1.5;
   Double_t nbin_q  = 60;//300
-  Double_t q_min  = 0.15;//0.6
-  Double_t q_max  = 0.30;//0.6
+  Double_t q_min  = 0.15;//0.6 
+  Double_t q_max  = 0.50;//0.6
   //Double_t q_max  = 1.0;//0.6
   Int_t nrebinx = 1;
   Int_t nrebiny = 2;
@@ -271,6 +276,25 @@ Int_t Pol_Power_30nm(){
     hpolratio[i]->GetYaxis()->SetTitle("Polarization power (R_{on}-R_{off})/(R_{on}+R_{off})");
     hpolratio[i]->SetTitle("Polarization power");
 
+    double entry[num];
+    //hq[i]->FindBin(nbb[i]);
+    double qq=0.25;
+    double nbin_qq=qq*nbin_q/(q_max-q_min);
+    entry[i]= hpolratio[i]->GetBinContent(nbin_qq); 
+    cout<<"[i]_"<<i<<"entry_"<<entry[i]<<endl;
+
+    Double_t x1[7] = {0.,8.01,0.322,0.908,1.35,1.80,2.66};
+
+
+    TGraph *g1 = new TGraph(7, x1, entry);
+
+    g1->SetMarkerStyle(22);
+    g1->SetMarkerColor(2);
+    g1->SetMarkerSize(1);
+    g1->GetXaxis()->SetTitle("AFP[mT]");
+    g1->GetYaxis()->SetTitle("Polarization_Power_q=0.25");
+ 
+
     if(i==9){
       //hx[i]->SetLineColor(i+2);
       //hlambda[i]->SetLineColor(i+2);
@@ -323,8 +347,14 @@ Int_t Pol_Power_30nm(){
     if(i==1)hpolratio[i]->Draw("eh");
     else hpolratio[i]->Draw("ehsames");
     leg3->Draw();
+
     }
-    
+
+    c1->cd(4);
+    if(i!=0){
+    g1->Draw("AP");
+    //leg->Draw();
+    }
 /*
     c1->cd(3);
     if(i==1)hpolrhqtio[i]->Draw("eh");
@@ -336,17 +366,24 @@ Int_t Pol_Power_30nm(){
     hpolratio[i]->GetYaxis()->SetRangeUser(-1.,1.);
     hpolratio2[i]->GetYaxis()->SetRangeUser(-1.,1.);
     hq[i]->GetXaxis()->SetRangeUser(q_min,q_max);
-    hq[i]->GetYaxis()->SetRangeUser(0.,1.);
+    hq[i]->GetYaxis()->SetRangeUser(1.e-3,2.);
     hq2[i]->GetXaxis()->SetRangeUser(q_min,q_max);
-    hq2[i]->GetYaxis()->SetRangeUser(0.,1.);
+    hq2[i]->GetYaxis()->SetRangeUser(1.e-3,2.);
     hq[i]->SaveAs(path_R + Form("hq_off_%d.root", i));
     hq2[i]->SaveAs(path_R + Form("hq_on_%d.root", i));
+    
+    g1->GetXaxis()->SetLimits(0.2,9.);;
+
+    
+
   }
+
   c1->cd(1); gPad->SetGrid();gPad->SetLogy();
   c1->cd(2); gPad->SetGrid();gPad->SetLogy();
   
   c1->cd(3); gPad->SetGrid();//gPad->SetLogy();
-  // c1->cd(4); gPad->SetGrid();//gPad->SetLogy();
+  c1->cd(4); gPad->SetGrid();//gPad->SetLogy();
+  
 
   c1->SaveAs(path_R+"pol.png");
   c1->SaveAs(path_R+"pol.root");

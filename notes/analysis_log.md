@@ -79,3 +79,6 @@ if(useMRfirst) kp2[i] = tup2[i]->GetMaximum("mp");//"mp2"->"mp"
  Defined twopirad2 for hq2. Used around l. 232
  - around l. 230: division by the max kp value. In the previous code the same max kp as hq was used for hq2. Corrected tov kp2
  - Double_t nbin_q  = 300->60
+
+ ## 2021-08-20  AH
+ - Copy Pol_power4.C->Pol_power5.C . 

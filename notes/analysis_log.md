@@ -82,3 +82,8 @@ if(useMRfirst) kp2[i] = tup2[i]->GetMaximum("mp");//"mp2"->"mp"
 
  ## 2021-08-20  AH
  - Copy Pol_power4.C->Pol_power5.C . 
+
+## 2021-08-20 TH
+- Edited Pol_Power5.C. Fixed the problem that the y axis could not be set to log. 
+ - The section from l.299: cleared the canvas before plotting hq, hq2. Used if statement in order not to plot hq0 (Direct beam data)
+ - From l.134: Adjusted the position of TLegend 

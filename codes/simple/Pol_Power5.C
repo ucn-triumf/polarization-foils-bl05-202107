@@ -132,9 +132,12 @@ Int_t Pol_Power5(){
   angle2[6] = TMath::Abs(47.11 - xdirect)/dist_det; //rad
 
   //  TLegend* leg = new TLegend(0.15, 0.75, 0.4, 0.98,"");
-  TLegend* leg = new TLegend(0.70, 0.20, 0.98, 0.70,"Fe 30 nm OFF");
-  TLegend* leg2 = new TLegend(0.70, 0.20, 0.98, 0.70,"Fe 30 nm ON");
-  TLegend* leg3 = new TLegend(0.70, 0.20, 0.98, 0.70,"Fe 30 nm (OFF-ON)/(OFF+ON)");
+  // TLegend* leg = new TLegend(0.70, 0.20, 0.98, 0.70,"Fe 30 nm OFF");
+  // TLegend* leg2 = new TLegend(0.70, 0.20, 0.98, 0.70,"Fe 30 nm ON");
+  // TLegend* leg3 = new TLegend(0.70, 0.20, 0.98, 0.70,"Fe 30 nm (OFF-ON)/(OFF+ON)");
+  TLegend* leg = new TLegend(0.8, 0.20, 1.0, 0.70,"Fe 30 nm OFF");
+  TLegend* leg2 = new TLegend(0.8, 0.20, 1.0, 0.70,"Fe 30 nm ON");
+  TLegend* leg3 = new TLegend(0.8, 0.20, 1.0, 0.70,"Fe 30 nm (ON-OFF)/(OFF+ON)");
   leg->SetFillColor(0);
 
   Int_t nbin = 512;
@@ -143,8 +146,9 @@ Int_t Pol_Power5(){
   Double_t lambda_max  = 1.5;
   Double_t nbin_q  = 60;//300
   Double_t q_min  = 0.15;//0.6
-  Double_t q_max  = 0.50;//0.6
-  //Double_t q_max  = 1.0;//0.6
+  Double_t q_max  = 0.55;//0.6
+  // Double_t q_min  = 0.2;//0.6
+  // Double_t q_max  = 0.3;//0.6
   Int_t nrebinx = 1;
   Int_t nrebiny = 2;
 
@@ -175,11 +179,9 @@ Int_t Pol_Power5(){
 
   TCanvas *c1 = new TCanvas("c1","",1200,800);
   c1->Divide(2,2);
-  c1->cd(1);
-  
+  // c1->cd(1);
 
   // for(Int_t i=0; i<2; i++){
-
   for(Int_t i=0; i<num; i++){
     thecut.Print();
     if(i==0) thecut0=thecut;
@@ -210,6 +212,8 @@ Int_t Pol_Power5(){
     //tup[i]->Draw(Form("x*%f>>hx%d",range,i), thecut,"goff");
     //if(i==0) tup[i]->Draw(Form("toffo*%f>>hlambda%d",lambda_coeff,i), thecut && cut_dir,"goff");
     //else tup[i]->Draw(Form("toffo*%f>>hlambda%d",lambda_coeff,i), thecut && cut_ref,"goff");
+    // if(i==0) tup[i]->Draw(Form("%f/(toffo*%f)>>hq0%d",twopirad,lambda_coeff,i), thecut0 && cut_dir,"goff"); // 
+    // else tup[i]->Draw(Form("%f/(toffo*%f)>>hq%d",twopirad,lambda_coeff,i), thecut && cut_ref,"goff");
     tup[0]->Draw(Form("%f/(toffo*%f)>>hq0%d",twopirad,lambda_coeff,i), thecut0 && cut_dir,"goff");
     tup[i]->Draw(Form("%f/(toffo*%f)>>hq%d",twopirad,lambda_coeff,i), thecut && cut_ref,"goff");
     // tup[i]->Draw(Form("toffo*%f:y*%f:x*%f>>hxylambda%d",lambda_coeff,range,range,i),cut_rpmt_basic && MRcut,"goff");
@@ -232,26 +236,22 @@ Int_t Pol_Power5(){
     hq0[i]->Scale(25./kp[0]);
     //hxylambda[i]->Scale(25./kp[i]);
     
-    
-    
-    //hratio[i]=(TH1F*)hlambda[i]->Clone(Form("hratio%d",i));
-    //hratio[i]->Divide(hlambda[0]);
-    //hratio[i]->GetYaxis()->SetTitle("Reflectivity");
-    
 
     hq[i]->Divide(hq0[i]);
     hq[i]->GetYaxis()->SetTitle("Reflectivity");
     hq[i]->SetTitle("Reflectivity (SF OFF)");
-    //hq2[i]->Divide(hq02[i]);
+    
 
     if(useMRfirst) kp2[i] = tup2[i]->GetMaximum("mp");
     else kp2[i] = tup2[i]->GetMaximum("kp");
-    //cout << kp2[i]<<endl;
+
     hq02[i] = new TH1F(Form("hq02%d",i),Form("%s;q [nm^{-1}];count/bin/25kp",degstr2[i].Data()),nbin_q,q_min,q_max);
     hq2[i] = new TH1F(Form("hq2%d",i),Form("%s;q [nm^{-1}];count/bin/25kp",degstr2[i].Data()),nbin_q,q_min,q_max);
     
     tup2[0]->Draw(Form("%f/(toffo2*%f)>>hq02%d",twopirad2,lambda_coeff,i), thecut0 && cut_dir,"goff");
     tup2[i]->Draw(Form("%f/(toffo2*%f)>>hq2%d",twopirad2,lambda_coeff,i), thecut && cut_ref,"goff");
+    // if (i==0) tup2[i]->Draw(Form("%f/(toffo2*%f)>>hq02%d",twopirad2,lambda_coeff,i), thecut0 && cut_dir,"goff");
+    // else tup2[i]->Draw(Form("%f/(toffo2*%f)>>hq2%d",twopirad2,lambda_coeff,i), thecut && cut_ref,"goff");
     
     hq2[i]->Scale(25./kp2[i]);
     hq02[i]->Scale(25./kp2[0]);
@@ -294,14 +294,15 @@ Int_t Pol_Power5(){
     //hpolratio[i]->Rebin(10);
     //hpolratio[i]->Scale(10);
     //hpolratio3[i]->hpolratio[i]/10.;
-/*
+
+
+    // c1->Divide(2,2);
+    if(i==0){
+      c1->Clear();
+      c1->Divide(2,2);
+    }
     c1->cd(1);
-    if(i==1)hpolratio2[i]->Draw("eh");
-    else hpolratio2[i]->Draw("ehsames");
-    leg->Draw();
- */  
-    c1->cd(1);
-    if(i!=0){
+    if(i>0){
     if(i==1)hq[i]->Draw("eh");
     else hq[i]->Draw("ehsames");
     // if(i==1)hq[i]->Draw("ah");
@@ -310,7 +311,7 @@ Int_t Pol_Power5(){
     }
 
     c1->cd(2);
-    if(i!=0){
+    if(i>0){
     if(i==1)hq2[i]->Draw("eh");
     else hq2[i]->Draw("ehsames");
     // if(i==1)hq2[i]->Draw("ah");
@@ -319,7 +320,7 @@ Int_t Pol_Power5(){
     }
 
     c1->cd(3);
-    if(i!=0){
+    if(i>0){
     if(i==1)hpolratio[i]->Draw("eh");
     else hpolratio[i]->Draw("ehsames");
     leg3->Draw();
@@ -333,18 +334,17 @@ Int_t Pol_Power5(){
 */
     
     hpolratio[i]->GetXaxis()->SetRangeUser(q_min,q_max);
-    hpolratio[i]->GetYaxis()->SetRangeUser(-1.,1.);
-    hpolratio2[i]->GetYaxis()->SetRangeUser(-1.,1.);
+    hpolratio[i]->GetYaxis()->SetRangeUser(-1.1,1.1);
+    hpolratio2[i]->GetYaxis()->SetRangeUser(-1.1,1.1);
     hq[i]->GetXaxis()->SetRangeUser(q_min,q_max);
-    hq[i]->GetYaxis()->SetRangeUser(0.,1.);
+    hq[i]->GetYaxis()->SetRangeUser(1E-3,2.);
     hq2[i]->GetXaxis()->SetRangeUser(q_min,q_max);
-    hq2[i]->GetYaxis()->SetRangeUser(0.,1.);
+    hq2[i]->GetYaxis()->SetRangeUser(1E-3,2.);
     hq[i]->SaveAs(path_R + Form("hq_off_%d.root", i));
     hq2[i]->SaveAs(path_R + Form("hq_on_%d.root", i));
   }
-  c1->cd(1); gPad->SetGrid();gPad->SetLogy();
-  c1->cd(2); gPad->SetGrid();gPad->SetLogy();
-  
+  c1->cd(1); gPad->SetGrid(); gPad->SetLogy();
+  c1->cd(2); gPad->SetGrid(); gPad->SetLogy();
   c1->cd(3); gPad->SetGrid();//gPad->SetLogy();
   // c1->cd(4); gPad->SetGrid();//gPad->SetLogy();
 

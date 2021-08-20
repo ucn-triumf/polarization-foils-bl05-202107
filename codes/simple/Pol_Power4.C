@@ -342,8 +342,8 @@ Int_t Pol_Power4(){
     hq[i]->SaveAs(path_R + Form("hq_off_%d.root", i));
     hq2[i]->SaveAs(path_R + Form("hq_on_%d.root", i));
   }
-  c1->cd(1); gPad->SetGrid();gPad->SetLogy();
-  c1->cd(2); gPad->SetGrid();gPad->SetLogy();
+  c1->cd(1); gPad->SetGrid();//gPad->SetLogy();
+  c1->cd(2); gPad->SetGrid();//gPad->SetLogy();
   
   c1->cd(3); gPad->SetGrid();//gPad->SetLogy();
   // c1->cd(4); gPad->SetGrid();//gPad->SetLogy();

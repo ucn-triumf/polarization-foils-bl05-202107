@@ -143,7 +143,7 @@ Int_t Pol_Power4(){
   Double_t lambda_max  = 1.5;
   Double_t nbin_q  = 60;//300
   Double_t q_min  = 0.15;//0.6
-  Double_t q_max  = 0.65;//0.6
+  Double_t q_max  = 0.50;//0.6
   //Double_t q_max  = 1.0;//0.6
   Int_t nrebinx = 1;
   Int_t nrebiny = 2;
@@ -301,20 +301,30 @@ Int_t Pol_Power4(){
     leg->Draw();
  */  
     c1->cd(1);
+    if(i!=0){
     if(i==1)hq[i]->Draw("eh");
     else hq[i]->Draw("ehsames");
+    // if(i==1)hq[i]->Draw("ah");
+    // else hq[i]->Draw("ahsames");
     leg->Draw();
+    }
 
     c1->cd(2);
+    if(i!=0){
     if(i==1)hq2[i]->Draw("eh");
     else hq2[i]->Draw("ehsames");
+    // if(i==1)hq2[i]->Draw("ah");
+    // else hq2[i]->Draw("ahsames");
     leg2->Draw();
+    }
 
     c1->cd(3);
-    //if(i==0);
+    if(i!=0){
     if(i==1)hpolratio[i]->Draw("eh");
     else hpolratio[i]->Draw("ehsames");
     leg3->Draw();
+    }
+    
 /*
     c1->cd(3);
     if(i==1)hpolrhqtio[i]->Draw("eh");
@@ -322,18 +332,18 @@ Int_t Pol_Power4(){
     leg->Draw();
 */
     
-  
+    hpolratio[i]->GetXaxis()->SetRangeUser(q_min,q_max);
     hpolratio[i]->GetYaxis()->SetRangeUser(-1.,1.);
     hpolratio2[i]->GetYaxis()->SetRangeUser(-1.,1.);
-    hq[i]->GetYaxis()->SetRangeUser(0.1,0.9);
+    hq[i]->GetXaxis()->SetRangeUser(q_min,q_max);
     hq[i]->GetYaxis()->SetRangeUser(0.,1.);
+    hq2[i]->GetXaxis()->SetRangeUser(q_min,q_max);
     hq2[i]->GetYaxis()->SetRangeUser(0.,1.);
-    hq[i]->GetXaxis()->SetRangeUser(0.1,0.9);
-
+    hq[i]->SaveAs(path_R + Form("hq_off_%d.root", i));
+    hq2[i]->SaveAs(path_R + Form("hq_on_%d.root", i));
   }
-
-  c1->cd(1); gPad->SetGrid();//gPad->SetLogy();
-  c1->cd(2); gPad->SetGrid();//gPad->SetLogy();
+  c1->cd(1); gPad->SetGrid();gPad->SetLogy();
+  c1->cd(2); gPad->SetGrid();gPad->SetLogy();
   
   c1->cd(3); gPad->SetGrid();//gPad->SetLogy();
   // c1->cd(4); gPad->SetGrid();//gPad->SetLogy();

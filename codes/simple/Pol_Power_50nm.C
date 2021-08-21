@@ -335,8 +335,8 @@ Int_t Pol_Power_50nm(){
     hq[i]->GetYaxis()->SetRangeUser(1.e-3,2.);
     hq2[i]->GetXaxis()->SetRangeUser(q_min,q_max);
     hq2[i]->GetYaxis()->SetRangeUser(1.e-3,2.);
-    hq[i]->SaveAs(path_R + Form("hq_off_%d.root", i));
-    hq2[i]->SaveAs(path_R + Form("hq_on_%d.root", i));
+    // hq[i]->SaveAs(path_R + Form("hq_off_%d.root", i));
+    // hq2[i]->SaveAs(path_R + Form("hq_on_%d.root", i));
   }
 
   const Int_t num_pol = 3;
@@ -389,7 +389,7 @@ Int_t Pol_Power_50nm(){
   c1->SaveAs(path_R+"pol.root");
 
 #if 1
-  TFile *outfile = TFile::Open(path_R+"pol.root","RECREATE");
+  TFile *outfile = TFile::Open(path_R+"pol_50nm.root","RECREATE");
   for(Int_t i=0; i<num; i++){
     //hx[i]->Write();
     //hlambda[i]->Write();

@@ -341,8 +341,8 @@ Int_t Pol_Power_90nm(){
     hq[i]->GetYaxis()->SetRangeUser(1.e-3,2.);
     hq2[i]->GetXaxis()->SetRangeUser(q_min,q_max);
     hq2[i]->GetYaxis()->SetRangeUser(1.e-3,2.);
-    hq[i]->SaveAs(path_R + Form("hq_off_%d.root", i));
-    hq2[i]->SaveAs(path_R + Form("hq_on_%d.root", i));
+    // hq[i]->SaveAs(path_R + Form("hq_off_%d.root", i));
+    // hq2[i]->SaveAs(path_R + Form("hq_on_%d.root", i));
   }
 
   const Int_t num_pol = 3;
@@ -391,8 +391,8 @@ Int_t Pol_Power_90nm(){
   c1->cd(3); gPad->SetGrid();//gPad->SetLogy();
   // c1->cd(4); gPad->SetGrid();//gPad->SetLogy();
 
-  c1->SaveAs(path_R+"pol.png");
-  c1->SaveAs(path_R+"pol.root");
+  c1->SaveAs(path_R+"pol_90nm.png");
+  c1->SaveAs(path_R+"pol_90nm.root");
 
 #if 1
   TFile *outfile = TFile::Open(path_R+"pol.root","RECREATE");

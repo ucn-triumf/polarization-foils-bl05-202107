@@ -52,7 +52,7 @@ Int_t Pol_Power_50nm(){
   InitColor();
   TH1::SetDefaultSumw2();
 
-  const Int_t num = 7;
+  const Int_t num = 3;
   Int_t kp[num];
   Int_t kp2[num];
   TTree* tup[num];
@@ -93,7 +93,7 @@ Int_t Pol_Power_50nm(){
   TString degstr2[num];
   //off
   degstr[0]="Direct(M1 reflect)";
-  degstr[1]="B = 8.01 mT";
+  degstr[1]="B = 8.13 mT";
   degstr[2]="B = 0.322 mT";
   //degstr[3]="B = 0.908 mT";
   //degstr[4]="B = 1.35 mT";
@@ -102,7 +102,7 @@ Int_t Pol_Power_50nm(){
 
   //on
   degstr2[0]="Direct(M1 reflect)";
-  degstr2[1]="B = 8.01 mT";
+  degstr2[1]="B = 8.13 mT";
   degstr2[2]="B = 0.322 mT";
   //degstr2[3]="B = 0.908 mT";
   //degstr2[4]="B = 1.35 mT";
@@ -325,13 +325,8 @@ Int_t Pol_Power_50nm(){
     else hpolratio[i]->Draw("ehsames");
     leg3->Draw();
     }
+
     
-/*
-    c1->cd(3);
-    if(i==1)hpolrhqtio[i]->Draw("eh");
-    else hpolratio[i]->Draw("ehsames");
-    leg->Draw();
-*/
     
     hpolratio[i]->GetXaxis()->SetRangeUser(q_min,q_max);
     hpolratio[i]->GetYaxis()->SetRangeUser(-1.,1.);
@@ -343,11 +338,52 @@ Int_t Pol_Power_50nm(){
     hq[i]->SaveAs(path_R + Form("hq_off_%d.root", i));
     hq2[i]->SaveAs(path_R + Form("hq_on_%d.root", i));
   }
+
+  const Int_t num_pol = 3;
+    TGraphErrors* gr[num_pol];
+    // Double_t q_cuts[num_pol] = {0.2, 0.25, 0.3, 0.35, 0.4};
+    Double_t q_cuts[num_pol] = {0.25, 0.3, 0.35};
+    
+    Double_t B[num-1] = {8.13,0.322};
+    // Double_t q_cuts[num_pol] = {0.2, 0.25, 0.3, 0.35, 0.4};
+    Double_t pol_at_qcut[num-1];
+    Double_t error_pol_at_qcut[num-1];
+
+    Double_t ibin_pol[num_pol];
+
+    c1->cd(4); 
+    TLegend *leg4 = new TLegend(0.8, 0.8, 0.95, 1, "");
+    // leg4->SetFillStyle(0);
+    for (Int_t i=0; i<num_pol; i++){
+      ibin_pol[i]= Int_t((q_cuts[i]-q_min)*nbin_q/(q_max-q_min));
+      for (Int_t j=0; j<num-1; j++){
+        pol_at_qcut[j] = hpolratio[j+1]->GetBinContent(ibin_pol[i]);
+        error_pol_at_qcut[j] = hpolratio[j+1]->GetBinError(ibin_pol[i]);
+        // cout <<   pol_at_qcut[j] << endl;
+        // count << Form("At q=%.2f nm^{-1}, B=%.3f mT: Polarization power=", q_cuts[i], B[i])<<  pol_at_qcut[i] << endl;
+      }
+      gr[i]= new TGraphErrors(num-1, B, pol_at_qcut,0,error_pol_at_qcut);
+      gr[i]->GetXaxis()->SetRangeUser(0.2, 9);
+      gr[i]->GetYaxis()->SetRangeUser(-1.2, 1.2);
+      if (i==0) gr[i]->Draw("AP");
+      else gr[i]->Draw("P");
+      gr[i]->SetMarkerColor(i+1);
+      gr[i]->SetLineColor(i+1);
+      gr[i]->SetMarkerStyle(i+3);
+      gr[i]->SetMarkerSize(1);
+      gr[i]->GetXaxis()->SetTitle("B (mT)");
+      gr[i]->GetYaxis()->SetTitle("Polarization power");
+      gr[i]->SetTitle("");
+      leg4->AddEntry(gr[i],Form("q=%.3f nm^{-1}",q_min + (q_max-q_min)*ibin_pol[i]/nbin_q),"p");
+
+    }
+    leg4->Draw();
+    
+
   c1->cd(1); gPad->SetGrid();gPad->SetLogy();
   c1->cd(2); gPad->SetGrid();gPad->SetLogy();
-  
   c1->cd(3); gPad->SetGrid();//gPad->SetLogy();
-  // c1->cd(4); gPad->SetGrid();//gPad->SetLogy();
+  c1->cd(4); gPad->SetGrid();//gPad->SetLogy();
 
   c1->SaveAs(path_R+"pol.png");
   c1->SaveAs(path_R+"pol.root");

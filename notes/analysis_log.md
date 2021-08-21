@@ -89,13 +89,18 @@ if(useMRfirst) kp2[i] = tup2[i]->GetMaximum("mp");//"mp2"->"mp"
  - The section from l.299: cleared the canvas before plotting hq, hq2. Used if statement in order not to plot hq0 (Direct beam data)
  - From l.134: Adjusted the position of TLegend 
 
-## 2021-08-20  AH
+  ## 2021-08-20  AH
  - Added Pol_Power_30nm.C, Pol_Power_50nm.C, Pol_Power_90nm.C
  edit namestr, degstr, angle
  - Added q025_30nm.C (AFP magnetic field - Polarizing Power)
+ 
+   ## 2021-08-21  AH
+ - Edit q025_30nm.C (Added "" "")
+ double nbin_qq=(qq-""q_min"")*nbin_q/(q_max-q_min);
+ - Edit Pol_Power_30nm_temp.C (Added "" "")
+  ibin_pol[i]= Int_t((q_cuts[i]-""q_min"")*nbin_q/(q_max-q_min));
+  leg4->AddEntry(gr[i],Form("q=%.3f nm^{-1}",""q_min"" + (q_max-q_min)*ibin_pol[i]/""nbin_q""),"p");
+ - Added  Pol_Power_50nm.C, Pol_Power_90nm.C
+ Draw Graph mT vs Polarizing Power (lower right)
+ 
 
-
-## 2021-08-21 TH
--  Copied Pol_Power_30nm.C to Pol_Power_30nm_temp.C
-   -  Defined for loops to draw graphs at different q cut
-   -  Problem: the value at B=8mT looks not consistent with the 3rd graph of polarization power vs q

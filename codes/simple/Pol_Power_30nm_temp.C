@@ -402,7 +402,7 @@ Int_t Pol_Power_30nm_temp(){
   TLegend *leg4 = new TLegend(0.8, 0.8, 0.95, 1, "");
   // leg4->SetFillStyle(0);
   for (Int_t i=0; i<num_pol; i++){
-    ibin_pol[i]= Int_t(q_cuts[i]*nbin_q/(q_max-q_min));
+    ibin_pol[i]= Int_t((q_cuts[i]-q_min)*nbin_q/(q_max-q_min));
     for (Int_t j=0; j<num-1; j++){
       pol_at_qcut[j] = hpolratio[j+1]->GetBinContent(ibin_pol[i]);
       error_pol_at_qcut[j] = hpolratio[j+1]->GetBinError(ibin_pol[i]);
@@ -421,7 +421,7 @@ Int_t Pol_Power_30nm_temp(){
     gr[i]->GetXaxis()->SetTitle("B (mT)");
     gr[i]->GetYaxis()->SetTitle("Polarization power");
     gr[i]->SetTitle("");
-    leg4->AddEntry(gr[i],Form("q=%.3f nm^{-1}",(q_max-q_min)/nbin_q*ibin_pol[i]),"p");
+    leg4->AddEntry(gr[i],Form("q=%.3f nm^{-1}",q_min + (q_max-q_min)*ibin_pol[i]/nbin_q),"p");
 
   }
   leg4->Draw();

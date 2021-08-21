@@ -11,10 +11,55 @@
 ### Direct measurement 
 | run #           | SF   |I_LV(A)|B_kita(mT)| comments |
 | --------------- | ---- |------ |--------- |--------- |
-| 20210714184125  | OFF  | 1.97 | -8.01302 | I=1.97A?, probably SF:OFF |
-| 20210714193654  | OFF  | 1.97 |-8.01302  | I=1.97A?, probably SF:OFF |
-| 20210717040703  | OFF  |	2.0	 |-8.13014 | recorded after the sample c was measured |
+| 20210714184125  | OFF  | 1.97 | -8.01302 | probably  I=1.97A, SF:OFF |
+| 20210714193654  | OFF  | 1.97 |-8.01302  | probably  I=1.97A, SF:OFF |
+| 20210717040703  | OFF  |	2.0	 |-8.13014 | recorded after the sample c was taken out |
 
+### Characterization of AFP-SF/measurement of beam polarization
+
+These measurements were done with two mirrors (m1 and m2)
+
+#### The common settings of the AFP-SF
+- The DC current/voltage of the AFP-SF should have been kept unchanged. That is 3.270 V / 1.329 A (from photograph taken after the last day). The note on p. 50 of the logbook says  3.259 V / 1.33 A. So there might have been small fluctuations, but should be stable at 1 mA order.
+- I could not find the frequency set on the RF coil of the AFP-SF. The resonance frequnecy of the circuit was 103.6 kHz. So the value close to that should hav been used (TH on 2021-08-21)
+
+#### Relation of current and voltage of the RF coil
+
+Characterization measruement recorded on p.37 of the logbook
+
+|  V_set (mV)  |    I_monitor (A) |
+| ---- | ---- |
+|    100  | 0.3605 |
+| 150 | 0.4913 |
+| 500 | 1.380 |
+| 800 | 2.13832 |
+| 600 | 1.63504 |
+| 760 | 2.03701 |
+| 1000 | 2.64813 |
+
+
+
+List of measurements with AFP-SF OFF (the last part of beam alignment)
+
+| run # |theta_m2 (deg) |x_m2(mm) |comments |
+| ----- | -------- | --------|------- |
+| 20210714181508 |276.4 |78.0 | not explicitly written, but probably at I_LV=1.97A, B=-8.01302 mT |
+| 20210714185238 |275.7 |78.0 | not explicitly written, but probably at I_LV=1.97A, B=-8.01302 mT |
+| 20210714191741 |276.2 |78.0 | not explicitly written, but probably at I_LV=1.97A, B=-8.01302 mT |
+|  | | |  |
+|  | | |  |
+
+List of measurements with AFP-SF ON
+
+| run # |theta_m2 (deg) |x_m2(mm) | SF-RF (mV)|I_LV(A)	|B_kita(mT)	|comments |
+| ----- | -------- | --------|------- |------- |--------|------- |
+| 20210714204714 |275.7 |78.0 | 100 | 1.97 | -8.01302 | I=1.97A not explicitly written, but probably |
+| 20210714205602 |275.7 |78.0 | 760 | 1.97 | -8.01302 | I=1.97A not explicitly written, but probably |
+| 20210714210221 |275.7 |78.0 | 1000 | 1.97 | -8.01302 | I=1.97A not explicitly written, but probably |
+| 20210714211037 |275.7 |78.0 | 500 | 1.97 | -8.01302 | I=1.97A not explicitly written, but probably |
+| 20210714211642 |275.7 |78.0 | 300 | 1.97 | -8.01302 | I=1.97A not explicitly written, but probably |
+| 20210714214337 |275.7 |78.0 | 760 | 0 | -0.32198 |  |
+| 20210714215803 |276.2 |78.0 | 760 | 1.97 | -8.01302 | theta_m2 slightly changed |
 
 ### Manual scans of the sample Fe 30 nm
 

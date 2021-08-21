@@ -376,8 +376,8 @@ Int_t Pol_Power_30nm(){
     hq[i]->GetYaxis()->SetRangeUser(1.e-3,2.);
     hq2[i]->GetXaxis()->SetRangeUser(q_min,q_max);
     hq2[i]->GetYaxis()->SetRangeUser(1.e-3,2.);
-    hq[i]->SaveAs(path_R + Form("hq_off_%d.root", i));
-    hq2[i]->SaveAs(path_R + Form("hq_on_%d.root", i));
+    // hq[i]->SaveAs(path_R + Form("hq_off_%d.root", i));
+    // hq2[i]->SaveAs(path_R + Form("hq_on_%d.root", i));
     
 
 
@@ -444,7 +444,7 @@ Int_t Pol_Power_30nm(){
     
 
   c1->SaveAs(path_R+"pol_30nm.png");
-  c1->SaveAs(path_R+"pol+30nm.root");
+  c1->SaveAs(path_R+"pol_30nm.root");
 
 #if 1
   TFile *outfile = TFile::Open(path_R+"pol.root","RECREATE");

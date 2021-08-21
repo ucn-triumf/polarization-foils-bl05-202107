@@ -385,8 +385,8 @@ Int_t Pol_Power_50nm(){
   c1->cd(3); gPad->SetGrid();//gPad->SetLogy();
   c1->cd(4); gPad->SetGrid();//gPad->SetLogy();
 
-  c1->SaveAs(path_R+"pol.png");
-  c1->SaveAs(path_R+"pol.root");
+  c1->SaveAs(path_R+"pol_50nm.png");
+  c1->SaveAs(path_R+"pol_50nm.root");
 
 #if 1
   TFile *outfile = TFile::Open(path_R+"pol_50nm.root","RECREATE");

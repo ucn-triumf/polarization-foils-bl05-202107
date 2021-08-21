@@ -44,7 +44,7 @@ Int_t AFP(){
   TString namestr[num];
   //  namestr[0]="20210714184125_list.root"; //M1 reflect (direct)
   namestr[0]="20210714193654_list.root"; //M1 reflect (direct) 1hour
-  namestr[1]="20210714185238_list.root"; //M2 reflect theta = 0.49 deg.
+  namestr[1]="20210714204714_list.root"; //M2 reflect theta = 0.49 deg.
   //  namestr[2]="20210714191741_list.root"; //M2 reflect theta = 1.00 deg.
   namestr[2]="20210714204714_list.root"; //M2 reflect theta = 0.49 deg. with AFP 100 mV
   namestr[3]="20210714211642_list.root"; //M2 reflect theta = 0.49 deg. with AFP 500 mV

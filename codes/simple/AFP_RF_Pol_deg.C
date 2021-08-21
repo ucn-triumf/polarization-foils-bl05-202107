@@ -476,21 +476,21 @@ namestr2[0]="20210714193654_list.root"; //M1 reflect (direct) 1hour
   c1->cd(3); gPad->SetGrid();//gPad->SetLogy();
   c1->cd(4); gPad->SetGrid();//gPad->SetLogy();
     
-  c1->SaveAs(path_R+"pol_30nm.png");
-  c1->SaveAs(path_R+"pol_30nm.root");
+  c1->SaveAs(path_R+"pol_beam.png");
+  c1->SaveAs(path_R+"pol_beam.root");
 
-#if 1
-  TFile *outfile = TFile::Open(path_R+"pol.root","RECREATE");
-  for(Int_t i=0; i<num; i++){
-    //hx[i]->Write();
-    //hlambda[i]->Write();
-    //hratio[i]->Write();
-    hq[i]->Write();
-    //hxylambda[i]->Write();
-    hq2[i]->Write();
-  }
-  outfile->Close();
-#endif
+// #if 1
+//   TFile *outfile = TFile::Open(path_R+"pol_beam.root","RECREATE");
+//   for(Int_t i=0; i<num; i++){
+//     //hx[i]->Write();
+//     //hlambda[i]->Write();
+//     //hratio[i]->Write();
+//     hq[i]->Write();
+//     //hxylambda[i]->Write();
+//     hq2[i]->Write();
+//   }
+//   outfile->Close();
+// #endif
 
 
   return 0 ;

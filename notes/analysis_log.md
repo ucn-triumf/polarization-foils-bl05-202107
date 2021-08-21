@@ -102,5 +102,6 @@ if(useMRfirst) kp2[i] = tup2[i]->GetMaximum("mp");//"mp2"->"mp"
   leg4->AddEntry(gr[i],Form("q=%.3f nm^{-1}",""q_min"" + (q_max-q_min)*ibin_pol[i]/""nbin_q""),"p");
  - Added  Pol_Power_50nm.C, Pol_Power_90nm.C
  Draw Graph mT vs Polarizing Power (lower right)
- 
+ - Added overview_14184125, overview_14193654, overview_17040703 
+ (to compare 3 direct data)
 

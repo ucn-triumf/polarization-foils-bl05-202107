@@ -9,14 +9,16 @@
 ## summary of important measurements
 
 ### Direct measurement 
-| run #           | SF   |
-| --------------- | ---- |
-| 20210714193654  |      |
-| 20210717040703  | OFF  |
+| run #           | SF   |I_LV(A)|B_kita(mT)| comments |
+| --------------- | ---- |------ |--------- |--------- |
+| 20210714184125  | OFF  | 1.97 | -8.01302 | I=1.97A?, probably SF:OFF |
+| 20210714193654  | OFF  | 1.97 |-8.01302  | I=1.97A?, probably SF:OFF |
+| 20210717040703  | OFF  |	2.0	 |-8.13014 | recorded after the sample c was measured |
+
 
 ### Manual scans of the sample Fe 30 nm
 
-| run #          | L_labview I(A) | real I(A) | mag B (kitaguchi) | SF ON/OFF | Reflection beam x (mm) |
+| run #          | I_labview (A) | real I(A) | mag B (kitaguchi) | SF ON/OFF | Reflection beam x (mm) |
 | -------------- | -------------- | --------- | ----------------- | --------- | ---------------------- |
 | 20210715075452 | 0              | -0.0041   | -0.32198          | off       | 47.2                   |
 | 20210715081447 | 0              | -0.0041   | -0.32198          | off       | 47.09                  |

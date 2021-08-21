@@ -279,7 +279,7 @@ Int_t Pol_Power_30nm(){
     double entry[num];
     //hq[i]->FindBin(nbb[i]);
     double qq=0.25;
-    double nbin_qq=qq*nbin_q/(q_max-q_min);
+    double nbin_qq=(qq-q_min)*nbin_q/(q_max-q_min);
     entry[i]= hpolratio[i]->GetBinContent(nbin_qq); 
     cout<<"[i]_"<<i<<"entry_"<<entry[i]<<endl;
 

@@ -11,7 +11,21 @@ void CheckKPBoundary(Int_t kpmin, Int_t kpmax) {
   gStyle->SetOptStat("irmen");
   const TString data_path = "data/210713_SiFe/";
   const TString scan_path = "data/gatenetlog/";
+
   const TString result_path = "results/check_scans/";
+  
+  // Error: "kp_head_v(9) and kp_tail_v(8) have different size()"
+  // const TString rootfile_num    = data_path + "20210717024407"; //this combination looked OK
+  // const TString scan_name = "scan20210713_flipper_agilent_scan_rough_4"; //this combination looked OK
+  
+  //Error: p_head_v(12) and kp_tail_v(11) have different size()
+  // const TString rootfile_num    = data_path + "20210717002421"; //this combination looked OK
+  // const TString scan_name = "scan20210713_flipper_agilent_scan_rough_2"; //this combination looked OK
+  
+  //this combination looked OK
+  // const TString rootfile_num    = data_path + "20210716235619"; 
+  // const TString scan_name = "scan20210713_flipper_agilent_scan_rough_1"; 
+
   const TString rootfile_num    = data_path + "20210714000204";
   const TString scan_name = "scan20210713_x_m2_scan_1";
   const TString gatenetlog_name = scan_path + Form("gatenetlog_%s.txt", scan_name.Data());

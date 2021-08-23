@@ -120,7 +120,7 @@ List of measurements with AFP-SF ON
 | scan20210713_flipper_agilent_scan_rough_1 | 20210716235619 | 90 nm    | 0.37            | 0.27          | 0.01       | OFF       | Wait: 80 s / kp 2000                                         |
 | scan20210713_flipper_agilent_scan_rough_2 | 20210717002421 | 90 nm    | 0.47            | 0.37          | 0.01       | OFF?      | Wait: 80 s / kp 2000                                         |
 | scan20210713_flipper_agilent_scan_rough_3 | 20210717011121 | 90 nm    | 0.35            | 0.10          | 0.05       | OFF?      | Wait: 40 s / kp 1000                                         |
-| scan20210713_flipper_agilent_scan_fine_1  | 20210717012326 | 90 nm    | 0.240           | 0.265         | 0.005      | ON/OFF    | The N was 13 (should be an even #), manually stopped?        |
+| scan20210713_flipper_agilent_scan_fine_1  | 20210717012326 | 90 nm    | 0.240           | 0.265         | 0.005      | ON/OFF    | The N was 13 (should be an even #), manually stopped? The scan log file lost |
 | scan20210713_flipper_agilent_scan_rough_4 | 20210717024407 | 90 nm    | 0.265           | 0.325         | 0.01       | OFF?      |                                                              |
 | scan20210713_flipper_agilent_scan_fine_3  | 20210717030252 | 90 nm    | 0.295           | 0.325         | 0.005      | ON/OFF    | Wait: 240 s / kp 6000                                        |
 | scan20210713_flipper_agilent_scan_rough_5 | 20210717050342 | 50 nm    | 0.19            | 0.36          | 0.01       | OFF       | Wait: 20 s / kp 500                                          |

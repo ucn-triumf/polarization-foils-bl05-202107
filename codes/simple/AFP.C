@@ -54,6 +54,7 @@ Int_t AFP(){
   namestr[7]="20210714214337_list.root"; //M2 reflect theta = 0.49 deg. with AFP 760 mV magnet 0A
 
 
+
   TString degstr[num];
   degstr[0]="Direct(M1 reflect)";
   degstr[1]="M2 reflect(0.49 deg.)";
@@ -133,7 +134,7 @@ Int_t AFP(){
     tup[i]->Draw(Form("x*%f>>hx%d",range,i), thecut,"goff");
     if(i==0) tup[i]->Draw(Form("toffo*%f>>hlambda%d",lambda_coeff,i), thecut && cut_dir,"goff");
     else tup[i]->Draw(Form("toffo*%f>>hlambda%d",lambda_coeff,i), thecut && cut_ref,"goff");
-    tup[0]->Draw(Form("%f/(toffo*%f)>>hq0%d",twopirad,lambda_coeff,i), thecut0 && cut_ref,"goff");
+    tup[0]->Draw(Form("%f/(toffo*%f)>>hq0%d",twopirad,lambda_coeff,i), thecut0 && cut_dir,"goff");
     tup[i]->Draw(Form("%f/(toffo*%f)>>hq%d",twopirad,lambda_coeff,i), thecut && cut_ref,"goff");
     tup[i]->Draw(Form("toffo*%f:y*%f:x*%f>>hxylambda%d",lambda_coeff,range,range,i),cut_rpmt_basic && MRcut,"goff");
 

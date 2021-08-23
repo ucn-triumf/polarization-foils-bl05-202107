@@ -204,6 +204,20 @@ Int_t q_R_I_on(){
   angle[5] = TMath::Abs(47.21 - xdirect)/dist_det; //rad
   angle[6] = TMath::Abs(47.11 - xdirect)/dist_det; //rad
 
+  Double_t angledeg[num];
+  Double_t angledeg2[num];
+  
+  angledeg[0]=angle[0]*180./TMath::Pi()/2.;
+  angledeg[1]=angle[1]*180./TMath::Pi()/2.;
+  angledeg[2]=angle[2]*180./TMath::Pi()/2.;
+  angledeg[3]=angle[3]*180./TMath::Pi()/2.;
+  angledeg[4]=angle[4]*180./TMath::Pi()/2.;
+  angledeg[5]=angle[5]*180./TMath::Pi()/2.;
+  angledeg[6]=angle[6]*180./TMath::Pi()/2.;
+  angledeg[7]=angle[7]*180./TMath::Pi()/2.;
+
+  
+
   //  TLegend* leg = new TLegend(0.15, 0.75, 0.4, 0.98,"");
   TLegend* leg = new TLegend(0.70, 0.20, 0.98, 0.70,"Fe 30 nm");
   leg->SetFillColor(0);
@@ -327,6 +341,7 @@ Int_t q_R_I_on(){
     hq[i]->GetYaxis()->SetRangeUser(0.,1.);
     hq[i]->GetXaxis()->SetRangeUser(0.1,0.9);
 
+    cout<<"in_"<<angle[i]<<"_deg"<<endl;
   }
 
   hratio[1]->GetYaxis()->SetRangeUser(0.,2.);

@@ -18,8 +18,6 @@ Double_t xdirect    = 63.29;
 Bool_t useMRfirst = 0; //use only MR events to avoid frame overlap
 Bool_t useThinout = 0; //thinning out the event <1e4.
 
-
-
 void InitColor(){
   //set default color
   gROOT->GetColor(2)->SetRGB(220./255.,  50./255.,  47./255.); // Red
@@ -94,29 +92,6 @@ Int_t AFP_RF_Pol_deg(){
   namestr2[6]="20210714214337_list.root"; //760mV I_LV=0A
   namestr2[7]="20210714215803_list.root"; //760mV 276.2deg
 
-  TString degstr[num];
-  TString degstr2[num];
-  //off
-  degstr[0]="Direct(M1 reflect)";
-  degstr[1]="theta_m2 2.57 deg";
-  degstr[2]="theta_m2 2.57 deg";
-  degstr[3]="theta_m2 2.57 deg";
-  degstr[4]="theta_m2 2.57 deg";
-  degstr[5]="theta_m2 2.57 deg";
-  degstr[6]="theta_m2 2.57 deg";
-  degstr[7]="theta_m2 2.62 deg";
-
-  //on
-  degstr2[0]="Direct(M1 reflect)";
-  degstr2[1]="SF-RF 100mV";
-  degstr2[2]="SF-RF 760mV";
-  degstr2[3]="SF-RF 1000mV";
-  degstr2[4]="SF-RF 500mV";
-  degstr2[5]="SF-RF 300mV";
-  degstr2[6]="I_LV 0A";
-  degstr2[7]="theta_m2 2.62 deg";
-  
-
   Double_t angle[num];
   Double_t angle2[num];
   angle[0] = TMath::Abs(70.5 - xdirect)/dist_det; //rad
@@ -158,6 +133,37 @@ namestr2[0]="20210714193654_list.root"; //M1 reflect (direct) 1hour
   namestr2[6]="20210714214337_list.root"; //760mV I_LV=0A
   namestr2[7]="20210714215803_list.root"; //760mV 276.2deg
   */
+  double angledeg[num];
+  angledeg[0]=angle[0]*180./TMath::Pi();
+  angledeg[1]=angle[1]*180./TMath::Pi();
+  angledeg[2]=angle[2]*180./TMath::Pi();
+  angledeg[3]=angle[3]*180./TMath::Pi();
+  angledeg[4]=angle[4]*180./TMath::Pi();
+  angledeg[5]=angle[5]*180./TMath::Pi();
+  angledeg[6]=angle[6]*180./TMath::Pi();
+  angledeg[7]=angle[7]*180./TMath::Pi();
+
+  TString degstr[num];
+  TString degstr2[num];
+  //off
+  degstr[0]="Direct(M1 reflect)";
+  degstr[1]="theta_m2 275.7 deg";
+  degstr[2]=Form("theta_m2 275.7 deg %f_deg",angledeg[2]);
+  degstr[3]="theta_m2 275.7 deg";
+  degstr[4]="theta_m2 275.7 deg";
+  degstr[5]="theta_m2 275.7 deg";
+  degstr[6]="theta_m2 275.7 deg";
+  degstr[7]=Form("theta_m2 276.2 deg %f_deg",angledeg[7]);
+
+  //on
+  degstr2[0]="Direct(M1 reflect)";
+  degstr2[1]="SF-RF 100mV";
+  degstr2[2]="SF-RF 760mV";
+  degstr2[3]="SF-RF 1000mV";
+  degstr2[4]="SF-RF 500mV";
+  degstr2[5]="SF-RF 300mV";
+  degstr2[6]="I_LV 0A";
+  degstr2[7]="theta_m2 276.2 deg";
 
   //  TLegend* leg = new TLegend(0.15, 0.75, 0.4, 0.98,"");
   //TLegend* leg = new TLegend(0.70, 0.20, 0.98, 0.70,"Fe 30 nm OFF");
@@ -211,7 +217,6 @@ namestr2[0]="20210714193654_list.root"; //M1 reflect (direct) 1hour
   c1->Divide(2,2);
   c1->cd(1);
   
-
   // for(Int_t i=0; i<2; i++){
 
   for(Int_t i=0; i<num; i++){
@@ -247,11 +252,9 @@ namestr2[0]="20210714193654_list.root"; //M1 reflect (direct) 1hour
     tup[0]->Draw(Form("%f/(toffo*%f)>>hq0%d",twopirad,lambda_coeff,i), thecut0 && cut_dir,"goff");
     tup[i]->Draw(Form("%f/(toffo*%f)>>hq%d",twopirad,lambda_coeff,i), thecut && cut_ref,"goff");
     // tup[i]->Draw(Form("toffo*%f:y*%f:x*%f>>hxylambda%d",lambda_coeff,range,range,i),cut_rpmt_basic && MRcut,"goff");
-
-    
+   
     //hpolratio[i]->Rebin(10);
     //hpolratio2[i]->Rebin(10);
-
     //hpolratio[i]->Divide(hpolratio2[i]);
 
     if(i==2){
@@ -271,14 +274,11 @@ namestr2[0]="20210714193654_list.root"; //M1 reflect (direct) 1hour
     //hlambda[i]->Scale(25./kp[i]);
     hq[i]->Scale(25./kp[i]);
     hq0[i]->Scale(25./kp[0]);
-    //hxylambda[i]->Scale(25./kp[i]);
-    
-    
+    //hxylambda[i]->Scale(25./kp[i]);   
     
     //hratio[i]=(TH1F*)hlambda[i]->Clone(Form("hratio%d",i));
     //hratio[i]->Divide(hlambda[0]);
-    //hratio[i]->GetYaxis()->SetTitle("Reflectivity");
-    
+    //hratio[i]->GetYaxis()->SetTitle("Reflectivity"); 
 
     hq[i]->Divide(hq0[i]);
     hq[i]->GetYaxis()->SetTitle("Reflectivity");
@@ -309,6 +309,7 @@ namestr2[0]="20210714193654_list.root"; //M1 reflect (direct) 1hour
     hpolratio2[i]=(TH1F*)hq[i]->Clone(Form("hpolratio2%d",i));
     hpolratio2[i]->Add(hq[i], hq2[i],1, 1); // hq: OFF, hq2: ON, calculate Non + Noff
     hpolratio[i]->Divide(hpolratio2[i]);
+    hpolratio[i]->GetXaxis()->SetTitle("q[nm^-1]");
     hpolratio[i]->GetYaxis()->SetTitle("Polarization power (R_{on}-R_{off})/(R_{on}+R_{off})");
     hpolratio[i]->SetTitle("Polarization power");
 
@@ -407,11 +408,7 @@ namestr2[0]="20210714193654_list.root"; //M1 reflect (direct) 1hour
     hq2[i]->GetXaxis()->SetRangeUser(q_min,q_max);
     hq2[i]->GetYaxis()->SetRangeUser(1.e-3,2.);
     // hq[i]->SaveAs(path_R + Form("hq_off_%d.root", i));
-    // hq2[i]->SaveAs(path_R + Form("hq_on_%d.root", i));
-    
-
-
-    
+    // hq2[i]->SaveAs(path_R + Form("hq_on_%d.root", i));  
 
   }
 
@@ -421,7 +418,8 @@ namestr2[0]="20210714193654_list.root"; //M1 reflect (direct) 1hour
   // Double_t q_cuts[num_pol] = {0.2, 0.25, 0.3, 0.35, 0.4};
   Double_t q_cuts[num_pol] = {0.25, 0.3, 0.35};
   
-  Double_t B[num-6] = {2.56,2.62};//{2.,2.,2.56,2.,2.,2.,2.62};
+  //Double_t B[num-6] = {2.56,2.62};//{2.,2.,2.56,2.,2.,2.,2.62};
+  Double_t B[num-6] = {275.6,276.2};
   // Double_t q_cuts[num_pol] = {0.2, 0.25, 0.3, 0.35, 0.4};
   Double_t pol_at_qcut[num-6];
   Double_t error_pol_at_qcut[num-6];

@@ -14,7 +14,7 @@ TString path_R = "results/";
 Double_t Distance = 18.101;//[m]
 Double_t Conversion = 395.6;
 Double_t dist_det   = 344.;//666.; //sample to detector [mm]
-Double_t xdirect    = 63.29;
+Double_t xdirect    = 63.29;//64.71;
 Bool_t useMRfirst = 0; //use only MR events to avoid frame overlap
 Bool_t useThinout = 0; //thinning out the event <1e4.
 
@@ -94,31 +94,11 @@ Int_t AFP_RF_Pol(){
   namestr2[6]="20210714214337_list.root"; //760mV I_LV=0A
   namestr2[7]="20210714215803_list.root"; //760mV 276.2deg
 
-  TString degstr[num];
-  TString degstr2[num];
-  //off
-  degstr[0]="Direct(M1 reflect)";
-  degstr[1]="theta_m2 2.57 deg";
-  degstr[2]="theta_m2 2.57 deg";
-  degstr[3]="theta_m2 2.57 deg";
-  degstr[4]="theta_m2 2.57 deg";
-  degstr[5]="theta_m2 2.57 deg";
-  degstr[6]="theta_m2 2.57 deg";
-  degstr[7]="theta_m2 2.62 deg";
-
-  //on
-  degstr2[0]="Direct(M1 reflect)";
-  degstr2[1]="SF-RF 100mV";
-  degstr2[2]="SF-RF 760mV";
-  degstr2[3]="SF-RF 1000mV";
-  degstr2[4]="SF-RF 500mV";
-  degstr2[5]="SF-RF 300mV";
-  degstr2[6]="I_LV 0A";
-  degstr2[7]="theta_m2 2.62 deg";
   
 
   Double_t angle[num];
   Double_t angle2[num];
+  
   angle[0] = TMath::Abs(70.5 - xdirect)/dist_det; //rad
   angle[1] = TMath::Abs(57.563 - xdirect)/dist_det; //rad 47.1868
   //angle[2] = TMath::Abs(47.09 - xdirect)/dist_det; //rad
@@ -148,8 +128,63 @@ namestr[0]="20210714193654_list.root";
   angle2[5] = TMath::Abs(57.9249 - xdirect)/dist_det; //rad
   angle2[6] = TMath::Abs(58.1081 - xdirect)/dist_det; //rad
   angle2[7] = TMath::Abs(51.6895- xdirect)/dist_det;
+  
+
+  Double_t angledeg[num];
+  Double_t angledeg2[num];
+  
+  angledeg[0]=angle[0]*180./TMath::Pi()/2.;
+  angledeg[1]=angle[1]*180./TMath::Pi()/2.;
+  angledeg[2]=angle[2]*180./TMath::Pi()/2.;
+  angledeg[3]=angle[3]*180./TMath::Pi()/2.;
+  angledeg[4]=angle[4]*180./TMath::Pi()/2.;
+  angledeg[5]=angle[5]*180./TMath::Pi()/2.;
+  angledeg[6]=angle[6]*180./TMath::Pi()/2.;
+  angledeg[7]=angle[7]*180./TMath::Pi()/2.;
+
+  angledeg2[0]=angle2[0]*180./TMath::Pi()/2.;
+  angledeg2[1]=angle2[1]*180./TMath::Pi()/2.;
+  angledeg2[2]=angle2[2]*180./TMath::Pi()/2.;
+  angledeg2[3]=angle2[3]*180./TMath::Pi()/2.;
+  angledeg2[4]=angle2[4]*180./TMath::Pi()/2.;
+  angledeg2[5]=angle2[5]*180./TMath::Pi()/2.;
+  angledeg2[6]=angle2[6]*180./TMath::Pi()/2.;
+  angledeg2[7]=angle2[7]*180./TMath::Pi()/2.;
+
+  TString degstr[num];
+  TString degstr2[num];
+  TString degstr3[num];
+  //off
+  degstr[0]=Form("Direct(M1 reflect) %f_deg",angledeg[0]);
+  degstr[1]=Form("theta_m2 275.7 deg %f_deg",angledeg[1]);
+  degstr[2]=Form("theta_m2 275.7 deg %f_deg",angledeg[2]);
+  degstr[3]=Form("theta_m2 275.7 deg %f_deg",angledeg[3]);
+  degstr[4]=Form("theta_m2 275.7 deg %f_deg",angledeg[4]);
+  degstr[5]=Form("theta_m2 275.7 deg %f_deg",angledeg[5]);
+  degstr[6]=Form("theta_m2 275.7 deg %f_deg",angledeg[6]);
+  degstr[7]=Form("theta_m2 276.2 deg %f_deg",angledeg[7]);
+
+  //on
+  degstr2[0]=Form("Direct(M1 reflect) %f_deg",angledeg2[0]);
+  degstr2[1]=Form("SF-RF 100mV %f_deg",angledeg2[1]);
+  degstr2[2]=Form("SF-RF 760mV %f_deg",angledeg2[2]);
+  degstr2[3]=Form("SF-RF 1000mV %f_deg",angledeg2[3]); 
+  degstr2[4]=Form("SF-RF 500mV %f_deg",angledeg2[4]);
+  degstr2[5]=Form("SF-RF 300mV %f_deg",angledeg2[5]);
+  degstr2[6]=Form("I_LV 0A %f_deg",angledeg2[6]);
+  degstr2[7]=Form("theta_m2 276.2 deg %f_deg",angledeg2[7]);
+
+  degstr3[0]="Direct(M1 reflect)";
+  degstr3[1]="SF-RF 100mV" ;
+  degstr3[2]="SF-RF 760mV" ;
+  degstr3[3]="SF-RF 1000mV" ;
+  degstr3[4]="SF-RF 500mV" ;
+  degstr3[5]="SF-RF 300mV" ;
+  degstr3[6]="I_LV 0A" ;
+  degstr3[7]="theta_m2 276.2 deg ";
+  
   /*
-namestr2[0]="20210714193654_list.root"; //M1 reflect (direct) 1hour
+  namestr2[0]="20210714193654_list.root"; //M1 reflect (direct) 1hour
   namestr2[1]="20210714204714_list.root"; //100mV -8.01mT
   namestr2[2]="20210714205602_list.root"; //760mV
   namestr2[3]="20210714210221_list.root"; //1000mV
@@ -256,8 +291,8 @@ namestr2[0]="20210714193654_list.root"; //M1 reflect (direct) 1hour
 
 
     leg->AddEntry(hq[i],degstr[i],"l");
-    leg2->AddEntry(hq[i],degstr[i],"l");
-    leg3->AddEntry(hq[i],degstr[i],"l");
+    leg2->AddEntry(hq[i],degstr2[i],"l");
+    leg3->AddEntry(hq[i],degstr3[i],"l");
     //leg->AddEntry(hq2[i],degstr2[i],"l2");
 
     //hx[i]->Scale(25./kp[i]);
@@ -440,7 +475,7 @@ namestr2[0]="20210714193654_list.root"; //M1 reflect (direct) 1hour
     gr[i]->SetLineColor(i+1);
     gr[i]->SetMarkerStyle(i+3);
     gr[i]->SetMarkerSize(1);
-    gr[i]->GetXaxis()->SetTitle("B (mT)");
+    gr[i]->GetXaxis()->SetTitle("SF-RF (mV)");
     gr[i]->GetYaxis()->SetTitle("Polarization power");
     gr[i]->SetTitle("");
     leg4->AddEntry(gr[i],Form("q=%.3f nm^{-1}",q_min + (q_max-q_min)*ibin_pol[i]/nbin_q),"p");

@@ -18,7 +18,9 @@
 
 TString path_R = "results/"; // path to the results directory 
 TString path_D = "data/210713_SiFe/"; // path to the data directory 
-TString rootfile  = "20210714191741_list.root"; // name of the target root file
+//TString rootfile  = "20210714185238_list.root"; // name of the target root file
+//TString rootfile  = "_list.root"; // name of the target root file
+TString rootfile  = "20210714184125_list.root"; // name of the target root file
 
 
 //Double_t x_cut_low = 60;
@@ -27,8 +29,13 @@ TString rootfile  = "20210714191741_list.root"; // name of the target root file
 //Double_t x_cut_up =  50; // for transmission wave 
 //Double_t x_cut_low = 55; // for transmission wave 
 //Double_t x_cut_up =  61; // for transmission wave 
-Double_t x_cut_low = 50.5; // for transmission wave 
-Double_t x_cut_up =  53; // for transmission wave 
+//Double_t x_cut_low = 50.5; // for transmission wave 
+//Double_t x_cut_up =  53; // for transmission wave 
+
+//Double_t x_cut_low = 65; // for transmission wave 
+//Double_t x_cut_up =  72; // for transmission wave 
+Double_t x_cut_low = 62; // for transmission wave 
+Double_t x_cut_up =  64.5; // for transmission wave
 
 // Double_t x_cut_low = 40; // for transmission wave 
 // Double_t x_cut_up =  55; // for transmission wave 

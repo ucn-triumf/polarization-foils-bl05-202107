@@ -42,6 +42,7 @@ Int_t AFP1(){
   TH3F* hxylambda[num];
 
   TString namestr[num];
+  /*
   //  namestr[0]="20210714184125_list.root"; //M1 reflect (direct)
   namestr[0]="20210714193654_list.root"; //M1 reflect (direct) 1hour
   namestr[1]="20210714204714_list.root"; //M2 reflect theta = 0.49 deg.
@@ -52,24 +53,45 @@ Int_t AFP1(){
   namestr[5]="20210714205602_list.root"; //M2 reflect theta = 0.49 deg. with AFP 760 mV
   namestr[6]="20210714210221_list.root"; //M2 reflect theta = 0.49 deg. with AFP 1000 mV
   namestr[7]="20210714214337_list.root"; //M2 reflect theta = 0.49 deg. with AFP 760 mV magnet 0A
-
-
+*/
+  namestr[0]="20210714193654_list.root"; //M1 reflect (direct) 1hour
+  namestr[1]="20210714204714_list.root"; //100mV -8.01mT
+  //namestr[2]="20210714205602_list.root"; //760mV
+  namestr[2]="20210714185238_list.root"; //760mV
+  
+  namestr[3]="20210714210221_list.root"; //1000mV
+  namestr[4]="20210714211037_list.root"; //500mV
+  namestr[5]="20210714211642_list.root"; //300mV
+  namestr[6]="20210714214337_list.root"; //760mV I_LV=0A
+  //namestr[7]="20210714215803_list.root"; //760mV 276.2deg
+  namestr[7]="20210714191741_list.root"; //760mV 276.2deg
+  
 
   TString degstr[num];
   degstr[0]="Direct(M1 reflect)";
   degstr[1]="M2 reflect(0.49 deg.)";
   //  degstr[2]="M2 reflect(1.00 deg.)";
-  degstr[2]="M2 reflect(0.49 deg.) with AFP 100 mV";
+  degstr[2]="M2 reflect(0.48 deg.) with AFP 760 mV";
   degstr[3]="M2 reflect(0.49 deg.) with AFP 300 mV";
   degstr[4]="M2 reflect(0.49 deg.) with AFP 500 mV";
   degstr[5]="M2 reflect(0.49 deg.) with AFP 760 mV";
   degstr[6]="M2 reflect(0.49 deg.) with AFP 1000 mV";
-  degstr[7]="M2 reflect(0.49 deg.) with AFP 760 mV with magnet 0 A";
+  degstr[7]="M2 reflect(0.97 deg.) with AFP 760 mV ";
 
   Double_t angle[num];
+  /*
   angle[0] = TMath::Abs(70.5 - xdirect)/dist_det; //rad
-  angle[1] = TMath::Abs(56. - xdirect)/dist_det; //rad
+  angle[1] = TMath::Abs(58.1188 - xdirect)/dist_det; //rad
   angle[2] = TMath::Abs(51. - xdirect)/dist_det; //rad
+  */
+  angle[0] = TMath::Abs(70.5 - xdirect)/dist_det; //rad
+  angle[1] = TMath::Abs(57.8928 - xdirect)/dist_det; //rad
+  angle[2] = TMath::Abs(58.1188 - xdirect)/dist_det; //rad
+  angle[3] = TMath::Abs(58.1635 - xdirect)/dist_det; //rad
+  angle[4] = TMath::Abs(58.0323 - xdirect)/dist_det; //rad
+  angle[5] = TMath::Abs(57.9249 - xdirect)/dist_det; //rad
+  angle[6] = TMath::Abs(58.1081 - xdirect)/dist_det; //rad
+  angle[7] = TMath::Abs(51.6895- xdirect)/dist_det;
 
   //  TLegend* leg = new TLegend(0.15, 0.75, 0.4, 0.98,"");
   TLegend* leg = new TLegend(0.70, 0.20, 0.98, 0.70,"");
@@ -141,7 +163,9 @@ Int_t AFP1(){
     tup[i]->Draw(Form("%f/(toffo*%f)>>hq%d",twopirad,lambda_coeff,i), thecut && cut_ref,"goff");
     tup[i]->Draw(Form("toffo*%f:y*%f:x*%f>>hxylambda%d",lambda_coeff,range,range,i),cut_rpmt_basic && MRcut,"goff");
 
-    leg->AddEntry(hx[i],degstr[i],"l");
+    if(i==2)leg->AddEntry(hx[i],degstr[i],"l");
+    if(i==7)leg->AddEntry(hx[i],degstr[i],"l");
+
     hx[i]->Scale(25./kp[i]);
     hlambda[i]->Scale(25./kp[i]);
     hq[i]->Scale(25./kp[i]);
@@ -154,7 +178,12 @@ Int_t AFP1(){
     hq[i]->Divide(hq0[i]);
     hq[i]->GetYaxis()->SetTitle("Reflectivity");
 
-    if(i==9){
+    hratio[i]->GetYaxis()->SetRangeUser(0.,2.);
+    hratio[i]->GetXaxis()->SetTitle("wave length [nm]");
+    hq[i]->GetYaxis()->SetRangeUser(0.,2.);
+    hq[i]->GetXaxis()->SetTitle("q [nm^-1]");
+
+    if(i==2){
       hx[i]->SetLineColor(i+2);
       hlambda[i]->SetLineColor(i+2);
       hratio[i]->SetLineColor(i+2);
@@ -169,26 +198,33 @@ Int_t AFP1(){
     }
 
     c1->cd(1);
+    //if(i==0)hx[i]->Draw("eh");
+    //else hx[i]->Draw("ehsames");
     if(i==0)hx[i]->Draw("eh");
-    else hx[i]->Draw("ehsames");
+    if(i==2)hx[i]->Draw("ehsames");
+    if(i==7)hx[i]->Draw("ehsames");
     leg->Draw();
+
     c1->cd(2);
+    //if(i==0)hlambda[i]->Draw("eh");
+    //else hlambda[i]->Draw("ehsames");
     if(i==0)hlambda[i]->Draw("eh");
-    else hlambda[i]->Draw("ehsames");
+    if(i==2)hlambda[i]->Draw("ehsames");
+    if(i==7)hlambda[i]->Draw("ehsames");
     leg->Draw();
 
     c1->cd(3);
-    if(i==1)hratio[i]->Draw("eh");
-    else hratio[i]->Draw("ehsames");
+    if(i==2) hratio[i]->Draw("eh");
+    if(i==7) hratio[i]->Draw("ehsames");
     leg->Draw();
 
     c1->cd(4);
-    if(i==1)hq[i]->Draw("eh");
-    else hq[i]->Draw("ehsames");
+    if(i==2) hq[i]->Draw("eh");
+    if(i==7) hq[i]->Draw("ehsames");
     leg->Draw();
   }
 
-  hratio[1]->GetYaxis()->SetRangeUser(0.,2.);
+  
   //  hq[1]->GetYaxis()->SetRangeUser(0.,2.);
   c1->cd(2); gPad->SetLogy(); gPad->SetGridx(); gPad->SetGridy();
   c1->cd(3); gPad->SetGridx(); gPad->SetGridy();

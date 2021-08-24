@@ -107,6 +107,8 @@ Int_t AFP(){
   if(useMRfirst) thecut = thecut && MRcut;
   TCut thecut0;
 
+  
+
   TCanvas *c1 = new TCanvas("c1","",1200,800);
   c1->Divide(2,2);
   c1->cd(1);

@@ -134,14 +134,14 @@ namestr2[0]="20210714193654_list.root"; //M1 reflect (direct) 1hour
   namestr2[7]="20210714215803_list.root"; //760mV 276.2deg
   */
   double angledeg[num];
-  angledeg[0]=angle[0]*180./TMath::Pi();
-  angledeg[1]=angle[1]*180./TMath::Pi();
-  angledeg[2]=angle[2]*180./TMath::Pi();
-  angledeg[3]=angle[3]*180./TMath::Pi();
-  angledeg[4]=angle[4]*180./TMath::Pi();
-  angledeg[5]=angle[5]*180./TMath::Pi();
-  angledeg[6]=angle[6]*180./TMath::Pi();
-  angledeg[7]=angle[7]*180./TMath::Pi();
+  angledeg[0]=angle[0]*180./TMath::Pi()/2.;
+  angledeg[1]=angle[1]*180./TMath::Pi()/2.;
+  angledeg[2]=angle[2]*180./TMath::Pi()/2.;
+  angledeg[3]=angle[3]*180./TMath::Pi()/2.;
+  angledeg[4]=angle[4]*180./TMath::Pi()/2.;
+  angledeg[5]=angle[5]*180./TMath::Pi()/2.;
+  angledeg[6]=angle[6]*180./TMath::Pi()/2.;
+  angledeg[7]=angle[7]*180./TMath::Pi()/2.;
 
   TString degstr[num];
   TString degstr2[num];

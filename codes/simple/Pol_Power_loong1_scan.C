@@ -49,7 +49,7 @@ TTree* GetTree(TString filestr){
   return tup;
 }
 
-Int_t Pol_Power_30nm_inverse(){
+Int_t Pol_Power_long1_scan(){
 
   InitColor();
   TH1::SetDefaultSumw2();
@@ -75,6 +75,12 @@ Int_t Pol_Power_30nm_inverse(){
   TString namestr[num];
   TString namestr2[num];
   //off
+  //20210716220736_list_00
+  //Form("../../data_scans/%s_list_%02d.root",rootfile_num.Data(), iscan)
+  double  rootfile_num=20210716220736;
+  for(Int_t i=0; i<2; i++){
+    namestr[0]=Form("../../data_scans/%s_list_%02d.root",rootfile_num.Data(), iscan);
+
   namestr[0]="20210714193654_list.root";
   namestr[1]="20210715072653_list.root"; //1.97A Fe 30 nm, theta = 0.69 deg., x = 0.0 mm, B = 8 mT
   //namestr[2]="20210715075452_list.root"; //0A Fe 30 nm, theta = 0.69 deg. x = 0.0 mm , B = 0 mT

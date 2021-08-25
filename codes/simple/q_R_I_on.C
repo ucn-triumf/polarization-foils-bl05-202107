@@ -341,7 +341,7 @@ Int_t q_R_I_on(){
     hq[i]->GetYaxis()->SetRangeUser(0.,1.);
     hq[i]->GetXaxis()->SetRangeUser(0.1,0.9);
 
-    cout<<"in_"<<angle[i]<<"_deg"<<endl;
+    cout<<"in_"<<angledeg[i]<<"_deg"<<endl;
   }
 
   hratio[1]->GetYaxis()->SetRangeUser(0.,2.);

@@ -129,6 +129,14 @@ Int_t Pol_Power_50nm(){
   //angle2[5] = TMath::Abs(47.21 - xdirect)/dist_det; //rad
   //angle2[6] = TMath::Abs(47.11 - xdirect)/dist_det; //rad
 
+  Double_t angledeg[num];
+  Double_t angledeg2[num];
+  
+  angledeg[0]=angle[0]*180./TMath::Pi()/2.;
+  angledeg[1]=angle[1]*180./TMath::Pi()/2.;
+  angledeg[2]=angle[2]*180./TMath::Pi()/2.;
+  
+
   //  TLegend* leg = new TLegend(0.15, 0.75, 0.4, 0.98,"");
   //TLegend* leg = new TLegend(0.70, 0.20, 0.98, 0.70,"Fe 30 nm OFF");
   //TLegend* leg2 = new TLegend(0.70, 0.20, 0.98, 0.70,"Fe 30 nm ON");
@@ -337,6 +345,7 @@ Int_t Pol_Power_50nm(){
     hq2[i]->GetYaxis()->SetRangeUser(1.e-3,2.);
     // hq[i]->SaveAs(path_R + Form("hq_off_%d.root", i));
     // hq2[i]->SaveAs(path_R + Form("hq_on_%d.root", i));
+    cout<<"in_"<<angledeg[i]<<"_deg"<<endl;
   }
 
   const Int_t num_pol = 3;

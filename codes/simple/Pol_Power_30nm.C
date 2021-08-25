@@ -133,6 +133,18 @@ Int_t Pol_Power_30nm(){
   angle2[5] = TMath::Abs(47.21 - xdirect)/dist_det; //rad
   angle2[6] = TMath::Abs(47.11 - xdirect)/dist_det; //rad
 
+  Double_t angledeg[num];
+  Double_t angledeg2[num];
+  
+  angledeg[0]=angle[0]*180./TMath::Pi()/2.;
+  angledeg[1]=angle[1]*180./TMath::Pi()/2.;
+  angledeg[2]=angle[2]*180./TMath::Pi()/2.;
+  angledeg[3]=angle[3]*180./TMath::Pi()/2.;
+  angledeg[4]=angle[4]*180./TMath::Pi()/2.;
+  angledeg[5]=angle[5]*180./TMath::Pi()/2.;
+  angledeg[6]=angle[6]*180./TMath::Pi()/2.;
+  angledeg[7]=angle[7]*180./TMath::Pi()/2.;
+
   //  TLegend* leg = new TLegend(0.15, 0.75, 0.4, 0.98,"");
   //TLegend* leg = new TLegend(0.70, 0.20, 0.98, 0.70,"Fe 30 nm OFF");
   //TLegend* leg2 = new TLegend(0.70, 0.20, 0.98, 0.70,"Fe 30 nm ON");
@@ -361,6 +373,8 @@ Int_t Pol_Power_30nm(){
     if(i!=0){
     // g1->Draw("AP");
     //leg->Draw();
+
+    
     }
 /*
     c1->cd(3);
@@ -381,7 +395,7 @@ Int_t Pol_Power_30nm(){
     
 
 
-    
+    cout<<"in_"<<angledeg[i]<<"_deg"<<endl;
 
   }
 

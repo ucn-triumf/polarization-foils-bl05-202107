@@ -17,22 +17,15 @@ void CheckKPBoundary(Int_t kpmin, Int_t kpmax) {
   const TString scan_path = "codes/cut_scans/gatenetlog_edit/";
   const TString result_path = "results/check_scans/";
   
-  // Error: "kp_head_v(9) and kp_tail_v(8) have different size()"
-  // const TString rootfile_num    = data_path + "20210717024407"; 
-  // const TString scan_name = "scan20210713_flipper_agilent_scan_rough_4"; 
-  // const TString scan_name = "scan20210713_flipper_agilent_scan_rough_4_mod"; //this combination looked OK
   
-  //Error: p_head_v(12) and kp_tail_v(11) have different size(), solved by editing 
-  // const TString rootfile_num    = data_path + "20210717002421"; //this combination looked OK
-  // const TString scan_name = "scan20210713_flipper_agilent_scan_rough_2_mod"; //this combination looked OK
-  
-  //this combination looked OK, stopped during the last measurement?
-  // const TString rootfile_num    = data_path + "20210716235619"; 
-  // const TString scan_name = "scan20210713_flipper_agilent_scan_rough_1"; 
-  
-  // Scan of 30 nm sample
-  const TString rootfile_num = data_path + "20210716220736";
-  const TString scan_name = "scan20210713_flipper_agilent_scan_long_1";
+  // Scan of 30 nm sample (1) 
+  const TString rootfile_num = data_path + "20210716210153";
+  const TString scan_name = "scan20210713_flipper_agilent_scan_1";
+
+  // Scan of 30 nm sample (2) 
+  // const TString rootfile_num = data_path + "20210716220736";
+  // const TString scan_name = "scan20210713_flipper_agilent_scan_long_1";
+
   // Scan of 90 nm sample
   // const TString rootfile_num    = data_path + "20210717030252";
   // const TString scan_name = "scan20210713_flipper_agilent_scan_fine_3";
@@ -135,7 +128,7 @@ void CheckKPBoundary(Int_t kpmin, Int_t kpmax) {
   // }
   c->Update();
   // c->SaveAs(result_path + scan_name + Form("_%d.png", iscan));
-  c->SaveAs(result_path + scan_name + "_%d.png");
+  c->SaveAs(result_path + scan_name + ".png");
 }
 
 void CheckKPBoundary() {

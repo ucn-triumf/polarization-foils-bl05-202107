@@ -36,8 +36,8 @@ TTree* GetTree(TString filestr){
 
   TString ROOTstr = filestr(0,19);//filestr　ファイルを番号によって読むものを変える
   ROOTstr += ".root";
-  TString path = "data/210713_SiFe/";
-  //TString path = "data_scans/";
+  // TString path = "data/210713_SiFe/";
+  TString path = "data_scans/";
   TString ROOTstr_path = path+ROOTstr;
   TFile *file = TFile::Open(ROOTstr_path.Data());
 
@@ -55,7 +55,7 @@ Int_t Pol_Power_loong1_scan(){
   InitColor();
   TH1::SetDefaultSumw2();
 
-  const Int_t num = 3;
+  const Int_t num = 3; // this should be the half of the number of the files obtained by the scan 
   Int_t kp[num];
   Int_t kp2[num];
   TTree* tup[num];

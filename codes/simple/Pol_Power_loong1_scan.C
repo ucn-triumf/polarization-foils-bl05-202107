@@ -37,6 +37,7 @@ TTree* GetTree(TString filestr){
   TString ROOTstr = filestr(0,19);//filestr　ファイルを番号によって読むものを変える
   ROOTstr += ".root";
   TString path = "data/210713_SiFe/";
+  //TString path = "data_scans/";
   TString ROOTstr_path = path+ROOTstr;
   TFile *file = TFile::Open(ROOTstr_path.Data());
 
@@ -49,12 +50,12 @@ TTree* GetTree(TString filestr){
   return tup;
 }
 
-Int_t Pol_Power_long1_scan(){
+Int_t Pol_Power_loong1_scan(){
 
   InitColor();
   TH1::SetDefaultSumw2();
 
-  const Int_t num = 7;
+  const Int_t num = 3;
   Int_t kp[num];
   Int_t kp2[num];
   TTree* tup[num];
@@ -78,8 +79,25 @@ Int_t Pol_Power_long1_scan(){
   //20210716220736_list_00
   //Form("../../data_scans/%s_list_%02d.root",rootfile_num.Data(), iscan)
   double  rootfile_num=20210716220736;
-  for(Int_t i=0; i<2; i++){
-    namestr[0]=Form("../../data_scans/%s_list_%02d.root",rootfile_num.Data(), iscan);
+  //0FF
+  
+  for(Int_t i=0; i<num-1; i++){
+    int iscan=i*2+1;
+    if(i==0)namestr[0]="20210714193654_list.root";
+    else{
+      namestr[i]=Form("../../data_scans/%f_list_%02d.root",rootfile_num, iscan);
+    }
+  }
+  //ON
+  for(Int_t i=0; i<num-1; i++){
+    int iscan=i*2;
+    if(i==0)namestr[0]="20210714193654_list.root";
+    else{
+      namestr2[i]=Form("../../data_scans/%f_list_%02d.root",rootfile_num, iscan);
+    }
+  }
+
+/*
 
   namestr[0]="20210714193654_list.root";
   namestr[1]="20210715072653_list.root"; //1.97A Fe 30 nm, theta = 0.69 deg., x = 0.0 mm, B = 8 mT
@@ -98,26 +116,26 @@ Int_t Pol_Power_long1_scan(){
   namestr2[4]="20210715085714_list.root"; //Fe 30 nm, theta = 0.69 deg., x = 0.0 mm, B = 1.5 mT from -8 mT  with AFP 760 mV
   namestr2[5]="20210715083141_list.root"; 
   namestr2[6]="20210715084052_list.root";
- 
+ */
   TString degstr[num];
   TString degstr2[num];
   //off
   degstr[0]="Direct(M1 reflect)";
-  degstr[1]="B = 8.01 mT";
-  degstr[2]="B = 0.322 mT";
-  degstr[3]="B = 0.908 mT";
-  degstr[4]="B = 1.35 mT";
-  degstr[5]="B = 1.80 mT";
-  degstr[6]="B = 2.66 mT";
+  degstr[1]="B = -0.34 mT";
+  degstr[2]="B = 8.13 mT";
+  //degstr[3]="B = 0.908 mT";
+  //degstr[4]="B = 1.35 mT";
+  //degstr[5]="B = 1.80 mT";
+  //degstr[6]="B = 2.66 mT";
 
   //on
   degstr2[0]="Direct(M1 reflect)";
-  degstr2[1]="B = 8.01 mT";
-  degstr2[2]="B = 0.322 mT";
-  degstr2[3]="B = 0.908 mT";
-  degstr2[4]="B = 1.35 mT";
-  degstr2[5]="B = 1.80 mT";
-  degstr2[6]="B = 2.66 mT";
+  degstr2[1]="B = -0.34 mT";
+  degstr2[2]="B = 8.13 mT";
+  //degstr2[3]="B = 0.908 mT";
+  //degstr2[4]="B = 1.35 mT";
+  //degstr2[5]="B = 1.80 mT";
+  //degstr2[6]="B = 2.66 mT";
   
 
   Double_t angle[num];
@@ -126,18 +144,18 @@ Int_t Pol_Power_long1_scan(){
   angle[1] = TMath::Abs(47.1868 - xdirect)/dist_det; //rad 47.1868
   //angle[2] = TMath::Abs(47.09 - xdirect)/dist_det; //rad
   angle[2] = TMath::Abs(47.04 - xdirect)/dist_det; //rad
-  angle[3] = TMath::Abs(47.2 - xdirect)/dist_det; //rad
-  angle[4] = TMath::Abs(47.2 - xdirect)/dist_det; //rad
-  angle[5] = TMath::Abs(47.2 - xdirect)/dist_det; //rad
-  angle[6] = TMath::Abs(47.2 - xdirect)/dist_det; //rad
+  //angle[3] = TMath::Abs(47.2 - xdirect)/dist_det; //rad
+  //angle[4] = TMath::Abs(47.2 - xdirect)/dist_det; //rad
+  //angle[5] = TMath::Abs(47.2 - xdirect)/dist_det; //rad
+  //angle[6] = TMath::Abs(47.2 - xdirect)/dist_det; //rad
 
   angle2[0] = TMath::Abs(70.5 - xdirect)/dist_det; //rad
   angle2[1] = TMath::Abs(47.07 - xdirect)/dist_det; //rad
   angle2[2] = TMath::Abs(47.1 - xdirect)/dist_det; //rad
-  angle2[3] = TMath::Abs(47.19 - xdirect)/dist_det; //rad
-  angle2[4] = TMath::Abs(47.24 - xdirect)/dist_det; //rad
-  angle2[5] = TMath::Abs(47.21 - xdirect)/dist_det; //rad
-  angle2[6] = TMath::Abs(47.11 - xdirect)/dist_det; //rad
+  //angle2[3] = TMath::Abs(47.19 - xdirect)/dist_det; //rad
+  //angle2[4] = TMath::Abs(47.24 - xdirect)/dist_det; //rad
+  //angle2[5] = TMath::Abs(47.21 - xdirect)/dist_det; //rad
+  //angle2[6] = TMath::Abs(47.11 - xdirect)/dist_det; //rad
 
   Double_t angledeg[num];
   Double_t angledeg2[num];
@@ -145,11 +163,11 @@ Int_t Pol_Power_long1_scan(){
   angledeg[0]=angle[0]*180./TMath::Pi()/2.;
   angledeg[1]=angle[1]*180./TMath::Pi()/2.;
   angledeg[2]=angle[2]*180./TMath::Pi()/2.;
-  angledeg[3]=angle[3]*180./TMath::Pi()/2.;
-  angledeg[4]=angle[4]*180./TMath::Pi()/2.;
-  angledeg[5]=angle[5]*180./TMath::Pi()/2.;
-  angledeg[6]=angle[6]*180./TMath::Pi()/2.;
-  angledeg[7]=angle[7]*180./TMath::Pi()/2.;
+  //angledeg[3]=angle[3]*180./TMath::Pi()/2.;
+  //angledeg[4]=angle[4]*180./TMath::Pi()/2.;
+  //angledeg[5]=angle[5]*180./TMath::Pi()/2.;
+  //angledeg[6]=angle[6]*180./TMath::Pi()/2.;
+  //angledeg[7]=angle[7]*180./TMath::Pi()/2.;
 
   //  TLegend* leg = new TLegend(0.15, 0.75, 0.4, 0.98,"");
   //TLegend* leg = new TLegend(0.70, 0.20, 0.98, 0.70,"Fe 30 nm OFF");
@@ -453,14 +471,14 @@ Int_t Pol_Power_long1_scan(){
   // Double_t q_cuts[num_pol] = {0.2, 0.25, 0.3, 0.35, 0.4};
   Double_t q_cuts[num_pol] = {0.25, 0.3, 0.35};
   
-  Double_t B[num-1] = {8.01,0.322,0.908,1.35,1.80,2.66};
+  Double_t B[num-1] = {-0.34,-8.13};//{8.01,0.322,0.908,1.35,1.80,2.66};
   // Double_t q_cuts[num_pol] = {0.2, 0.25, 0.3, 0.35, 0.4};
   Double_t pol_at_qcut[num-1];
   Double_t error_pol_at_qcut[num-1];
 
   Double_t ibin_pol[num_pol];
 
-  ofstream ofs(path_R+"30nm_mT_P.csv");  
+  ofstream ofs(path_R+"long1_mT_P.csv");  
   c1->cd(4); 
   TLegend *leg4 = new TLegend(0.8, 0.8, 0.95, 1, "");
   // leg4->SetFillStyle(0);

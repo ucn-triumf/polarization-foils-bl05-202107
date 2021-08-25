@@ -141,9 +141,9 @@ Int_t Pol_Power_50nm_inverse(){
   //TLegend* leg = new TLegend(0.70, 0.20, 0.98, 0.70,"Fe 30 nm OFF");
   //TLegend* leg2 = new TLegend(0.70, 0.20, 0.98, 0.70,"Fe 30 nm ON");
   //TLegend* leg3 = new TLegend(0.70, 0.20, 0.98, 0.70,"Fe 30 nm (OFF-ON)/(OFF+ON)");
-  TLegend* leg = new TLegend(0.8, 0.20, 1.0, 0.70,"Fe 30 nm OFF");
-  TLegend* leg2 = new TLegend(0.8, 0.20, 1.0, 0.70,"Fe 30 nm ON");
-  TLegend* leg3 = new TLegend(0.8, 0.20, 1.0, 0.70,"Fe 30 nm ");
+  TLegend* leg = new TLegend(0.8, 0.20, 1.0, 0.70,"Fe 50 nm OFF");
+  TLegend* leg2 = new TLegend(0.8, 0.20, 1.0, 0.70,"Fe 50 nm ON");
+  TLegend* leg3 = new TLegend(0.8, 0.20, 1.0, 0.70,"Fe 50 nm ");
   leg->SetFillColor(0);
 
   Int_t nbin = 512;
@@ -317,6 +317,17 @@ Int_t Pol_Power_50nm_inverse(){
     else hq[i]->Draw("ehsames");
     // if(i==1)hq[i]->Draw("ah");
     // else hq[i]->Draw("ahsames");
+    double q_max=0.5;
+
+    TBox* b = new TBox(0.287,0,0.5,2.); 
+    b->SetFillColor( 7 ); 
+    b->SetFillStyle(3004); 
+    b->Draw(); 
+    TBox* b1 = new TBox(0.15,0,0.173,2.); 
+    b1->SetFillColor( kOrange ); 
+    b1->SetFillStyle(3004); 
+    b1->Draw("same");
+
     leg->Draw();
     }
 
@@ -326,13 +337,40 @@ Int_t Pol_Power_50nm_inverse(){
     else hq2[i]->Draw("ehsames");
     // if(i==1)hq2[i]->Draw("ah");
     // else hq2[i]->Draw("ahsames");
+    
+
+    double ymax=2.;//gPad->GetUymax();
+    double ymin=0.;//gPad->GetUymin();
+    double xmax1=0.2;
+    double xmin1=0.4;
+
+    TBox* b2 = new TBox(0.287,0,0.5,2.); 
+    b2->SetFillColor( 7  ); 
+    b2->SetFillStyle(3004); 
+    b2->Draw();
+    TBox* b3 = new TBox(0.15,0,0.173,2.); 
+    b3->SetFillColor( kOrange); 
+    b3->SetFillStyle(3004); 
+    b3->Draw("same"); 
+
     leg2->Draw();
+
     }
 
     c1->cd(3);
     if(i!=0){
     if(i==1)hpolratio[i]->Draw("eh");
     else hpolratio[i]->Draw("ehsames");
+    
+
+    TBox* b4 = new TBox(0.15,-1.,0.173,1.); 
+    b4->SetFillColor( kOrange ); 
+    b4->SetFillStyle(3004); 
+    b4->Draw();
+    TBox* b5 = new TBox(0.287,-1.,0.5,1.); 
+    b5->SetFillColor(7); 
+    b5->SetFillStyle(3004); 
+    b5->Draw("same");
     leg3->Draw();
     }
 

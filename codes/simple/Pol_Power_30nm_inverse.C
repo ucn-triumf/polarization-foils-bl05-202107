@@ -289,7 +289,7 @@ Int_t Pol_Power_30nm_inverse(){
     hpolratio2[i]=(TH1F*)hq[i]->Clone(Form("hpolratio2%d",i));
     hpolratio2[i]->Add(hq[i], hq2[i],1., 1.); // hq: OFF, hq2: ON, calculate Non + Noff
     hpolratio[i]->Divide(hpolratio2[i]);
-    hpolratio[i]->GetYaxis()->SetTitle("Polarization power (R_{on}-R_{off})/(R_{on}+R_{off})");
+    hpolratio[i]->GetYaxis()->SetTitle("Polarization power (R_{off}-R_{on})/(R_{off}+R_{on})");
     hpolratio[i]->SetTitle("Polarization power");
 
     // double pol_array[num];
@@ -341,33 +341,74 @@ Int_t Pol_Power_30nm_inverse(){
     else hpolratio2[i]->Draw("ehsames");
     leg->Draw();
  */  
+    double qm=0.5;
+    double ymax=2.;//gPad->GetUymax();
+    double ymin=0.;//gPad->GetUymin();
+    double xmax1=0.2;
+    double xmin1=0.4;
     c1->cd(1);
     if(i!=0){
-     hq[i]->SetStats(0);  
-     if(i==1)hq[i]->Draw("eh");
-     else hq[i]->Draw("ehsames");
-    // if(i==1)hq[i]->Draw("ah");
-    // else hq[i]->Draw("ahsames");
-     leg->Draw();
+      
+
+      TBox* b = new TBox(0.287,0,qm,2); 
+      b->SetFillColor( 7 ); 
+      b->SetFillStyle(3004); 
+      b->Draw(); 
+      TBox* b1 = new TBox(0.15,0,0.173,2); 
+      b1->SetFillColor( kOrange ); 
+      b1->SetFillStyle(3004); 
+      b1->Draw("same");
+      leg->Draw();
+      hq[i]->SetStats(0);  
+      if(i==1)hq[i]->Draw("eh");
+      else hq[i]->Draw("ehsames");
+      // if(i==1)hq[i]->Draw("ah");
+      // else hq[i]->Draw("ahsames");
+     
+    
     }
 
     c1->cd(2);
     if(i!=0){
-     hq2[i]->SetStats(0);
+     
+
+      TBox* b2 = new TBox(0.287,0,qm,2.); 
+      b2->SetFillColor( 7  ); 
+      b2->SetFillStyle(3004); 
+      b2->Draw();
+      TBox* b3 = new TBox(0.15,0,0.173,2.); 
+      b3->SetFillColor( kOrange); 
+      b3->SetFillStyle(3004); 
+      b3->Draw("same"); 
+      leg2->Draw();
+      hq2[i]->SetStats(0);
+     
      if(i==1)hq2[i]->Draw("eh");
      else hq2[i]->Draw("ehsames");
     // if(i==1)hq2[i]->Draw("ah");
     // else hq2[i]->Draw("ahsames");
-     leg2->Draw();
+    
+
+    
+    
     }
+    
 
     c1->cd(3);
     if(i!=0){
+      TBox* b4 = new TBox(0.15,-1.2,0.173,1.2); 
+      b4->SetFillColor( kOrange ); 
+      b4->SetFillStyle(3004); 
+      b4->Draw();
+      TBox* b5 = new TBox(0.287,-1.2,qm,1.2); 
+      b5->SetFillColor(7); 
+      b5->SetFillStyle(3004); 
+      b5->Draw("same");
       hpolratio[i]->SetStats(0);
-    if(i==1)hpolratio[i]->Draw("eh");
-    else hpolratio[i]->Draw("ehsames");
-    leg3->Draw();
+      if(i==1)hpolratio[i]->Draw("eh");
+      else hpolratio[i]->Draw("ehsames");
 
+    leg3->Draw();
     }
 
     c1->cd(4);

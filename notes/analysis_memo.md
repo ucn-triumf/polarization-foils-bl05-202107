@@ -139,6 +139,7 @@ List of measurements with AFP-SF ON
 
   | Fe thickness | Scan log                                     | Run#           | Comment                                                      |
   | ------------ | -------------------------------------------- | -------------- | ------------------------------------------------------------ |
+  | 30 nm        | scan20210713_flipper_agilent_scan_1          | 20210716210153 |                                                              |
   | 30 nm        | scan20210713_flipper_agilent_scan_long_1     | 20210716220736 |                                                              |
   | 50 nm        | scan20210713_flipper_agilent_scan_fine_5_mod | 20210717061701 | The first end was missing -> complemented. The last start was removed |
   | 90 nm        | scan20210713_flipper_agilent_scan_fine_3     | 20210717030252 |                                                              |

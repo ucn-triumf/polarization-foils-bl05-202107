@@ -72,12 +72,12 @@ Int_t M2_AFP_Pol(){
   degstr[0]="Direct(M1 reflect)";
   degstr[1]="M2 reflect(0.49 deg.)";
   //  degstr[2]="M2 reflect(1.00 deg.)";
-  degstr[2]="M2 reflect(0.48 deg.) with AFP 760 mV";
+  degstr[2]="M2 reflect(0.48 deg.) with SF 760 mV";
   degstr[3]="M2 reflect(0.49 deg.) with AFP 300 mV";
   degstr[4]="M2 reflect(0.49 deg.) with AFP 500 mV";
   degstr[5]="M2 reflect(0.49 deg.) with AFP 760 mV";
   degstr[6]="M2 reflect(0.49 deg.) with AFP 1000 mV";
-  degstr[7]="M2 reflect(0.48 deg.) with AFP OFF ";
+  degstr[7]="M2 reflect(0.48 deg.) with SF OFF ";
 
   Double_t angle[num];
   /*
@@ -220,6 +220,7 @@ Int_t M2_AFP_Pol(){
     if(i==0)hx[i]->Draw("eh");
     if(i==2)hx[i]->Draw("ehsames");
     if(i==7)hx[i]->Draw("ehsames");
+    hx[i]->SetTitle("");
     leg->Draw();
 
     c1->cd(2);
@@ -228,18 +229,71 @@ Int_t M2_AFP_Pol(){
     if(i==0)hlambda[i]->Draw("eh");
     if(i==2)hlambda[i]->Draw("ehsames");
     if(i==7)hlambda[i]->Draw("ehsames");
+    hlambda[i]->SetTitle("");
     leg->Draw();
+
+    //double ymax=gPad->GetUymax();
+    //double ymin=gPad->GetUymin();
+    TBox* b = new TBox(0.24,0,0.53,32.); 
+    b->SetFillColor( 7 ); 
+    b->SetFillStyle(3004); 
+    b->Draw(); 
+    TBox* b1 = new TBox(0.875,0,1.1,32.); 
+    b1->SetFillColor( kOrange ); 
+    b1->SetFillStyle(3004); 
+    b1->Draw("same"); 
 
     c1->cd(3);
     if(i==2) hratio[i]->Draw("eh");
     if(i==7) hratio[i]->Draw("ehsames");
+    hratio[i]->SetTitle("");
     leg->Draw();
+
+    double ymax=2.;//gPad->GetUymax();
+    double ymin=0.;//gPad->GetUymin();
+    double xmax1=0.2;
+    double xmin1=0.4;
+
+    TBox* b2 = new TBox(0.25,0,0.53,ymax); 
+    b2->SetFillColor( 7  ); 
+    b2->SetFillStyle(3004); 
+    b2->Draw();
+    TBox* b3 = new TBox(0.875,0,1.1,ymax); 
+    b3->SetFillColor( kOrange); 
+    b3->SetFillStyle(3004); 
+    b3->Draw("same"); 
 
     c1->cd(4);
     if(i==2) hq[i]->Draw("eh");
     if(i==7) hq[i]->Draw("ehsames");
     if(i==7) hpolratio[i]->Draw("ehsames");
+    hq[i]->SetTitle("");
     leg->Draw();
+
+    TBox* b4 = new TBox(0.096,0,0.12,ymax); 
+    b4->SetFillColor( kOrange ); 
+    b4->SetFillStyle(3004); 
+    b4->Draw();
+    TBox* b5 = new TBox(0.2,0,0.42,ymax); 
+    b5->SetFillColor(7); 
+    b5->SetFillStyle(3004); 
+    b5->Draw("same");
+
+    
+
+    /*
+    TLine *l1;
+    l1=new TLine(xmin1, ymin, xmin1, ymax);
+    TLine *l2;
+    l2=new TLine(xmax1, ymin, xmax1, ymax);
+
+    l1->SetLineColor(2);
+    l2->SetLineColor(2);
+    l1->Draw("same");
+    l2->Draw("same");
+    */
+
+    
   }
 
   

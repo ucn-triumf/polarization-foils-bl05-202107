@@ -183,7 +183,7 @@ Int_t Pol_Power_50nm_single(){
   TCut thecut0;
 
   TCanvas *c1 = new TCanvas("c1","",1200,800);
-  c1->Divide(2,2);
+  //c1->Divide(2,2);
   c1->cd(1);
   
 
@@ -316,12 +316,17 @@ Int_t Pol_Power_50nm_single(){
     // if(i==1)hq[i]->Draw("ah");
     // else hq[i]->Draw("ahsames");
     //leg->Draw();
+
+
     }
 
     c1->cd(2);
     if(i!=0){
-    if(i==1)hq2[i]->Draw("eh");
-    else hq2[i]->Draw("ehsames");
+    if(i==2){
+      hq2[i]->SetLineColor(kGreen);
+      hq2[i]->Draw();
+      }
+    //else hq2[i]->Draw("ehsames");
     // if(i==1)hq2[i]->Draw("ah");
     // else hq2[i]->Draw("ahsames");
     //leg2->Draw();
@@ -329,9 +334,11 @@ Int_t Pol_Power_50nm_single(){
 
     c1->cd(3);
     if(i!=0){
-    if(i==1)hpolratio[i]->Draw("eh");
-    else hpolratio[i]->Draw("ehsames");
+    //if(i==1)hpolratio[i]->Draw("eh");
+    //else hpolratio[i]->Draw("ehsames");
     //leg3->Draw();
+  
+
     }   
     
     hpolratio[i]->GetXaxis()->SetRangeUser(q_min,q_max);

@@ -125,11 +125,32 @@ List of measurements with AFP-SF ON
 | scan20210713_flipper_agilent_scan_fine_3  | 20210717030252 | 90 nm    | 0.295           | 0.325         | 0.005      | ON/OFF    | Wait: 240 s / kp 6000                                        |
 | scan20210713_flipper_agilent_scan_rough_5 | 20210717050342 | 50 nm    | 0.19            | 0.36          | 0.01       | OFF       | Wait: 20 s / kp 500                                          |
 | scan20210713_flipper_agilent_scan_rough_6 | 20210717054010 | 50 nm    | 0.23            | 0.262         | 0.002      | OFF       | Creation time of the scan file is 05:21. Due to the beam stop? Wait: 20 s/kp 500 |
-| scan20210713_flipper_agilent_scan_fine_5  | 20210717061701 | 50 nm    | 0.23            | 0.25          | 0.002      | ON/OFF    | Manually stopped at 07:25                                    |
-|                                           |                |          |                 |               |            |           |                                                              |
-|                                           |                |          |                 |               |            |           |                                                              |
-|                                           |                |          |                 |               |            |           |                                                              |
-|                                           |                |          |                 |               |            |           |                                                              |
+| scan20210713_flipper_agilent_scan_fine_5  | 20210717061701 | 50 nm    | 0.23            | 0.25          | 0.002      | ON/OFF    | Manually stopped at 07:25        | 
 
-​	
+
+
+### Scan export
+
+- Use this command to export individual root file from scan root file. The resultant root files are saved under data_scans/ 
+
+  >  sh  codes/cut_scans/run_makeelist_TH.sh 
+
+- The scan log fie used for exporting is listed in the table below (also written in the bash script)
+
+  | Fe thickness | Scan log                                     | Run#           | Comment                                                      |
+  | ------------ | -------------------------------------------- | -------------- | ------------------------------------------------------------ |
+  | 30 nm        | scan20210713_flipper_agilent_scan_long_1     | 20210716220736 |                                                              |
+  | 50 nm        | scan20210713_flipper_agilent_scan_fine_5_mod | 20210717061701 | The first end was missing -> complemented. The last start was removed |
+  | 90 nm        | scan20210713_flipper_agilent_scan_fine_3     | 20210717030252 |                                                              |
+  |              |                                              |                |                                                              |
+  |              |                                              |                |                                                              |
+  |              |                                              |                |                                                              |
+  |              |                                              |                |                                                              |
+  |              |                                              |                |                                                              |
+  |              |                                              |                |                                                              |
+  |              |                                              |                |                                                              |
+
+  
+
+
 

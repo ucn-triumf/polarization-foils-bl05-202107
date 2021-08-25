@@ -7,6 +7,7 @@
 #include <TH1.h>
 #include <TH2.h>
 #include "RPMT.h"
+#include "TCanvas.h"
 
 // void DrawOneScan(TString rootfile_num ="20210612181251", Int_t iscan = 44*10+10) {
 // void DrawOneScan(TString rootfile_num ="20210613082746", Int_t iscan = 24+44*19) {
@@ -26,12 +27,17 @@ void DrawOneScan(TString rootfile_num ="20210714000204", Int_t iscan = 5) {
   c_xy->Update();
   TCanvas *c_tof = new TCanvas();
   TH1D *h_tof = new TH1D("h_tof","TOF",400,0.,40.);
-  tree->Draw("tof*1e-3>>h_tof",
-	     cut_rpmt*TCut(Form("%f",1./time)), "colz");
-  c_tof->Update();
-
+    tree->Draw("tof*1e-3>>h_tof",
+         cut_rpmt*TCut(Form("%f",1./time)), "colz");
+  // tree->Draw("tof*1e-3>>h_tof",
+	    //  TCut(Form("%f",1./time)), "colz");
+c_tof->Update();
+  Double_t tree_size = tree->GetEntries();
+  std::cout << tree_size << std::endl;
   const Double_t sum  = h_xy->GetSumOfWeights();
   std::cout << "sum: "  << sum      << std::endl;
   std::cout << "time: " << time     << " s"   << std::endl;
   std::cout << "rate: " << sum/time << " cps" << std::endl;
+  TTree *T =tree->CopyTree("");
+  T->SaveAs(Form("../../data_scans/%s_list_%02d.root",rootfile_num.Data(), iscan));
 }

@@ -8,6 +8,9 @@
 #include "TStyle.h"
 
 void CheckKPBoundary(Int_t kpmin, Int_t kpmax) {
+  kpmin=0;
+  kpmax=100000;
+
   gStyle->SetOptStat("irmen");
   const TString data_path = "data/210713_SiFe/";
   // const TString scan_path = "data/gatenetlog/";
@@ -26,6 +29,18 @@ void CheckKPBoundary(Int_t kpmin, Int_t kpmax) {
   //this combination looked OK, stopped during the last measurement?
   // const TString rootfile_num    = data_path + "20210716235619"; 
   // const TString scan_name = "scan20210713_flipper_agilent_scan_rough_1"; 
+  
+  // Scan of 30 nm sample
+  const TString rootfile_num = data_path + "20210716220736";
+  const TString scan_name = "scan20210713_flipper_agilent_scan_long_1";
+  // Scan of 90 nm sample
+  // const TString rootfile_num    = data_path + "20210717030252";
+  // const TString scan_name = "scan20210713_flipper_agilent_scan_fine_3";
+
+  // Scan of 50 nm sample
+  // const TString rootfile_num    = data_path + "20210717061701";
+  // const TString scan_name = "scan20210713_flipper_agilent_scan_fine_5_mod";
+
 
   // Example input
   // const TString rootfile_num    = data_path + "20210714000204";
@@ -37,6 +52,7 @@ void CheckKPBoundary(Int_t kpmin, Int_t kpmax) {
   TCut cut_rpmt = "f==4";
   TCut cut_bm   = "ch==4";
   TCut cut_tof  = "tof>1.0e3";
+  TCut cut_x = "x*128<55";
   const Double_t xmax      = 128.0;
   const Double_t ymax      = 128.0;
   const Double_t tmax      = 40.0;
@@ -63,9 +79,9 @@ void CheckKPBoundary(Int_t kpmin, Int_t kpmax) {
     // TLine *line_kp_tail = new TLine(kp_tail_v.at(i), 0.,
     // 				    kp_tail_v.at(i), tmax);
     TLine *line_kp_head = new TLine(kp_head_v.at(i), 0.,
-				    kp_head_v.at(i), 100);
+				    kp_head_v.at(i), 1000);
     TLine *line_kp_tail = new TLine(kp_tail_v.at(i), 0.,
-				    kp_tail_v.at(i), 100);
+				    kp_tail_v.at(i), 1000);
     line_kp_head->SetLineColor(kBlack);
     line_kp_tail->SetLineColor(kRed);
     arr_line_kp->Add(line_kp_head);
@@ -90,10 +106,18 @@ void CheckKPBoundary(Int_t kpmin, Int_t kpmax) {
     line->Draw();
   }
   c->cd(2);
+  // tree_whole->Draw(Form("kp-%d>>h2(%d, %d, %d)",
+  //                       kpmin, (kpmax-kpmin)/10, 0, kpmax-kpmin),
+  //                  cut_rpmt && cut_tof && Form("kp>=%d", kpmin) &&Form("kp<=%d", kpmax),
+  //                  "eh");
   tree_whole->Draw(Form("kp-%d>>h2(%d, %d, %d)",
-                        kpmin, (kpmax-kpmin)/10, 0, kpmax-kpmin),
-                   cut_rpmt && cut_tof && Form("kp>=%d", kpmin) &&Form("kp<=%d", kpmax),
+                        kp_head_v[0], (kpmax-kpmin)/1000, 0, kpmax-kpmin),
+                   "1/6000" && cut_rpmt && cut_tof && cut_x && Form("kp>=%d", kpmin) &&Form("kp<=%d", kpmax),
                    "eh");
+   for (Int_t i = 0; i < arr_line_kp->GetEntries(); i++) {
+    TLine *line = (TLine*)arr_line_kp->At(i);
+    line->Draw();
+  }
   // tree_whole->Draw(Form("kp-%d>>h2(%d, %d, %d)",
   //                       kpmin, (kpmax-kpmin)/10, 0, kpmax-kpmin),
   //                  cut_bm && cut_tof && Form("kp>=%d", kpmin) &&Form("kp<=%d", kpmax),

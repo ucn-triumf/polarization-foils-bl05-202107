@@ -1,3 +1,4 @@
+#include "../bin/MakeNiki.h"
 #include <iostream> 
 #include <fstream>
 #include "TStyle.h"
@@ -34,7 +35,6 @@ int loadCSV() {
     cout << str << endl; // print out the first row
     while (getline(fcsv, str))
     {
-    
     // while(!incsv.eof()) {
     // if (i_csv>0){
        Int_t index;     
@@ -46,12 +46,14 @@ int loadCSV() {
         vec_index.push_back(index); 
         vec_I.push_back(current);
         vec_H.push_back(magfield);
-        cout << " " << index
-    	 << " " << current
-          << " " << magfield << endl;
+        // cout << " " << index
+    	//  << " " << current
+        //   << " " << magfield << endl;
         // }
     // i_csv++;
   }
+  cout << vec_index[0] << endl;
+  cout << vec_I[0] << endl;
 
  return 0;   // ifstream infile("results/30nm_mT_P.csv")
 }

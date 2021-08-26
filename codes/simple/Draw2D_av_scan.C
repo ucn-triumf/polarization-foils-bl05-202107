@@ -16,16 +16,10 @@
 #include "../../tools/ichikawa/RPMT.h"
 #include "../../tools/ichikawa/NikiControllerX.C"
 
-// TString path_R = "results/"; // path to the results directory 
-// TString path_D = "data/210713_SiFe/"; // path to the data directory 
-// //TString rootfile  = "20210714185238_list.root"; // name of the target root file
-// //TString rootfile  = "_list.root"; // name of the target root file
-// TString rootfile  = "20210714205602_list.root"; // name of the target root file
 TString path_R = "results/"; // path to the results directory 
 TString path_D = "data_scans/"; // path to the data directory 
-//TString rootfile  = "20210714185238_list.root"; // name of the target root file
-//TString rootfile  = "_list.root"; // name of the target root file
-TString rootfile  = "20210716220736_list_00.root"; // name of the target root file
+// TString rootfile  = "20210716220736_list_00.root"; // name of the target root file
+TString rootfile  = "20210716210153_list_04.root"; // name of the target root file
 
 
 Double_t x_cut_low = 55; // for transmission wave 

@@ -449,7 +449,8 @@ Int_t Pol_Power_50nm_scan_fine_5(){
   c1->cd(4); gPad->SetGrid();//gPad->SetLogy();
     
 
-  c1->SaveAs(path_R+Form("pol_%s.png", scan_id.c_str()));
+  // c1->SaveAs(path_R+Form("pol_%s.png", scan_id.c_str()));
+  c1->SaveAs(path_R+Form("pol_%s.pdf", scan_id.c_str()));
   
 
 #if 1

@@ -450,8 +450,8 @@ Int_t Pol_Power_90nm_scan_fine_3(){
   c1->cd(4); gPad->SetGrid();//gPad->SetLogy();
     
 
-  c1->SaveAs(path_R+Form("pol_%s.png", scan_id.c_str()));
-  
+  // c1->SaveAs(path_R+Form("pol_%s.png", scan_id.c_str()));  
+  c1->SaveAs(path_R+Form("pol_%s.pdf", scan_id.c_str()));
 
 #if 1
   TFile *outfile = TFile::Open(path_R+Form("pol_%s.root", scan_id.c_str()),"RECREATE");

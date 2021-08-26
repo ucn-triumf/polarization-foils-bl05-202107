@@ -32,13 +32,8 @@ void InitColor(){
   return;
 }
 
-TTree* GetTree(TString filestr){
+TTree* GetTree(TString ROOTstr_path){
 
-  TString ROOTstr = filestr(0,19);//filestr　ファイルを番号によって読むものを変える
-  ROOTstr += ".root";
-  // TString path = "data/210713_SiFe/";
-  TString path = "data_scans/";
-  TString ROOTstr_path = path+ROOTstr;
   TFile *file = TFile::Open(ROOTstr_path.Data());
 
   //TFile *file = TFile::Open(ROOTstr.Data());
@@ -54,6 +49,7 @@ Int_t Pol_Power_loong1_scan(){
 
   InitColor();
   TH1::SetDefaultSumw2();
+  const TString run_id="20210716210153"
 
   const Int_t num = 3; // this should be the half of the number of the files obtained by the scan 
   Int_t kp[num];
@@ -75,48 +71,20 @@ Int_t Pol_Power_loong1_scan(){
 
   TString namestr[num];
   TString namestr2[num];
-  //off
-  //20210716220736_list_00
-  //Form("../../data_scans/%s_list_%02d.root",rootfile_num.Data(), iscan)
-  double  rootfile_num=20210716220736;
-  //0FF
   
-  for(Int_t i=0; i<num-1; i++){
-    int iscan=i*2+1;
-    if(i==0)namestr[0]="20210714193654_list.root";
-    else{
-      namestr[i]=Form("../../data_scans/%f_list_%02d.root",rootfile_num, iscan);
-    }
-  }
-  //ON
+  TString namestr_dir = "data/210713_SiFe/20210714193654_list.root"; // file path of the direct data
+  //0N
   for(Int_t i=0; i<num-1; i++){
     int iscan=i*2;
-    if(i==0)namestr[0]="20210714193654_list.root";
-    else{
-      namestr2[i]=Form("../../data_scans/%f_list_%02d.root",rootfile_num, iscan);
-    }
+    namestr[i]=Form("data_scans/%f_list_%02d.root",run_id, iscan);
+  }
+  //OFF
+  for(Int_t i=0; i<num-1; i++){
+    int iscan=i*2+1;
+    namestr2[i]=Form("../../data_scans/%f_list_%02d.root",run_id, iscan);
   }
 
-/*
 
-  namestr[0]="20210714193654_list.root";
-  namestr[1]="20210715072653_list.root"; //1.97A Fe 30 nm, theta = 0.69 deg., x = 0.0 mm, B = 8 mT
-  //namestr[2]="20210715075452_list.root"; //0A Fe 30 nm, theta = 0.69 deg. x = 0.0 mm , B = 0 mT
-  namestr[2]="20210715081447_list.root"; //0A Fe 30 nm, theta = 0.69 deg. x = 0.0 mm , B = -8 mT -> 0 mT
-  namestr[3]="20210715084835_list.root"; //0.15A Fe 30 nm, theta = 0.69 deg., x = 0.0 mm, B = 1 mT from -8 mT
-  namestr[4]="20210715085349_list.root"; //0.264A Fe 30 nm, theta = 0.69 deg., x = 0.0 mm, B = 1.5 mT from -8 mT
-  namestr[5]="20210715082606_list.root"; //0.378A Fe 30 nm, theta = 0.69 deg. x = 0.0 mm , B = 0 mT  -> 2 mT
-  namestr[6]="20210715083711_list.root"; //0.6A Fe 30 nm, theta = 0.69 deg. x = 0.0 mm , B = 2 mT  -> 3 mT
-
-  //on
-  namestr2[0]="20210714193654_list.root"; //M1 reflect (direct) 1hour
-  namestr2[1]="20210715073913_list.root";
-  namestr2[2]="20210715082018_list.root";
-  namestr2[3]="20210715085144_list.root"; //Fe 30 nm, theta = 0.69 deg., x = 0.0 mm, B = 1 mT from -8 mT  with AFP 760 mV
-  namestr2[4]="20210715085714_list.root"; //Fe 30 nm, theta = 0.69 deg., x = 0.0 mm, B = 1.5 mT from -8 mT  with AFP 760 mV
-  namestr2[5]="20210715083141_list.root"; 
-  namestr2[6]="20210715084052_list.root";
- */
   TString degstr[num];
   TString degstr2[num];
   //off

@@ -109,5 +109,10 @@ if(useMRfirst) kp2[i] = tup2[i]->GetMaximum("mp");//"mp2"->"mp"
  (Draw AFP_RF mV vs Polarizing Power )
  - Added overview.C (to compare 3 direct data)
 
-
+  ## 2021-08-31  AH
+  
+ - Added Draw2D_av_back.C to find background contribution
+ - Added Pol_Power_30nm_scan_fit.C 
+ - Added Pol_Power_50nm_scan_fit.C 
+ - Added Pol_Power_90nm_scan_fit.C 
 

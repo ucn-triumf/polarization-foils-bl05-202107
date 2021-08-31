@@ -47,7 +47,7 @@ TTree* GetTree(TString filestr){
   return tup;
 }
 
-Int_t q025_30nm_1(){
+Int_t q025_30nm(){
 
   InitColor();
   TH1::SetDefaultSumw2();

@@ -52,7 +52,8 @@ TTree* GetTree(TString ROOTstr_path){
 }
 
 
-Int_t Pol_Power_90nm_scan_fine_3(){
+Int_t Pol_Power_90nm_scan_fine3(){
+
 
   // load CSV file with magnetic field
   vector<Int_t> vec_index;

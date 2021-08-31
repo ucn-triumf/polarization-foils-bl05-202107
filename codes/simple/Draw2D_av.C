@@ -27,8 +27,8 @@ TString rootfile  = "20210714205602_list.root"; // name of the target root file
 //Double_t x_cut_up =  68;
 //Double_t x_cut_low = 45; // for transmission wave 
 //Double_t x_cut_up =  50; // for transmission wave 
-Double_t x_cut_low = 55; // for transmission wave 
-Double_t x_cut_up =  61; // for transmission wave 
+Double_t x_cut_low = 57; // for transmission wave 
+Double_t x_cut_up =  59; // for transmission wave 
 //Double_t x_cut_low = 50.5; // for transmission wave 
 //Double_t x_cut_up =  53; // for transmission wave 
 

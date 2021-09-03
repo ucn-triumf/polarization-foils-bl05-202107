@@ -54,13 +54,58 @@ int all_thickness() {
         // }
     // i_csv++;
   }
+  
 
   int num=15;
+  double q1[num],I1[num],H1[num],HE1[num];
   for(int i=0;i<num;i++){
     cout << vec_q[i]<< vec_I[i]<< vec_H[i]  << vec_H_E[i]<< endl;
-    //cout << vec_I[i] << endl;
-    //cout << vec_H[i] << endl;
-    //cout << vec_H_E[i] << endl;
+    //double *q1[i]=&vec_q[i];
+
+      
+  }
+  for(int i=0;i<num;i++){
+    if(vec_q[i]==0.249167){
+        //*
+        TGraphErrors *gr1= new TGraphErrors(num,vec_I,vec_H,0,vec_H_E);
+        gr1->SetMarkerColor(1);
+        gr1->SetMarkerColor(1);
+        gr1->SetLineColor(1);
+        gr1->SetMarkerStyle(3);
+        gr1->SetMarkerSize(1);
+        gr1->GetXaxis()->SetRange(0,9);
+        gr1->GetXaxis()->SetTitle("B (mT)");
+        gr1->GetYaxis()->SetRangeUser(-1.2, 1.2);
+        gr1->GetXaxis()->SetRange(0,9);
+        gr1->GetXaxis()->SetRangeUser(0,9);
+        gr1->GetYaxis()->SetTitle("Polarization power");
+        gr1->SetTitle("");
+        gr1->Draw("AP");
+        ///*/
+        /*
+        gr[i]=new TGraphErrors(num,vec_I[i],vec_H[i],0.,vec_H_E[i]);
+        if (i==0) gr[i]->Draw("AP");
+        else gr[i]->Draw("P");
+        gr[i]->SetMarkerColor(i+1);
+        gr[i]->SetLineColor(i+1);
+        gr[i]->SetMarkerStyle(i+3);
+        gr[i]->SetMarkerSize(1);
+        gr[i]->GetXaxis()->SetRange(0,9);
+        gr[i]->GetXaxis()->SetTitle("B (mT)");
+        gr[i]->GetYaxis()->SetRangeUser(-1.2, 1.2);
+        gr[i]->GetXaxis()->SetRange(0,9);
+        gr[i]->GetXaxis()->SetRangeUser(0,9);
+        gr[i]->GetYaxis()->SetTitle("Polarization power");
+        gr[i]->SetTitle("");
+        */
+
+    }
+    if(vec_q[i]==0.295833){
+        
+    }
+    else{
+
+    }
   }
 
  return 0;   // ifstream infile("results/30nm_mT_P.csv")

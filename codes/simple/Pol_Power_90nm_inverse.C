@@ -88,8 +88,6 @@ Int_t Pol_Power_90nm_inverse(){
   namestr2[2]="20210717005023_list.root"; //0A Fe 90 nm, theta = 0.69 deg. x = 0.0 mm , B = -0.32198 mT
   namestr2[3]="20210717022920_list.root"; //0.265A Fe 90 nm, theta = 0.69 deg., x = 0.0 mm, B = -1.35656  mT 
   
-  
- 
   TString degstr[num];
   TString degstr2[num];
   //off

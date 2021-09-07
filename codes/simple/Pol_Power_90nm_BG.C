@@ -723,7 +723,7 @@ Int_t Pol_Power_90nm_BG(){
   c1->SaveAs(path_R+"pol_90nm.root");
 
 #if 1
-  TFile *outfile = TFile::Open(path_R+"pol.root","RECREATE");
+  TFile *outfile = TFile::Open(path_R+"pol_90nm_BG.root","RECREATE");
   for(Int_t i=0; i<num; i++){
     //hx[i]->Write();
     //hlambda[i]->Write();

@@ -207,6 +207,20 @@ TTree* GetTree1(TString ROOTstr_path1){
   return tup;
 }
 ////////
+//////9/9start
+TTree* GetTree1a(TString ROOTstr_path1a){
+
+  TFile *file = TFile::Open(ROOTstr_path1a.Data());
+  //TFile *file = TFile::Open(ROOTstr.Data());
+  if ( file->IsOpen() ) printf("ROOT file opened successfully\n");
+  TTree* tup=(TTree*)file->Get("T");
+  if(useThinout==1)tup->SetMaxEntryLoop(10000);
+  //  tup->SetDirectory(NULL);
+  //  file->Close();
+  return tup;
+}
+//////9/9end
+
 
 //////////////9/8
 const string scan_id = "90nm_scan_fine_3";
@@ -323,7 +337,6 @@ Int_t P90nm_BG2(){
   TTree* tup11a[num1a];
   TTree* tup211a[num1a];
   //TTree* tup02[num1];
-
 
   TH1F* hx11a[num1a];
   TH1F* hlambda11a[num1a];
@@ -577,11 +590,11 @@ Int_t P90nm_BG2(){
     namestr211a[i]=Form("data_scans/%s_list_%02d.root",run_id.c_str(), iscan);
   }
   
-  tup0 = GetTree1(namestr_ref); // direct data 
-    tup0->SetAlias("toffo","(tof>10.e3)*(tof)+(tof<10.e3)*(tof+40.e3)"); 
-    if(useMRfirst) kp0 = tup0->GetMaximum("mp");
-      else kp0= (tup0->GetMaximum("kp") - tup0->GetMinimum("kp"));
-  cout << "direct data # of kp: "<< kp0 <<endl;
+  tup0a = GetTree1a(namestr_ref); // direct data 
+    tup0a->SetAlias("toffo","(tof>10.e3)*(tof)+(tof<10.e3)*(tof+40.e3)"); 
+    if(useMRfirst) kp0a= tup0a->GetMaximum("mp");
+      else kp0a= (tup0a->GetMaximum("kp") - tup0a->GetMinimum("kp"));
+  cout << "direct data # of kp: "<< kp0a <<endl;
 
  /////////////9/9end
 
@@ -654,42 +667,42 @@ Int_t P90nm_BG2(){
     hq011a[i]->Scale(25./kp0a);
 
      // Data with SF:ON
-    tup11[i] = GetTree1(namestr11[i]);
-    tup11[i]->SetAlias("toffo","(tof>10.e3)*(tof)+(tof<10.e3)*(tof+40.e3)"); // editted based on suggestion by KM on the August 3rd
-    if(useMRfirst) kp11[i] = tup11[i]->GetMaximum("mp");
-      else kp11[i] = (tup11[i]->GetMaximum("kp") - tup11[i]->GetMinimum("kp"));
-    cout << "SF:ON data # of kp: "<< kp11[i] <<endl;
+    tup11a[i] = GetTree1(namestr11a[i]);
+    tup11a[i]->SetAlias("toffo","(tof>10.e3)*(tof)+(tof<10.e3)*(tof+40.e3)"); // editted based on suggestion by KM on the August 3rd
+    if(useMRfirst) kp11a[i] = tup11a[i]->GetMaximum("mp");
+      else kp11a[i] = (tup11[i]->GetMaximum("kp") - tup11a[i]->GetMinimum("kp"));
+    cout << "SF:ON data # of kp: "<< kp11a[i] <<endl;
 
-    hq11[i] = new TH1F(Form("hq11%d",i),Form("%s;q [nm^{-1}];count/bin/25kp",degstr11[i].Data()),nbin_q,q_min,q_max);
+    hq11a[i] = new TH1F(Form("hq11a%d",i),Form("%s;q [nm^{-1}];count/bin/25kp",degstr11a[i].Data()),nbin_q,q_min,q_max);
     // tup[0]->Draw(Form("%f/(toffo*%f)>>hq0%d",twopirad,lambda_coeff,i), thecut0 && cut_dir,"goff");
-    tup11[i]->Draw(Form("%f/(toffo*%f)>>hq11%d",twopirad,lambda_coeff,i), thecut && cut_ref,"goff");
-    hq11[i]->Scale(25./kp11[i]);
-    hq11[i]->Divide(hq011[i]); //Divide by the direct data
-    hq11[i]->GetYaxis()->SetTitle("Reflectivity");
-    hq11[i]->SetTitle("Reflectivity (SF ON)");
+    tup11a[i]->Draw(Form("%f/(toffo*%f)>>hq11a%d",twopirad,lambda_coeff,i), thecut && cut_ref,"goff");
+    hq11a[i]->Scale(25./kp11a[i]);
+    hq11a[i]->Divide(hq011a[i]); //Divide by the direct data
+    hq11a[i]->GetYaxis()->SetTitle("Reflectivity");
+    hq11a[i]->SetTitle("Reflectivity (SF ON)");
     //leg->AddEntry(hq1[i],degstr[i],"l");
 
 
     // Direct data
 
-    hq0211[i] = new TH1F(Form("hq0211%d",i),Form("%s;q [nm^{-1}];count/bin/25kp","Direct"),nbin_q,q_min,q_max);
-    tup0->Draw(Form("%f/(toffo*%f)>>hq0211%d",twopirad,lambda_coeff,i), thecut0 && cut_dir,"goff");
-    hq0211[i]->Scale(25./kp0);
+    hq0211a[i] = new TH1F(Form("hq0211%d",i),Form("%s;q [nm^{-1}];count/bin/25kp","Direct"),nbin_q,q_min,q_max);
+    tup0a->Draw(Form("%f/(toffo*%f)>>hq0211a%d",twopirad,lambda_coeff,i), thecut0a && cut_dir,"goff");
+    hq0211a[i]->Scale(25./kp0);
 
      // Data with SF:ON
-    tup211[i] = GetTree1(namestr211[i]);
-    tup211[i]->SetAlias("toffo","(tof>10.e3)*(tof)+(tof<10.e3)*(tof+40.e3)"); // editted based on suggestion by KM on the August 3rd
-    if(useMRfirst) kp211[i] = tup211[i]->GetMaximum("mp");
-      else kp211[i] = (tup211[i]->GetMaximum("kp") - tup211[i]->GetMinimum("kp"));
-    cout << "SF:ON data # of kp: "<< kp211[i] <<endl;
+    tup211a[i] = GetTree1(namestr211a[i]);
+    tup211a[i]->SetAlias("toffo","(tof>10.e3)*(tof)+(tof<10.e3)*(tof+40.e3)"); // editted based on suggestion by KM on the August 3rd
+    if(useMRfirst) kp211a[i] = tup211a[i]->GetMaximum("mp");
+      else kp211a[i] = (tup211a[i]->GetMaximum("kp") - tup211a[i]->GetMinimum("kp"));
+    cout << "SF:ON data # of kp: "<< kp211a[i] <<endl;
 
-    hq211[i] = new TH1F(Form("hq211%d",i),Form("%s;q [nm^{-1}];count/bin/25kp",degstr211[i].Data()),nbin_q,q_min,q_max);
+    hq211a[i] = new TH1F(Form("hq211%d",i),Form("%s;q [nm^{-1}];count/bin/25kp",degstr211a[i].Data()),nbin_q,q_min,q_max);
     // tup[0]->Draw(Form("%f/(toffo*%f)>>hq0%d",twopirad,lambda_coeff,i), thecut0 && cut_dir,"goff");
-    tup211[i]->Draw(Form("%f/(toffo*%f)>>hq211%d",twopirad,lambda_coeff,i), thecut && cut_ref,"goff");
-    hq211[i]->Scale(25./kp211[i]);
-    hq211[i]->Divide(hq0211[i]); //Divide by the direct data
-    hq211[i]->GetYaxis()->SetTitle("Reflectivity");
-    hq211[i]->SetTitle("Reflectivity (SF ON)");
+    tup211a[i]->Draw(Form("%f/(toffo*%f)>>hq211a%d",twopirad,lambda_coeff,i), thecut && cut_ref,"goff");
+    hq211a[i]->Scale(25./kp211a[i]);
+    hq211a[i]->Divide(hq0211a[i]); //Divide by the direct data
+    hq211a[i]->GetYaxis()->SetTitle("Reflectivity");
+    hq211a[i]->SetTitle("Reflectivity (SF ON)");
     //leg->AddEntry(hq1[i],degstr[i],"l");
 
 ///////////////////////9/9end

@@ -740,8 +740,8 @@ Int_t Pol_Power_30nm_fit_v2(){
 
   
 
-  c1->cd(1); gPad->SetGrid();gPad->SetLogy();
-  c1->cd(2); gPad->SetGrid();gPad->SetLogy();
+  c1->cd(1); gPad->SetGrid();//gPad->SetLogy();
+  c1->cd(2); gPad->SetGrid();//gPad->SetLogy();
   
   c1->cd(3); gPad->SetGrid();//gPad->SetLogy();
   c1->cd(4); gPad->SetGrid();//gPad->SetLogy();

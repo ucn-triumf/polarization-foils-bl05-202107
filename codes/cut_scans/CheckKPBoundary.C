@@ -19,8 +19,13 @@ void CheckKPBoundary(Int_t kpmin, Int_t kpmax) {
   
   
   // Scan of 30 nm sample (1) 
-  const TString rootfile_num = data_path + "20210716210153";
-  const TString scan_name = "scan20210713_flipper_agilent_scan_1";
+  //const TString rootfile_num = data_path + "20210716210153";
+  //const TString scan_name = "scan20210713_flipper_agilent_scan_1";
+
+  // Scan of 30 nm sample (1) 
+  const TString rootfile_num = data_path + "20210717002421";
+  const TString scan_name = "scan20210713_flipper_agilent_scan_rough_2_edit";
+
 
   // Scan of 30 nm sample (2) 
   // const TString rootfile_num = data_path + "20210716220736";

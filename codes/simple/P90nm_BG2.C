@@ -208,12 +208,13 @@ TTree* GetTree1(TString ROOTstr_path1){
 }
 ////////
 
+//////////////9/8
 const string scan_id = "90nm_scan_fine_3";
 const string run_id="20210717030252";
 const Int_t num1 = 5; // this should be the half of the number of the files obtained by the scan 
+const Int_t num1a = 5;
 
-
-Int_t P90nm_BG(){
+Int_t P90nm_BG2(){
   // load CSV file with magnetic field
   vector<Int_t> vec_index;
   vector<Double_t> vec_I, vec_H; 
@@ -268,28 +269,33 @@ Int_t P90nm_BG(){
   TH1F* hq02BG[num];
   TH1F* hq2BG[num];
 
-  Int_t kp11[num];
-  Int_t kp211[num];
-  TTree* tup11[num];
-  TTree* tup211[num];
 
-  TH1F* hx11[num];
-  TH1F* hlambda11[num];
-  TH1F* hratio11[num];
-  TH1F* hq11[num];
-  TH1F* hq011[num];
-  TH3F* hxylambda11[num];
+///////////////////////9/8start
 
-  TH1F* hpolratio11[num];
-  TH1F* hpolratio211[num];
-  TH1F* hpolratio311[num];
-  TH1F* hq211[num];
-  TH1F* hq0211[num];
+  Int_t kp11[num1];
+  Int_t kp211[num1];
+  TTree* tup11[num1];
+  TTree* tup211[num1];
+  //TTree* tup02[num1];
 
-  TH1F* hq0BG11[num];
-  TH1F* hqBG11[num];
-  TH1F* hq02BG11[num];
-  TH1F* hq2BG11[num];
+
+  TH1F* hx11[num1];
+  TH1F* hlambda11[num1];
+  TH1F* hratio11[num1];
+  TH1F* hq11[num1];
+  TH1F* hq011[num1];
+  TH3F* hxylambda11[num1];
+
+  TH1F* hpolratio11[num1];
+  TH1F* hpolratio211[num1];
+  TH1F* hpolratio311[num1];
+  TH1F* hq211[num1];
+  TH1F* hq0211[num1];
+
+  TH1F* hq0BG11[num1];
+  TH1F* hqBG11[num1];
+  TH1F* hq02BG11[num1];
+  TH1F* hq2BG11[num1];
 
   TTree* tup0;
   Int_t kp0;
@@ -297,18 +303,65 @@ Int_t P90nm_BG(){
 
   Double_t angle11[num1];
   Double_t angle211[num1];
-  for(Int_t i=0; i< num; i++){
+  for(Int_t i=0; i< num1; i++){
     angle11[i]=TMath::Abs(47.1868 - xdirect)/dist_det;
     angle211[i]=TMath::Abs(47.1868 - xdirect)/dist_det;
   }  
 
-  Double_t angledeg11[num];
-  Double_t angledeg211[num];
+  Double_t angledeg11[num1];
+  Double_t angledeg211[num1];
   
   angledeg11[0]=angle11[0]*180./TMath::Pi()/2.;
   angledeg11[1]=angle11[1]*180./TMath::Pi()/2.;
   angledeg11[2]=angle11[2]*180./TMath::Pi()/2.;
   
+  ////////////////////////9/8end
+
+  //9/9start
+  Int_t kp11a[num1a];
+  Int_t kp211a[num1a];
+  TTree* tup11a[num1a];
+  TTree* tup211a[num1a];
+  //TTree* tup02[num1];
+
+
+  TH1F* hx11a[num1a];
+  TH1F* hlambda11a[num1a];
+  TH1F* hratio11a[num1a];
+  TH1F* hq11a[num1a];
+  TH1F* hq011a[num1a];
+  TH3F* hxylambda11a[num1a];
+
+  TH1F* hpolratio11a[num1a];
+  TH1F* hpolratio211a[num1a];
+  TH1F* hpolratio311a[num1a];
+  TH1F* hq211a[num1a];
+  TH1F* hq0211a[num1a];
+
+  TH1F* hq0BG11a[num1a];
+  TH1F* hqBG11a[num1a];
+  TH1F* hq02BG11a[num1a];
+  TH1F* hq2BG11a[num1a];
+
+  TTree* tup0a;
+  Int_t kp0a;
+
+
+  Double_t angle11a[num1a];
+  Double_t angle211a[num1a];
+  for(Int_t i=0; i< num1a; i++){
+    angle11a[i]=TMath::Abs(47.1868 - xdirect)/dist_det;
+    angle211a[i]=TMath::Abs(47.1868 - xdirect)/dist_det;
+  }  
+
+  Double_t angledeg11a[num];
+  Double_t angledeg211a[num];
+  
+  angledeg11a[0]=angle11a[0]*180./TMath::Pi()/2.;
+  angledeg11a[1]=angle11a[1]*180./TMath::Pi()/2.;
+  angledeg11a[2]=angle11a[2]*180./TMath::Pi()/2.;
+  
+  //9/9end
 
 
   TString namestr[num];
@@ -393,7 +446,7 @@ Int_t P90nm_BG(){
   Int_t nbin_lambda = 200;
   Double_t lambda_max  = 1.5;
   Double_t nbin_q  = 60;//300 60
-  Double_t q_min  = 0.05;//0.6
+  Double_t q_min  = 0.1;//0.6
   Double_t q_max  = 0.50;//0.6
   //Double_t q_max  = 1.0;//0.6
   Int_t nrebinx = 1;
@@ -438,6 +491,7 @@ Int_t P90nm_BG(){
   //  Double_t ybegin=70.;
   //  Double_t yend=77.;
 
+///////////////9/8start
   TString degstr11[num1];
   TString degstr211[num1];
   TString degstr_p11[num1];
@@ -467,6 +521,7 @@ Int_t P90nm_BG(){
   if(useMRfirst) thecut = thecut && MRcut;
   TCut thecut0;
   TCut thecut01;
+  TCut thecut01a;
 
   TCanvas *c1 = new TCanvas("c1","",1200,800);
   c1->Divide(2,2);
@@ -477,7 +532,7 @@ Int_t P90nm_BG(){
   
   TString namestr_ref= "data/210713_SiFe/20210714193654_list.root"; // file path of the direct data
   //0N
-  for(Int_t i=0; i<num1; i++){
+  for(Int_t i=0; i<num1a; i++){
     int iscan=i*2;
     namestr11[i]=Form("data_scans/%s_list_%02d.root",run_id.c_str(), iscan);
   }
@@ -494,6 +549,42 @@ Int_t P90nm_BG(){
   cout << "direct data # of kp: "<< kp0 <<endl;
 
 
+ /////////////9/9start
+  TString degstr11a[num1a];
+  TString degstr211a[num1a];
+  TString degstr_p11a[num1a];
+
+//magnetic
+  for(Int_t i=0; i< num1a; i++){
+    degstr11a[i]=Form("SF:ON,  B=%lf mT", vec_H[i]);
+    degstr211a[i]=Form("SF:OFF, B=%lf mT", vec_H[i]);
+    degstr_p11a[i]=Form("B=%lf mT", vec_H[i]);
+
+  } 
+
+  TString namestr11a[num1a];
+  TString namestr211a[num1a];
+  
+  TString namestr_ref= "data/210713_SiFe/20210714193654_list.root"; // file path of the direct data
+  //0N
+  for(Int_t i=0; i<num1; i++){
+    int iscan=i*2;
+    namestr11a[i]=Form("data_scans/%s_list_%02d.root",run_id.c_str(), iscan);
+  }
+  //OFF
+  for(Int_t i=0; i<num1; i++){
+    int iscan=i*2+1;
+    namestr211a[i]=Form("data_scans/%s_list_%02d.root",run_id.c_str(), iscan);
+  }
+  
+  tup0 = GetTree1(namestr_ref); // direct data 
+    tup0->SetAlias("toffo","(tof>10.e3)*(tof)+(tof<10.e3)*(tof+40.e3)"); 
+    if(useMRfirst) kp0 = tup0->GetMaximum("mp");
+      else kp0= (tup0->GetMaximum("kp") - tup0->GetMinimum("kp"));
+  cout << "direct data # of kp: "<< kp0 <<endl;
+
+ /////////////9/9end
+
   // for(Int_t i=0; i<2; i++){
 
   for(Int_t i=0; i<num; i++){
@@ -507,12 +598,101 @@ Int_t P90nm_BG(){
 
     // Direct data
 
-    hq0[i] = new TH1F(Form("hq0%d",i),Form("%s;q [nm^{-1}];count/bin/25kp","Direct"),nbin_q,q_min,q_max);
-    tup0->Draw(Form("%f/(toffo*%f)>>hq0%d",twopirad,lambda_coeff,i), thecut0 && cut_dir,"goff");
-    hq0[i]->Scale(25./kp0);
+    hq011[i] = new TH1F(Form("hq011%d",i),Form("%s;q [nm^{-1}];count/bin/25kp","Direct"),nbin_q,q_min,q_max);
+    tup0->Draw(Form("%f/(toffo*%f)>>hq011%d",twopirad,lambda_coeff,i), thecut0 && cut_dir,"goff");
+    hq011[i]->Scale(25./kp0);
 
-    
+     // Data with SF:ON
+    tup11[i] = GetTree1(namestr11[i]);
+    tup11[i]->SetAlias("toffo","(tof>10.e3)*(tof)+(tof<10.e3)*(tof+40.e3)"); // editted based on suggestion by KM on the August 3rd
+    if(useMRfirst) kp11[i] = tup11[i]->GetMaximum("mp");
+      else kp11[i] = (tup11[i]->GetMaximum("kp") - tup11[i]->GetMinimum("kp"));
+    cout << "SF:ON data # of kp: "<< kp11[i] <<endl;
 
+    hq11[i] = new TH1F(Form("hq11%d",i),Form("%s;q [nm^{-1}];count/bin/25kp",degstr11[i].Data()),nbin_q,q_min,q_max);
+    // tup[0]->Draw(Form("%f/(toffo*%f)>>hq0%d",twopirad,lambda_coeff,i), thecut0 && cut_dir,"goff");
+    tup11[i]->Draw(Form("%f/(toffo*%f)>>hq11%d",twopirad,lambda_coeff,i), thecut && cut_ref,"goff");
+    hq11[i]->Scale(25./kp11[i]);
+    hq11[i]->Divide(hq011[i]); //Divide by the direct data
+    hq11[i]->GetYaxis()->SetTitle("Reflectivity");
+    hq11[i]->SetTitle("Reflectivity (SF ON)");
+    //leg->AddEntry(hq1[i],degstr[i],"l");
+
+
+    // Direct data
+
+    hq0211[i] = new TH1F(Form("hq0211%d",i),Form("%s;q [nm^{-1}];count/bin/25kp","Direct"),nbin_q,q_min,q_max);
+    tup0->Draw(Form("%f/(toffo*%f)>>hq0211%d",twopirad,lambda_coeff,i), thecut0 && cut_dir,"goff");
+    hq0211[i]->Scale(25./kp0);
+
+     // Data with SF:ON
+    tup211[i] = GetTree1(namestr211[i]);
+    tup211[i]->SetAlias("toffo","(tof>10.e3)*(tof)+(tof<10.e3)*(tof+40.e3)"); // editted based on suggestion by KM on the August 3rd
+    if(useMRfirst) kp211[i] = tup211[i]->GetMaximum("mp");
+      else kp211[i] = (tup211[i]->GetMaximum("kp") - tup211[i]->GetMinimum("kp"));
+    cout << "SF:ON data # of kp: "<< kp211[i] <<endl;
+
+    hq211[i] = new TH1F(Form("hq211%d",i),Form("%s;q [nm^{-1}];count/bin/25kp",degstr211[i].Data()),nbin_q,q_min,q_max);
+    // tup[0]->Draw(Form("%f/(toffo*%f)>>hq0%d",twopirad,lambda_coeff,i), thecut0 && cut_dir,"goff");
+    tup211[i]->Draw(Form("%f/(toffo*%f)>>hq211%d",twopirad,lambda_coeff,i), thecut && cut_ref,"goff");
+    hq211[i]->Scale(25./kp211[i]);
+    hq211[i]->Divide(hq0211[i]); //Divide by the direct data
+    hq211[i]->GetYaxis()->SetTitle("Reflectivity");
+    hq211[i]->SetTitle("Reflectivity (SF ON)");
+    //leg->AddEntry(hq1[i],degstr[i],"l");
+
+///////////////////////9/8end
+///////////////////////9/9start
+
+  // for(Int_t i=0; i<2; i++)
+    if(i==0) thecut01a=thecut1;
+
+    // Direct data
+
+    hq011a[i] = new TH1F(Form("hq011a%d",i),Form("%s;q [nm^{-1}];count/bin/25kp","Direct"),nbin_q,q_min,q_max);
+    tup0a->Draw(Form("%f/(toffo*%f)>>hq011a%d",twopirad,lambda_coeff,i), thecut0 && cut_dir,"goff");
+    hq011a[i]->Scale(25./kp0a);
+
+     // Data with SF:ON
+    tup11[i] = GetTree1(namestr11[i]);
+    tup11[i]->SetAlias("toffo","(tof>10.e3)*(tof)+(tof<10.e3)*(tof+40.e3)"); // editted based on suggestion by KM on the August 3rd
+    if(useMRfirst) kp11[i] = tup11[i]->GetMaximum("mp");
+      else kp11[i] = (tup11[i]->GetMaximum("kp") - tup11[i]->GetMinimum("kp"));
+    cout << "SF:ON data # of kp: "<< kp11[i] <<endl;
+
+    hq11[i] = new TH1F(Form("hq11%d",i),Form("%s;q [nm^{-1}];count/bin/25kp",degstr11[i].Data()),nbin_q,q_min,q_max);
+    // tup[0]->Draw(Form("%f/(toffo*%f)>>hq0%d",twopirad,lambda_coeff,i), thecut0 && cut_dir,"goff");
+    tup11[i]->Draw(Form("%f/(toffo*%f)>>hq11%d",twopirad,lambda_coeff,i), thecut && cut_ref,"goff");
+    hq11[i]->Scale(25./kp11[i]);
+    hq11[i]->Divide(hq011[i]); //Divide by the direct data
+    hq11[i]->GetYaxis()->SetTitle("Reflectivity");
+    hq11[i]->SetTitle("Reflectivity (SF ON)");
+    //leg->AddEntry(hq1[i],degstr[i],"l");
+
+
+    // Direct data
+
+    hq0211[i] = new TH1F(Form("hq0211%d",i),Form("%s;q [nm^{-1}];count/bin/25kp","Direct"),nbin_q,q_min,q_max);
+    tup0->Draw(Form("%f/(toffo*%f)>>hq0211%d",twopirad,lambda_coeff,i), thecut0 && cut_dir,"goff");
+    hq0211[i]->Scale(25./kp0);
+
+     // Data with SF:ON
+    tup211[i] = GetTree1(namestr211[i]);
+    tup211[i]->SetAlias("toffo","(tof>10.e3)*(tof)+(tof<10.e3)*(tof+40.e3)"); // editted based on suggestion by KM on the August 3rd
+    if(useMRfirst) kp211[i] = tup211[i]->GetMaximum("mp");
+      else kp211[i] = (tup211[i]->GetMaximum("kp") - tup211[i]->GetMinimum("kp"));
+    cout << "SF:ON data # of kp: "<< kp211[i] <<endl;
+
+    hq211[i] = new TH1F(Form("hq211%d",i),Form("%s;q [nm^{-1}];count/bin/25kp",degstr211[i].Data()),nbin_q,q_min,q_max);
+    // tup[0]->Draw(Form("%f/(toffo*%f)>>hq0%d",twopirad,lambda_coeff,i), thecut0 && cut_dir,"goff");
+    tup211[i]->Draw(Form("%f/(toffo*%f)>>hq211%d",twopirad,lambda_coeff,i), thecut && cut_ref,"goff");
+    hq211[i]->Scale(25./kp211[i]);
+    hq211[i]->Divide(hq0211[i]); //Divide by the direct data
+    hq211[i]->GetYaxis()->SetTitle("Reflectivity");
+    hq211[i]->SetTitle("Reflectivity (SF ON)");
+    //leg->AddEntry(hq1[i],degstr[i],"l");
+
+///////////////////////9/9end
     tup[i] = GetTree(namestr[i]);
     // tup[i]->SetAlias("toffo","(tof>9.e3)*(tof)+(tof<9.e3)*(tof+40.e3)");
     tup[i]->SetAlias("toffo","(tof>10.e3)*(tof)+(tof<10.e3)*(tof+40.e3)"); // editted based on suggestion by KM on the August 3rd
@@ -660,7 +840,15 @@ Int_t P90nm_BG(){
  */  
     c1->cd(1);
     if(i!=0){
-    if(i==1)hq[i]->Draw("eh");
+    if(i==1){
+      hq[i]->Draw("eh");
+      hq11[i]->Draw("ehsame");
+    }
+    /*if(i==0){
+      //hq[i]->Draw("ehsame");
+      hq11[i]->Draw("ehsame");
+    }*/
+    
     else hq[i]->Draw("ehsames");
     // if(i==1)hq[i]->Draw("ah");
     // else hq[i]->Draw("ahsames");
@@ -735,7 +923,7 @@ Int_t P90nm_BG(){
     // else hq2[i]->Draw("ahsames");
   */  
 
-    double ymax=2.;//gPad->GetUymax();
+    double ymax=1.1;//gPad->GetUymax();
     double ymin=0.;//gPad->GetUymin();
     double xmax1=0.2;
     double xmin1=0.4;
@@ -755,12 +943,25 @@ Int_t P90nm_BG(){
     }
 */
     c1->cd(3);
+    /*if(i==1){
+      hq2[i]->Draw("eh");
+    }*/
+    if(i==1){
+      hq2[i]->Draw("ehsame");
+      hq211[i]->Draw("ehsame");
+    }
+    /*if(i==0){
+      //hq[i]->Draw("ehsame");
+      hq11[i]->Draw("ehsame");
+    }*/
+    
+    else hq2[i]->Draw("ehsames");
     /*
     if(i!=0){
     if(i==1)hpolratio[i]->Draw("eh");
     else hpolratio[i]->Draw("ehsames");
     */
-
+/*
     if(i==0){
       hq0BG[i]->Draw("eh");
       //hq02BG[i]->Draw("ehsame");
@@ -768,16 +969,16 @@ Int_t P90nm_BG(){
     else hqBG[i]->Draw("ehsames");
     //hq2BG[i]->Draw("ehsames");
     leg->Draw();
-    
+   */ 
 
     TBox* b4 = new TBox(0.15,-1,0.173,1.); 
     b4->SetFillColor( kOrange ); 
     b4->SetFillStyle(3004); 
-    b4->Draw();
+    //b4->Draw();
     TBox* b5 = new TBox(0.287,-1,0.5,1.); 
     b5->SetFillColor(7); 
     b5->SetFillStyle(3004); 
-    b5->Draw("same");
+    //b5->Draw("same");
     leg3->Draw();
 
     //}
@@ -793,9 +994,9 @@ Int_t P90nm_BG(){
     hpolratio[i]->GetYaxis()->SetRangeUser(-1.,1.);
     hpolratio2[i]->GetYaxis()->SetRangeUser(-1.,1.);
     hq[i]->GetXaxis()->SetRangeUser(q_min,q_max);
-    hq[i]->GetYaxis()->SetRangeUser(1.e-3,2.);
+    hq[i]->GetYaxis()->SetRangeUser(1.e-3,1.1);
     hq2[i]->GetXaxis()->SetRangeUser(q_min,q_max);
-    hq2[i]->GetYaxis()->SetRangeUser(1.e-3,2.);
+    hq2[i]->GetYaxis()->SetRangeUser(1.e-3,1.1);
     // hq[i]->SaveAs(path_R + Form("hq_off_%d.root", i));
     // hq2[i]->SaveAs(path_R + Form("hq_on_%d.root", i));
     cout<<"in_"<<angledeg[i]<<"_deg"<<endl;
@@ -843,10 +1044,10 @@ Int_t P90nm_BG(){
   }
   leg4->Draw();
 
-  c1->cd(1); gPad->SetGrid();gPad->SetLogy();
+  c1->cd(1); gPad->SetGrid();//gPad->SetLogy();
   c1->cd(2); gPad->SetGrid();gPad->SetLogy();
   
-  c1->cd(3); gPad->SetGrid();gPad->SetLogy();
+  c1->cd(3); gPad->SetGrid();//gPad->SetLogy();
   // c1->cd(4); gPad->SetGrid();//gPad->SetLogy();
 
   c1->SaveAs(path_R+"pol_90nm.png");

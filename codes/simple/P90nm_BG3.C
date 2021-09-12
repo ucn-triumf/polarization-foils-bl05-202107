@@ -209,8 +209,9 @@ TTree* GetTree1(TString ROOTstr_path1){
 ////////
 
 const string scan_id = "90nm_scan_fine_3";
-const string run_id="20210717030252";
-const Int_t num1 = 9; // this should be the half of the number of the files obtained by the scan 
+//const string run_id="20210717030252";
+const string run_id="20210717002421";
+const Int_t num1 = 4; // this should be the half of the number of the files obtained by the scan 
 
 
 Int_t P90nm_BG3(){
@@ -388,6 +389,8 @@ Int_t P90nm_BG3(){
   TLegend* leg = new TLegend(0.8, 0.20, 1.0, 0.70,"Fe 90 nm OFF");
   TLegend* leg2 = new TLegend(0.8, 0.20, 1.0, 0.70,"Fe 90 nm ON");
   TLegend* leg3 = new TLegend(0.8, 0.20, 1.0, 0.70,"Fe 90 nm");
+  TLegend* leg11 = new TLegend(0.8, 0.20, 1.0, 0.70,"");
+  TLegend* leg3a = new TLegend(0.8, 0.20, 1.0, 0.70,"");
   leg->SetFillColor(0);
 
   Int_t nbin = 512;
@@ -445,8 +448,8 @@ Int_t P90nm_BG3(){
   TString degstr_p11[num1];
 
   for(Int_t i=0; i< num1; i++){
-    degstr11[i]=Form("SF:ON,  B=%lf mT", vec_H[i]);
-    degstr211[i]=Form("SF:OFF, B=%lf mT", vec_H[i]);
+    degstr11[i]=Form("SF:ON,  B=%lf mT", vec_H[2*i]);
+    degstr211[i]=Form("SF:OFF, B=%lf mT", vec_H[2*i+1]);
     degstr_p11[i]=Form("B=%lf mT", vec_H[i]);
 
   } 
@@ -473,11 +476,14 @@ Int_t P90nm_BG3(){
   TCanvas *c1 = new TCanvas("c1","",1200,800);
   c1->Divide(2,2);
   c1->cd(1);
+  c1->cd(2);
+  c1->cd(3);
+  c1->cd(4);
 
   TString namestr11[num1];
   TString namestr211[num1];
   
-  TString namestr_ref= "data/210713_SiFe/20210717002421_list.root"; // file path of the direct data
+  TString namestr_ref= "data/210713_SiFe/20210714193654_list.root"; // file path of the direct data
   //0N
   for(Int_t i=0; i<num1; i++){
     int iscan=i*2;
@@ -595,8 +601,12 @@ Int_t P90nm_BG3(){
 
 
     leg->AddEntry(hq[i],degstr[i],"l");
-    leg2->AddEntry(hq[i],degstr[i],"l");
-    if(i!=0)leg3->AddEntry(hq[i],degstr[i],"l");
+    leg2->AddEntry(hq11[i],degstr11[i],"l");
+    
+    //if(i!=0)leg3->AddEntry(hq211[i],degstr211[i],"l");
+    leg3->AddEntry(hq211[i],degstr211[i],"l");//211_i==0, 1.965 mT
+
+    if(i!=3)leg3a->AddEntry(hq211[i],degstr211[i],"l");//211_i==0, 1.965 mT
     //leg->AddEntry(hq2[i],degstr2[i],"l2");
 
     //hx[i]->Scale(25./kp[i]);
@@ -677,6 +687,7 @@ Int_t P90nm_BG3(){
       hpolratio[i]->SetLineColor(i+2);
       hpolratio2[i]->SetLineColor(i+2);
 
+      //hq11[i]->SetLineColor(i+2);
       hq211[i]->SetLineColor(i+2);
     } else {
       //hx[i]->SetLineColor(i+1);
@@ -692,6 +703,7 @@ Int_t P90nm_BG3(){
       hq02BG[i]->SetLineColor(i+1);
       hq2BG[i]->SetLineColor(i+1);
 
+      //hq11[i]->SetLineColor(i+1);
       hq211[i]->SetLineColor(i+1);
     }
 
@@ -705,17 +717,29 @@ Int_t P90nm_BG3(){
     leg->Draw();
  */  
     c1->cd(1);
+    //if(i==0)hq11[i]->Draw("eh");
     if(i!=0){
-    if(i==1){
-      hq[i]->Draw("eh");
-      hq11[i]->Draw("ehsame");
-    }
+      if(i!=2){
+        if(i==1){
+          
+          hq[i]->Draw("ehsame");
+          hq11[i]->Draw("ehsame");
+          
+        }
+      }
+      
     /*if(i==0){
       //hq[i]->Draw("ehsame");
       hq11[i]->Draw("ehsame");
     }*/
     
     else hq[i]->Draw("ehsames");
+/*
+    leg11->AddEntry(hq[i],degstr[i],"l");
+    if(i==0)leg11->AddEntry(hq11[i],degstr11[i],"l");
+    */
+    leg3a->Draw();
+
     // if(i==1)hq[i]->Draw("ah");
     // else hq[i]->Draw("ahsames");
 
@@ -764,9 +788,14 @@ Int_t P90nm_BG3(){
   }
 
     c1->cd(2);
+    hq11[i]->Draw("ehsames");
+    leg2->Draw();
+    f1->Draw("sames");
+    /*
     if(i==0)hlambda[i]->Draw("eh");
     else hlambda[i]->Draw("ehsames");
     leg->Draw();
+    */
 
     
 /*
@@ -911,11 +940,11 @@ Int_t P90nm_BG3(){
   }
   leg4->Draw();
 
-  c1->cd(1); gPad->SetGrid();//gPad->SetLogy();
+  c1->cd(1); gPad->SetGrid();gPad->SetLogy();
   c1->cd(2); gPad->SetGrid();gPad->SetLogy();
   
-  c1->cd(3); gPad->SetGrid();//gPad->SetLogy();
-  // c1->cd(4); gPad->SetGrid();//gPad->SetLogy();
+  c1->cd(3); gPad->SetGrid();gPad->SetLogy();
+  c1->cd(4); gPad->SetGrid();//gPad->SetLogy();
 
   c1->SaveAs(path_R+"pol_90nm.png");
   c1->SaveAs(path_R+"pol_90nm.root");

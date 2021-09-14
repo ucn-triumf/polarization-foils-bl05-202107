@@ -8,6 +8,8 @@ This is a repository for managing codes to analyze data of cold-neutron reflecto
 The contents of the respoistory are organized as follows:
 
 - codes/ : place for codes written by H. Akatsuka and T. Higuchi   
+
+- csv/ : csv files where measurement paremeters are noted
  
 - data/ : the directory which contains raw data. Omitted for github sync by .gitignore
 	- data/210713_SiFe : directory copied from niki, the linux machine that acquired data from the NIM module. Contains raw RPMT data.
@@ -24,7 +26,9 @@ The contents of the respoistory are organized as follows:
 	- docs/electromagnet_drawing.pdf : the drawing of the electromagnet used for the measurement.
 	- docs/I_correction1.pdf : H. Akatsuka's summary on calibration of currents applied to the magnet and the magnetic field produced
 	- docs/Measurement_plan_polarizer_CN_2021_final.pdf : T. Higuchi's summary of measurement plans prepared before the beamtime
-   
+
+- excel/ : excel spreadsheets for simple conversion/calculations
+
 - notes/ : miscellaneous notes for analysis
 	- notes/analysis_lod.md : the analysis log. fill this in when you make major work of analysis
 	- notes/analysis_memo.md : use this to make notes of useful information for the analysis

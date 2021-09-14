@@ -1,5 +1,5 @@
 # polarization-foils-bl05-202107
- updated: 2021-08-03 Takashi Higuchi
+ updated: 2021-09-14 Takashi Higuchi
 
 ## Description of the repository 
 This is a repository for managing codes to analyze data of cold-neutron reflectometry measurement which took place during beamtime in July 2021 at J-PARC MLF BL05.
@@ -16,6 +16,8 @@ The contents of the respoistory are organized as follows:
 	- data/sample_magenticfield_0715 : results of magnetic field measurements by a Hall probe on the July 15th after the first two days of the beamtime. It was done while a sample was in place in the magnet  
 	- data/sample_magenticfield_0717 : results of magnetic field measurements by a Hall probe on the July 17th after the beamtime. The sample was removed and the probe was placed near the center of the magnet.
 
+- data_scans/ : root files of automatic scans were split and saved in this directory
+  
 - docs/ : place for documentations
 	- docs/AFP_SF.pdf : summary of characterization measurements of AFP spin flipper  	
 	- docs/BL05v21_17_82.pdf : scan of the BL05 log book  	
@@ -31,6 +33,8 @@ The contents of the respoistory are organized as follows:
 	- notes/scan_list.md : table which list information of all scans (to be filled as the analysis progresses)
 
 - refs/ : place for relevant references
+
+- reports : presentation files for report
 
 - results/ : use this to place your analysis results
 

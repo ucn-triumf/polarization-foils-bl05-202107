@@ -29,6 +29,8 @@ The contents of the respoistory are organized as follows:
 
 - excel/ : excel spreadsheets for simple conversion/calculations
 
+- figs/ : figures useful for presentation
+
 - notes/ : miscellaneous notes for analysis
 	- notes/analysis_lod.md : the analysis log. fill this in when you make major work of analysis
 	- notes/analysis_memo.md : use this to make notes of useful information for the analysis

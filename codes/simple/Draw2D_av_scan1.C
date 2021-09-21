@@ -22,6 +22,8 @@ TString path_D = "data_scans/"; // path to the data directory
 //TString rootfile  = "_list.root"; // name of the target root file
 
 TString rootfile  = "20210716210153_list_00.root"; // name of the target root file
+//TString rootfile  ="20210714193654_list.root";
+
 //TString rootfile  = "20210716210153_list_09_list_00.root"; // name of the target root file
 //TString rootfile  = "20210716220736_list_00.root"; // name of the target root fil
 //TString rootfile  = "20210716220736_list_03.root"; // name of the target root file
@@ -30,8 +32,12 @@ TString rootfile  = "20210716210153_list_00.root"; // name of the target root fi
 //TString rootfile  = "20210717061701_list_00.root"; // name of the target root file
 //TString rootfile  = "20210717061701_list_16.root"; // name of the target root file
 
-Double_t x_cut_low = 61;
-Double_t x_cut_up =  65;
+//Double_t x_cut_low = 46.5;
+//Double_t x_cut_up =  48.;
+Double_t x_cut_low = 40; // for transmission wave 
+Double_t x_cut_up =  55; // for transmission wave 
+
+
 //Double_t x_cut_low = 62;
 //Double_t x_cut_up =  64;
 //Double_t x_cut_low = 45; // for transmission wave 
@@ -51,8 +57,10 @@ Double_t x_cut_up =  65;
 // Double_t x_cut_up =  55; // for transmission wave 
 // Double_t y_cut_low = 68;
 // Double_t y_cut_up = 78;
-Double_t y_cut_low = 67;
-Double_t y_cut_up = 72;
+//Double_t y_cut_low = 85;
+//Double_t y_cut_up = 102;
+Double_t y_cut_low = 65;
+Double_t y_cut_up = 82;
 Double_t range=128;
 
 TCut cut_xy =Form("x*%f>%f && x*%f<%f && y*%f>%f && y*%f<%f && f==4", range, x_cut_low,range,x_cut_up,range,y_cut_low, range,y_cut_up);
@@ -66,7 +74,7 @@ const Double_t endY = 128;
 const Int_t nBinCut = 200;
 
 
-void Draw2D_av_scan() {
+void Draw2D_av_scan1() {
   TString rootfile_num    = path_D + rootfile;
   
   const TString tree_name  = "T";

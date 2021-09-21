@@ -120,6 +120,12 @@ if(useMRfirst) kp2[i] = tup2[i]->GetMaximum("mp");//"mp2"->"mp"
   - Exported individual root files from the scan 20210717002421. This is a scan without SF. This seems to have been stopped manually during cycle at index=9. The current applied at each cycle was checked from the log in 202107013_Polarizer/scan.txt (around L.4759). It actually looks it was stopped during I=0.47A (corresponding to index=10)->??. For now to be on conservative side, I exported data up to index=8. 
   - The corresponding magnetic field was calculated and placed as magnetic_20210717030252.csv.
 
+  ## 2021-09-21  AH
+  - Add P90nm_BG8020.C to write graph 80% up +20% down  
+  - Add P90nm_BG10.C,P90nm_BG10.C to write B_RdataOFF_qq225_90nm_scan_fine_3.csv
+  - Add P90nm_single.C to only write theoretical curve
+  - Add all_B_90nm.C to write applied B vs R (Used for slides in JPS)
+  - ~BG Background is taken into account
 
 
 

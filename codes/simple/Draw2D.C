@@ -18,7 +18,7 @@
 
 TString path_R = "results/"; // path to the results directory 
 TString path_D = "data/210713_SiFe/"; // path to the data directory 
-TString rootfile  = "20210714000204_list.root"; // name of the target root file
+TString rootfile  = "20210714193654_list.root"; // name of the target root file
 
 void Draw2D() {
   TString rootfile_num    = path_D + rootfile;

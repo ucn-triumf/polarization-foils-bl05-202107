@@ -67,20 +67,31 @@ int all_thickness() {
   for(int i=0;i<num;i++){
     if(vec_q[i]==0.249167){
         //*
-        TGraphErrors *gr1= new TGraphErrors(num,vec_I,vec_H,0,vec_H_E);
+        q1[i]=vec_q[i];
+        I1[i]=vec_I[i];
+        H1[i]=vec_H[i];
+        HE1[i]=vec_H_E[i];
+        //cout << q1[i]<<"_" <<I1[i]<< H1[i]  << HE1[i]<< endl;
+        cout << q1[i]<<"_" <<I1[i]<<"_" << H1[i]  << "_" <<HE1[i]<< endl;
+        //TGraphErrors *gr1= new TGraphErrors(num,vec_I,vec_H,0,vec_H_E);
+
+        //double ex=0.1;
+        //const Float_t* ex = 0;
+        TGraphErrors *gr1= new TGraphErrors(num,I1,H1,0,HE1);
         gr1->SetMarkerColor(1);
         gr1->SetMarkerColor(1);
         gr1->SetLineColor(1);
         gr1->SetMarkerStyle(3);
         gr1->SetMarkerSize(1);
-        gr1->GetXaxis()->SetRange(0,9);
+        //gr1->GetXaxis()->SetRange(0.,9.);
         gr1->GetXaxis()->SetTitle("B (mT)");
-        gr1->GetYaxis()->SetRangeUser(-1.2, 1.2);
-        gr1->GetXaxis()->SetRange(0,9);
-        gr1->GetXaxis()->SetRangeUser(0,9);
+        gr1->GetYaxis()->SetRangeUser(-9.2, 1.2);
+        //gr1->GetXaxis()->SetRange(0,9);
+        gr1->GetXaxis()->SetRangeUser(0.,9.);
         gr1->GetYaxis()->SetTitle("Polarization power");
         gr1->SetTitle("");
         gr1->Draw("AP");
+        
         ///*/
         /*
         gr[i]=new TGraphErrors(num,vec_I[i],vec_H[i],0.,vec_H_E[i]);

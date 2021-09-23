@@ -863,14 +863,20 @@ Int_t P90nm_BG4(){
   }
 
   const Int_t num_pol = 3;
+  //TMultiGraph* gr[num_pol];
   TGraphErrors* gr[num_pol];
+  TGraphErrors* gr1[num_pol];
+  TGraphErrors* gr2[num_pol];
   // Double_t q_cuts[num_pol] = {0.2, 0.25, 0.3, 0.35, 0.4};
   Double_t q_cuts[num_pol] = {0.25, 0.3, 0.35};
   
   Double_t B[num-1] = {8.01,0.322,1.35};
+  Double_t B2[num+5] = {1.96615,2.0101,2.05405,2.098,2.14195,2.1859,2.22985,2.2738,2.31775};
   // Double_t q_cuts[num_pol] = {0.2, 0.25, 0.3, 0.35, 0.4};
   Double_t pol_at_qcut[num-1];
   Double_t error_pol_at_qcut[num-1];
+  Double_t pol_at_qcut2[num+5];
+  Double_t error_pol_at_qcut2[num+5];
 
   Double_t ibin_pol[num_pol];
 
@@ -878,13 +884,29 @@ Int_t P90nm_BG4(){
   TLegend *leg4 = new TLegend(0.8, 0.8, 0.95, 1, "");
   // leg4->SetFillStyle(0);
   for (Int_t i=0; i<num_pol; i++){
-    ibin_pol[i]= Int_t((q_cuts[i]-q_min)*nbin_q/(q_max-q_min));
+    ibin_pol[i]= Int_t((q_cuts[i]-q_min)*nbin_q/(q_max-q_min));//bin number
     for (Int_t j=0; j<num-1; j++){
       pol_at_qcut[j] = hq[j]->GetBinContent(ibin_pol[i]);
       error_pol_at_qcut[j] = hq[j]->GetBinError(ibin_pol[i]);
+
       cout <<   pol_at_qcut[j] << endl;
       // count << Form("At q=%.2f nm^{-1}, B=%.3f mT: Polarization power=", q_cuts[i], B[i])<<  pol_at_qcut[i] << endl;
     }
+    for (Int_t j=0; j<num+5; j++){
+      pol_at_qcut2[j] = hq11[j]->GetBinContent(ibin_pol[i]);
+      error_pol_at_qcut2[j] = hq11[j]->GetBinError(ibin_pol[i]);
+      cout <<   pol_at_qcut2[j] << endl;
+      // count << Form("At q=%.2f nm^{-1}, B=%.3f mT: Polarization power=", q_cuts[i], B[i])<<  pol_at_qcut[i] << endl;
+    }
+
+    //TMultiGraph *gr = new TMultiGraph("gr", "gr");
+    /*
+    gr1[i]= new TGraphErrors(num-1, B, pol_at_qcut,0,error_pol_at_qcut);
+    gr2[i]= new TGraphErrors(num+5, B2, pol_at_qcut2,0,error_pol_at_qcut2);
+    gr[i]->Add(gr1[i], "pl");
+    gr[i]->Add(gr2[i], "pl2");
+*/
+
     gr[i]= new TGraphErrors(num-1, B, pol_at_qcut,0,error_pol_at_qcut);
     gr[i]->GetXaxis()->SetRangeUser(0.2, 9);
     gr[i]->GetYaxis()->SetRangeUser(-1.2, 1.2);

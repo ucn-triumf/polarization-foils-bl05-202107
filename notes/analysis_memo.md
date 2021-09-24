@@ -14,7 +14,7 @@
 | 20210714184125  | OFF  | 1.97 | -8.01302 | probably  I=1.97A, SF:OFF |
 | 20210714193654  | OFF  | 1.97 |-8.01302  | probably  I=1.97A, SF:OFF | only m1
 | 20210717040703  | OFF  |	2.0	 |-8.13014 | recorded after the sample c was taken out |
-| 20210713202138  |
+| 20210713202138  | | no m1, no m2  direct
 
 ### Characterization of AFP-SF/measurement of beam polarization
 

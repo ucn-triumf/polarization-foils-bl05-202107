@@ -21,7 +21,7 @@ TString path_D = "data/210713_SiFe/"; // path to the data directory
 //TString rootfile  = "20210714185238_list.root"; // name of the target root file
 //TString rootfile  = "_list.root"; // name of the target root file
 //TString rootfile  = "20210714205602_list.root"; // name of the target root file
-TString rootfile  = "20210714205602_list.root"; // name of the target root file
+TString rootfile  = "20210713220438_list.root"; // name of the target root file
 //TString rootfile  = "20210713215303_list.root"; 
 //20210716233530_list
 
@@ -31,10 +31,10 @@ TString rootfile  = "20210714205602_list.root"; // name of the target root file
 //Double_t x_cut_up =  50; // for transmission wave 
 //Double_t x_cut_low = 57; // for transmission wave 
 //Double_t x_cut_up =  59; // for transmission wave 
-Double_t x_cut_low = 46.5; // for transmission wave 
-Double_t x_cut_up =  48.5; // for transmission wave 
-//Double_t x_cut_low = 50.5; // for transmission wave 
-//Double_t x_cut_up =  53; // for transmission wave 
+//Double_t x_cut_low = 46.5; // for transmission wave 
+//Double_t x_cut_up =  48.5; // for transmission wave 
+Double_t x_cut_low = 65; // for transmission wave 
+Double_t x_cut_up =  70; // for transmission wave 
 
 //Double_t x_cut_low = 65; // for transmission wave 
 //Double_t x_cut_up =  72; // for transmission wave 
@@ -46,7 +46,7 @@ Double_t x_cut_up =  48.5; // for transmission wave
 // Double_t y_cut_low = 68;
 // Double_t y_cut_up = 78;
 Double_t y_cut_low = 55;
-Double_t y_cut_up = 71;
+Double_t y_cut_up = 85;
 Double_t range=128;
 
 TCut cut_xy =Form("x*%f>%f && x*%f<%f && y*%f>%f && y*%f<%f && f==4", range, x_cut_low,range,x_cut_up,range,y_cut_low, range,y_cut_up);

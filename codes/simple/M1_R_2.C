@@ -3,7 +3,7 @@
 #include <TH3.h>
 TString path_R = "results/";
 
-Double_t Distance = 18.01; //tentative
+Double_t Distance = 18.101; //tentative [km]
 Double_t Conversion = 395.6;
 Double_t dist_det   = 1439.; //sample to detector [mm]
 Double_t xdirect    = 93.4728;

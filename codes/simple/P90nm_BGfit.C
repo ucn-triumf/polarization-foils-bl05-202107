@@ -815,9 +815,9 @@ Int_t P90nm_BGfit(){
     f0->SetNpx(10000);
     f0->SetParLimits(0,80.e-9,100.e-9);
     f0->SetParLimits(1,1.7,2.1);
-    f0->Draw("sames");
+    //f0->Draw("sames");
     gStyle->SetOptFit();
-    hq[1]->Fit(f0,"","",0.18,0.5);
+    hq[1]->Fit(f0,"","",0.2,0.5);
     
     
 

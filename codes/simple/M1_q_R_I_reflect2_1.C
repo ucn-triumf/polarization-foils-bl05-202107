@@ -1,0 +1,418 @@
+#include "../bin/MakeNiki.h"
+//#include "/home/nop/data/Tools/GetMRcut.C"
+#include <TH3.h>
+TString path_R = "results/";
+
+// Double_t Distance = 20.000; //tentative
+// Double_t Conversion = 395.6;
+// Double_t dist_det   = 337.; //sample to detector [mm]
+// Double_t xdirect    = 64.71;
+// Bool_t useMRfirst = 0; //use only MR events to avoid frame overlap
+// Bool_t useThinout = 0; //thinning out the event <1e4.
+
+Double_t Distance = 18.101;//[m]
+Double_t Conversion = 395.6;
+Double_t dist_det   = 1439.; //sample to detector [mm]
+Double_t xdirect    = 93.4728;
+Bool_t useMRfirst = 0; //use only MR events to avoid frame overlap
+Bool_t useThinout = 0; //thinning out the event <1e4.
+
+void InitColor(){
+  //set default color
+  gROOT->GetColor(2)->SetRGB(220./255.,  50./255.,  47./255.); // Red
+  gROOT->GetColor(3)->SetRGB(135./255., 194./255.,  63./255.); // Green
+  gROOT->GetColor(4)->SetRGB( 38./255., 139./255., 210./255.); // Blue
+  gROOT->GetColor(5)->SetRGB(250./255., 202./255.,  18./255.); // Yellow
+  gROOT->GetColor(6)->SetRGB(236./255.,   0./255., 140./255.); // Magenta
+  gROOT->GetColor(7)->SetRGB(135./255., 206./255., 250./255.); // Cyan
+  gROOT->GetColor(8)->SetRGB(102./255., 205./255., 170./255.); // Lightgreen
+  return;
+}
+
+TTree* GetTree(TString filestr){
+
+  TString ROOTstr = filestr(0,19);//filestr　ファイルを番号によって読むものを変える
+  ROOTstr += ".root";
+  TString path = "data/210713_SiFe/";
+  TString ROOTstr_path = path+ROOTstr;
+  TFile *file = TFile::Open(ROOTstr_path.Data());
+
+  //TFile *file = TFile::Open(ROOTstr.Data());
+  if ( file->IsOpen() ) printf("ROOT file opened successfully\n");
+  TTree* tup=(TTree*)file->Get("T");
+  if(useThinout==1)tup->SetMaxEntryLoop(10000);
+  //  tup->SetDirectory(NULL);
+  //  file->Close();
+  return tup;
+}
+
+Int_t M1_q_R_I_reflect2(){
+
+  const Int_t num = 7;
+  Int_t kp[num];
+  TTree* tup[num];
+  TH1F* hx[num];
+  TH1F* hlambda[num];
+  TH1F* hratio[num];
+  TH1F* hq[num];
+  TH1F* hq0[num];
+  TH3F* hxylambda[num];
+
+  TH1F* h_x[num];
+  TH1F* h_y[num];
+
+  //TString path_R = "results/"; // path to the results directory 
+  TString path_D = "data/210713_SiFe/"; // path to the data directory 
+  //TString rootfile  = "20210714185238_list.root"; // name of the target root file
+  //TString rootfile  = "_list.root"; // name of the target root file
+  //TString rootfile  = "20210714205602_list.root"; // name of the target root file
+  //TString rootfile  = "20210713202138_list.root"; // name of the target root file
+
+  Double_t x_cut_low = 90.5; // for transmission wave 
+  Double_t x_cut_up =  95.5; // for transmission wave 
+  Double_t y_cut_low = 55;
+  Double_t y_cut_up = 85;
+  Double_t range=128;
+
+  TCut cut_xy =Form("x*%f>%f && x*%f<%f && y*%f>%f && y*%f<%f && f==4", range, x_cut_low,range,x_cut_up,range,y_cut_low, range,y_cut_up);
+
+  const Int_t nBinXY = 640;
+  const Double_t startX = 0;
+  const Double_t endX = 128;
+  const Double_t startY = 0;
+  const Double_t endY = 128;
+  const Int_t nBinCut = 200;
+
+  TString rootfile_num[i]    = path_D + namestr[i];
+  
+  const TString tree_name  = "T";
+  const TString cut_str    = "f==4";
+
+  TFile *rootfile  = TFile::Open(rootfile_num.Data());
+  TTree *tree = rootfile->Get<TTree>(tree_name);
+  const Double_t time = (tree->GetMaximum("kp")-tree->GetMinimum("kp"))/25.;
+  TCanvas *c_xy = new TCanvas("c_xy","c_xy", 800, 1000);
+  c_xy->Divide(1,3);
+  TH2D *h_xy = new TH2D("h_xy","XY from upstream",nBinXY,startX,endX,nBinXY,startY,endY);
+  TH1D *h_x = new TH1D("h_x","X histogram",nBinCut,x_cut_low,x_cut_up);
+  TH1D *h_y = new TH1D("h_y","Y histogram",nBinCut,y_cut_low,y_cut_up);
+  
+  c_xy->cd(1);
+  tree->Draw(Form("y*%f:x*%f>>h_xy", range, range), cut_rpmt*TCut(Form("%f",1./time)), "colz");  // change to count rate (cps)
+  
+
+  c_xy->cd(2);
+  tree->Draw(Form("x*%f>>h_x", range), cut_xy * cut_rpmt* TCut(Form("%f",1./time)) , "EH"); //
+  // h_x->Fit("gaus");
+  Double_t x_peak = h_x->GetMean();
+  Double_t count_max_x = h_x->GetMaximum();
+  //TLine *line_x = new TLine(x_peak, 0, x_peak, count_max_x*1.2);
+  //line_x->SetLineColor(kRed);
+  //line_x->Draw();
+
+  c_xy->cd(3);
+  tree->Draw(Form("y*%f>>h_y", range), cut_xy * cut_rpmt* TCut(Form("%f",1./time)) , "EH"); //
+  // h_x->Fit("gaus");
+  Double_t y_peak = h_y->GetMean();
+  Double_t count_max_y = h_y->GetMaximum();
+  TLine *line_y = new TLine(y_peak, 0, y_peak, count_max_y*1.2);
+  //line_y->SetLineColor(kRed);
+  //line_y->Draw();
+
+  //c_xy->Update();
+
+  
+  const Double_t sum  = h_xy->GetSumOfWeights();
+  std::cout << "sum: "  << sum      << std::endl;
+  std::cout << "time: " << time     << " s"   << std::endl;
+  std::cout << "rate: " << sum/time << " cps" << std::endl;
+  std::cout << "average x: " << x_peak << " mm" << std::endl;
+  
+  std::cout << "average y: " << y_peak << " mm" << std::endl;
+
+
+
+  InitColor();
+  TH1::SetDefaultSumw2();
+
+  
+
+  TString namestr[num];
+  namestr[0]="20210713202138_list.root"; 
+  //namestr[0]="20210713212050_list.root"; //M1 reflect (direct) 1hour
+  //namestr[0]="20210713203803_list.root";
+  namestr[1]="20210713225533_list.root";
+
+  //namestr[2]="20210713215303_list.root";
+  namestr[2]="20210713225916_list.root"; 
+
+  namestr[3]="20210713230326_list.root"; //Fe 30 nm, theta = 0.69 deg., x = 0.0 mm, B = 1 mT from -8 mT  with AFP 760 mV
+  namestr[4]="20210713230941_list.root"; //Fe 30 nm, theta = 0.69 deg., x = 0.0 mm, B = 1.5 mT from -8 mT  with AFP 760 mV
+  namestr[5]="20210713231325_list.root"; 
+  
+  
+  namestr[6]="20210715084052_list.root";
+  
+  TString degstr[num];
+  degstr[0]="Direct";
+
+  degstr[1]=namestr[1];
+  degstr[2]=namestr[2];
+  degstr[3]=namestr[3];
+  degstr[4]=namestr[4];
+  degstr[5]=namestr[5];
+  degstr[6]=namestr[6];
+  Double_t angle[num];
+
+  angle[0] = TMath::Abs(70.5 - xdirect)/dist_det; //rad
+  angle[1] = TMath::Abs(47.07 - xdirect)/dist_det; //rad
+  angle[2] = TMath::Abs(68.1399 - xdirect)/dist_det; //rad
+  angle[3] = TMath::Abs(47.19 - xdirect)/dist_det; //rad
+  angle[4] = TMath::Abs(47.24 - xdirect)/dist_det; //rad
+  angle[5] = TMath::Abs(47.21 - xdirect)/dist_det; //rad
+  angle[6] = TMath::Abs(47.11 - xdirect)/dist_det; //rad
+
+  Double_t angledeg[num];
+  Double_t angledeg2[num];
+  
+  angledeg[0]=angle[0]*180./TMath::Pi()/2.;
+  angledeg[1]=angle[1]*180./TMath::Pi()/2.;
+  angledeg[2]=angle[2]*180./TMath::Pi()/2.;
+  angledeg[3]=angle[3]*180./TMath::Pi()/2.;
+  angledeg[4]=angle[4]*180./TMath::Pi()/2.;
+  angledeg[5]=angle[5]*180./TMath::Pi()/2.;
+  angledeg[6]=angle[6]*180./TMath::Pi()/2.;
+  angledeg[7]=angle[7]*180./TMath::Pi()/2.;
+
+  
+
+  //  TLegend* leg = new TLegend(0.15, 0.75, 0.4, 0.98,"");
+  TLegend* leg = new TLegend(0.73, 0.30, 1.00, 0.70,"");
+  leg->SetFillColor(0);
+
+  Int_t nbin = 512;
+  Double_t range = 128.;
+  Int_t nbin_lambda = 200;
+  Double_t lambda_max  = 1.5;
+  Double_t nbin_q  = 300;
+  Double_t q_max  = 1.0;//0.6
+  Int_t nrebinx = 1;
+  Int_t nrebiny = 2;
+
+  Int_t LLD  = 500.;
+  //  Double_t HLD  = 7400.;
+
+  //  Double_t xbegin=54.;
+ 
+
+  Double_t xbegin=65.;
+  Double_t xcenter=70.;
+  Double_t xcenter1=90.5;
+  Double_t xend=95.5;
+  Double_t ybegin=55.;
+  Double_t yend=85.;
+  
+  //  Double_t ybegin=70.;
+  //  Double_t yend=77.;
+
+  TCut cut_rpmt_basic = Form("a>%d && b>%d && c>%d && d>%d && a<%d && b<%d && c< %d && d<%d && f==4",
+			     LLD,LLD,LLD,LLD,rpmt_HLD,rpmt_HLD,rpmt_HLD,rpmt_HLD);
+  TCut cut_x = Form("x*%f>20 && x*%f<100",range,range);
+  TCut cut_y = Form("y*%f>%f && y*%f<%f",range,ybegin,range,yend);
+  TCut cut_dir = Form("x*%f>%f && x*%f<%f",range,xcenter1,range,xend);
+  TCut cut_ref = Form("x*%f>%f && x*%f<%f",range,xbegin,range,xcenter);
+  //  TCut cut_tof = Form("tof>1.0e3 && tof<39.9e3");
+  TCut cut_tof = "";
+  TCut MRcut = "MRflag>0";
+  TCut thecut = cut_rpmt_basic && cut_x && cut_y && cut_tof;
+  if(useMRfirst) thecut = thecut && MRcut;
+  TCut thecut0;
+
+  TCanvas *c1 = new TCanvas("c1","",1200,800);
+  c1->Divide(2,2);
+  c1->cd(1);
+  gPad->SetLogy();
+
+  // for(Int_t i=0; i<2; i++){
+  for(Int_t i=0; i<num; i++){
+
+    
+    thecut.Print();
+    if(i==0) thecut0=thecut;
+
+    Double_t twopirad = 2*TMath::Pi()*angle[i];
+    Double_t lambda_coeff = 1.e-6*Conversion/Distance;
+
+    tup[i] = GetTree(namestr[i]);
+    // tup[i]->SetAlias("toffo","(tof>9.e3)*(tof)+(tof<9.e3)*(tof+40.e3)");
+    tup[i]->SetAlias("toffo","(tof>10.e3)*(tof)+(tof<10.e3)*(tof+40.e3)"); // edited based on suggestion by KM on the August 3rd
+
+    //    tup[i]->SetAlias("toffo","tof");
+    if(useMRfirst) kp[i] = tup[i]->GetMaximum("mp");
+    else kp[i] = tup[i]->GetMaximum("kp");
+    cout << kp[i]<<endl;
+    hx[i] = new TH1F(Form("hx%d",i),Form("%s;X [mm];count/bin/25kp",degstr[i].Data()),nbin,0.,range);
+    hlambda[i] = new TH1F(Form("hlambda%d",i),Form("%s;Wavelength [nm];count/bin/25k",degstr[i].Data()),nbin_lambda,0.,lambda_max);
+    hq0[i] = new TH1F(Form("hq0%d",i),Form("%s;q [nm^{-1}];count/bin/25kp",degstr[i].Data()),nbin_q,0.,q_max);
+    hq[i] = new TH1F(Form("hq%d",i),Form("%s;q [nm^{-1}];count/bin/25kp",degstr[i].Data()),nbin_q,0.,q_max);
+    hxylambda[i] = new TH3F(Form("hxylambda%d",i),Form("%s;x [mm]; y [mm]; Wavelength [nm];count/bin/25kp",degstr[i].Data()), nbin/nrebinx,0.,range,nbin/nrebiny,0.,range,nbin_lambda,0.,lambda_max);
+
+    tup[i]->Draw(Form("x*%f>>hx%d",range,i), thecut,"goff");
+    if(i==0) tup[i]->Draw(Form("toffo*%f>>hlambda%d",lambda_coeff,i), thecut && cut_dir,"goff");
+    else tup[i]->Draw(Form("toffo*%f>>hlambda%d",lambda_coeff,i), thecut && cut_ref,"goff");
+    tup[0]->Draw(Form("%f/(toffo*%f)>>hq0%d",twopirad,lambda_coeff,i), thecut0 && cut_dir,"goff");
+    tup[i]->Draw(Form("%f/(toffo*%f)>>hq%d",twopirad,lambda_coeff,i), thecut && cut_ref,"goff");
+    tup[i]->Draw(Form("toffo*%f:y*%f:x*%f>>hxylambda%d",lambda_coeff,range,range,i),cut_rpmt_basic && MRcut,"goff");
+
+    
+    if(i!=6){
+      leg->AddEntry(hx[i],degstr[i],"l");
+    }
+    
+
+    hx[i]->Scale(25./kp[i]);
+    hlambda[i]->Scale(25./kp[i]);
+    hq[i]->Scale(25./kp[i]);
+    hq0[i]->Scale(25./kp[0]);
+    hxylambda[i]->Scale(25./kp[i]);
+
+    hratio[i]=(TH1F*)hlambda[i]->Clone(Form("hratio%d",i));
+    hratio[i]->Divide(hlambda[0]);
+    hratio[i]->GetYaxis()->SetTitle("Reflectivity");
+    hq[i]->Divide(hq0[i]);
+    hq[i]->GetYaxis()->SetTitle("Reflectivity");
+
+    if(i==9){
+      hx[i]->SetLineColor(i+2);
+      hlambda[i]->SetLineColor(i+2);
+      hratio[i]->SetLineColor(i+2);
+      hq[i]->SetLineColor(i+2);
+      hq0[i]->SetLineColor(i+2);
+    } else {
+      hx[i]->SetLineColor(i+1);
+      hlambda[i]->SetLineColor(i+1);
+      hratio[i]->SetLineColor(i+1);
+      hq[i]->SetLineColor(i+1);
+      hq0[i]->SetLineColor(i+1);
+    }
+
+    TH1D *h_x = new TH1D("h_x","X histogram",nBinCut,x_cut_low,x_cut_up);
+    TH1D *h_y = new TH1D("h_y","Y histogram",nBinCut,y_cut_low,y_cut_up);
+    tup[i]->Draw(Form("x*%f>>hx%d",range,i), thecut,"goff");
+
+    c1->cd(1);
+    //if(i==0)hx[i]->Draw("eh");
+    //else hx[i]->Draw("ehsames");
+
+    
+    //TLine *l2 = new TLine (xend,1e-3,xend, 1e3);
+    
+    if(i==0)hx[i]->Draw("eh");
+    
+    else if(i!=6)hx[i]->Draw("ehsames");
+    
+
+    TLine *l1 = new TLine (xbegin,1e-3,xbegin, 1e3);
+    TLine *l2 = new TLine (xcenter,1e-3,xcenter, 1e3);
+    l1->SetLineColor(6);
+    l2->SetLineColor(6);
+    l1->Draw("ehsames");
+    l2->Draw("ehsames");
+    
+    TLine *l3 = new TLine (xend,1e-3,xend, 1e3);
+    TLine *l4 = new TLine (xcenter1,1e-3,xcenter1, 1e3);
+    l3->SetLineColor(1);
+    l4->SetLineColor(1);
+    l3->Draw("ehsames");
+    l4->Draw("ehsames");
+
+    //if(i==7)hx[i]->Draw("ehsames");
+    leg->Draw();
+
+    c1->cd(2);
+    //if(i==0)hlambda[i]->Draw("eh");
+    //else hlambda[i]->Draw("ehsames");
+    //if(i==0)hlambda[i]->Draw("eh");
+    //if(i==2)hlambda[i]->Draw("ehsames");
+    if(i==0)hlambda[i]->Draw("eh");
+    else if(i!=6)hlambda[i]->Draw("ehsames");
+    //if(i==7)hlambda[i]->Draw("ehsames");
+    leg->Draw();
+
+    c1->cd(3);
+    if(i==1)hratio[i]->Draw("eh");
+    if(i!=0){
+      if(i!=6){
+        hratio[i]->Draw("ehsame");
+      }
+    }
+
+    //if(i==2) hratio[i]->Draw("eh");
+    //if(i==7) hratio[i]->Draw("ehsames");
+    leg->Draw();
+
+    c1->cd(4);
+    if(i==0)hq[i]->Draw("eh");
+    else if(i!=6)hq[i]->Draw("ehsames");
+    //if(i==2) hq[i]->Draw("eh");
+    //if(i==7) hq[i]->Draw("ehsames");
+    leg->Draw();
+    hratio[i]->GetYaxis()->SetRangeUser(0.,2.);
+    hq[i]->GetYaxis()->SetRangeUser(0.1,0.9);
+    hq[i]->GetYaxis()->SetRangeUser(0.,2.);
+    hq[i]->GetXaxis()->SetRangeUser(0.1,0.9);
+/*
+    c1->cd(1);
+    if(i==0)hx[i]->Draw("eh");
+    else hx[i]->Draw("ehsames");
+    leg->Draw();
+    c1->cd(2);
+    if(i==0)hlambda[i]->Draw("eh");
+    else hlambda[i]->Draw("ehsames");
+    leg->Draw();
+
+    c1->cd(3);
+    if(i==1)hratio[i]->Draw("eh");
+    else hratio[i]->Draw("ehsames");
+    leg->Draw();
+
+    c1->cd(4);
+    if(i==1)hq[i]->Draw("eh");
+    else hq[i]->Draw("ehsames");
+    leg->Draw();
+
+    hratio[i]->GetYaxis()->SetRangeUser(0.,2.);
+    hq[i]->GetYaxis()->SetRangeUser(0.1,0.9);
+    hq[i]->GetYaxis()->SetRangeUser(0.,1.);
+    hq[i]->GetXaxis()->SetRangeUser(0.1,0.9);
+
+    cout<<"in_"<<angledeg[i]<<"_deg"<<endl;
+    */
+  }
+
+  hratio[1]->GetYaxis()->SetRangeUser(0.,2.);
+  hq[1]->GetYaxis()->SetRangeUser(0.,1.);
+
+  c1->cd(1); gPad->SetGrid();
+  c1->cd(2); gPad->SetGrid(); gPad->SetLogy();
+  c1->cd(3); gPad->SetGrid();
+  c1->cd(4); gPad->SetGrid();
+
+  c1->SaveAs(path_R+"q_R_I_on.png");
+  c1->SaveAs(path_R+"q_R_I_on.root");
+
+#if 1
+  TFile *outfile = TFile::Open(path_R+"FeMirrorhist.root","RECREATE");
+  for(Int_t i=0; i<num; i++){
+    hx[i]->Write();
+    hlambda[i]->Write();
+    hratio[i]->Write();
+    hq[i]->Write();
+    hxylambda[i]->Write();
+  }
+  outfile->Close();
+#endif
+
+
+  return 0 ;
+}

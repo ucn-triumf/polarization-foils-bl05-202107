@@ -21,30 +21,31 @@ TString path_D = "data/210713_SiFe/"; // path to the data directory
 //TString rootfile  = "20210714185238_list.root"; // name of the target root file
 //TString rootfile  = "_list.root"; // name of the target root file
 //TString rootfile  = "20210714205602_list.root"; // name of the target root file
-TString rootfile  = "20210713202138_list.root"; // name of the target root file
+TString rootfile  = "20210713215303_list.root"; // name of the target root file
 //TString rootfile  = "20210713215303_list.root"; 
 //20210716233530_list
+/*
+namestr[0]="20210713202138_list.root"; 
+  //namestr[0]="20210713212050_list.root"; //M1 reflect (direct) 1hour
+  //namestr[0]="20210713203803_list.root";
+  namestr[1]="20210713215303_list.root";
 
-//Double_t x_cut_low = 60;
-//Double_t x_cut_up =  68;
-//Double_t x_cut_low = 45; // for transmission wave 
-//Double_t x_cut_up =  50; // for transmission wave 
-//Double_t x_cut_low = 57; // for transmission wave 
-//Double_t x_cut_up =  59; // for transmission wave 
-//Double_t x_cut_low = 46.5; // for transmission wave 
-//Double_t x_cut_up =  48.5; // for transmission wave 
-Double_t x_cut_low = 90.5; // for transmission wave 
-Double_t x_cut_up =  95.5; // for transmission wave 
+  //namestr[2]="20210713215303_list.root";
+  namestr[2]="20210713220438_list.root"; 
 
-//Double_t x_cut_low = 65; // for transmission wave 
-//Double_t x_cut_up =  72; // for transmission wave 
-//Double_t x_cut_low = 62; // for transmission wave 
-//Double_t x_cut_up =  64.5; // for transmission wave
+  namestr[3]="20210713224531_list.root"; //Fe 30 nm, theta = 0.69 deg., x = 0.0 mm, B = 1 mT from -8 mT  with AFP 760 mV
+  namestr[4]="20210713225152_list.root"; //Fe 30 nm, theta = 0.69 deg., x = 0.0 mm, B = 1.5 mT from -8 mT  with AFP 760 mV
+  namestr[5]="20210713225420_list.root"; 
+  
+  
+  namestr[6]="20210715084052_list.root";
+*/
 
-// Double_t x_cut_low = 40; // for transmission wave 
-// Double_t x_cut_up =  55; // for transmission wave 
-// Double_t y_cut_low = 68;
-// Double_t y_cut_up = 78;
+Double_t x_cut_low = 62.; // for transmission wave 
+Double_t x_cut_up =  71.; // for transmission wave 
+//Double_t x_cut_low = 90.5; // for transmission wave 
+//Double_t x_cut_up =  95.5; 
+
 Double_t y_cut_low = 55;
 Double_t y_cut_up = 85;
 Double_t range=128;

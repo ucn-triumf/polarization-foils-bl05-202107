@@ -27,6 +27,14 @@ TTree* GetTree(TString filestr){
   return tup;
 }
 
+Double_t xbegin=65.;
+Double_t xcenter=70.;
+Double_t xcenter1=90.5;
+Double_t xend=95.5;
+Double_t ybegin=55.;
+Double_t yend=85.;
+  
+
 Int_t M1_R(){
 
   TH1::SetDefaultSumw2();
@@ -115,12 +123,7 @@ Int_t M1_R(){
   Double_t xend=71.;
   Double_t ybegin=65.;
   Double_t yend=82.;*/
-  Double_t xbegin=60.;
-  Double_t xcenter=85.;
-  Double_t xend=95.;
-  Double_t ybegin=65.;
-  Double_t yend=82.;
-
+  
   TCut cut_rpmt_basic = Form("a>%d && b>%d && c>%d && d>%d && a<%d && b<%d && c< %d && d<%d && f==4",
 			     LLD,LLD,LLD,LLD,rpmt_HLD,rpmt_HLD,rpmt_HLD,rpmt_HLD);
   TCut cut_x = Form("x*%f>20 && x*%f<100",range,range);

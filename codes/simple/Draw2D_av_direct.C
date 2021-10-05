@@ -16,12 +16,24 @@
 #include "../../tools/ichikawa/RPMT.h"
 #include "../../tools/ichikawa/NikiControllerX.C"
 
+  /*
+  namestr[0]="20210713202138_list.root"; 
+  namestr[1]="20210713214225_list.root";
+  namestr[2]="20210713215303_list.root"; 
+
+  namestr[3]="20210713220140_list.root"; //Fe 30 nm, theta = 0.69 deg., x = 0.0 mm, B = 1 mT from -8 mT  with AFP 760 mV
+  namestr[4]="20210713220438_list.root"; //Fe 30 nm, theta = 0.69 deg., x = 0.0 mm, B = 1.5 mT from -8 mT  with AFP 760 mV
+  namestr[5]="20210713222200_list.root";
+  
+  namestr[6]="20210715084052_list.root";
+  */
+
 TString path_R = "results/"; // path to the results directory 
 TString path_D = "data/210713_SiFe/"; // path to the data directory 
 //TString rootfile  = "20210714185238_list.root"; // name of the target root file
 //TString rootfile  = "_list.root"; // name of the target root file
 //TString rootfile  = "20210714205602_list.root"; // name of the target root file
-TString rootfile  = "20210713220438_list.root"; // name of the target root file
+TString rootfile  = "20210713225152_list.root"; // name of the target root file
 //TString rootfile  = "20210713215303_list.root"; 
 //20210716233530_list
 
@@ -33,8 +45,8 @@ TString rootfile  = "20210713220438_list.root"; // name of the target root file
 //Double_t x_cut_up =  59; // for transmission wave 
 //Double_t x_cut_low = 46.5; // for transmission wave 
 //Double_t x_cut_up =  48.5; // for transmission wave 
-Double_t x_cut_low = 65; // for transmission wave 
-Double_t x_cut_up =  70; // for transmission wave 
+Double_t x_cut_low = 90; // for transmission wave 
+Double_t x_cut_up =  95; // for transmission wave 
 
 //Double_t x_cut_low = 65; // for transmission wave 
 //Double_t x_cut_up =  72; // for transmission wave 

@@ -13,7 +13,9 @@ TString path_R = "results/";
 Double_t Distance = 18.101;//[m]
 Double_t Conversion = 395.6;
 Double_t dist_det   = 1439.; //sample to detector [mm]
-Double_t xdirect    = 93.4728;
+//Double_t xdirect    = 92.4685;//92.4685 92.4736
+Double_t xdirect    =92.4736;
+//Double_t xdirect    = 93.4728;
 Bool_t useMRfirst = 0; //use only MR events to avoid frame overlap
 Bool_t useThinout = 0; //thinning out the event <1e4.
 
@@ -228,7 +230,7 @@ Int_t M1_pol_check(){
   
   //angle[2] = TMath::Abs(68.1399 - xdirect)/dist_det; //rad
   angle[1] = TMath::Abs(68.0634 - xdirect)/dist_det; //rad
-  angle[2] = TMath::Abs(68.4746 - xdirect)/dist_det; //rad
+  angle[2] = TMath::Abs(68.4522 - xdirect)/dist_det; //rad
   angle[3] = TMath::Abs(68.0634 - xdirect)/dist_det; //rad
   angle[4] = TMath::Abs(68.0634 - xdirect)/dist_det; //rad
   angle[5] = TMath::Abs(68.0634 - xdirect)/dist_det; //rad
@@ -266,12 +268,12 @@ Int_t M1_pol_check(){
 
   //  Double_t xbegin=54.;
  
-  Double_t xbegin=65.;
-  Double_t xcenter=70.;
-  Double_t xbegin2=88.5;
-  Double_t xcenter2=95.5;
-  Double_t xcenter1=88.5;
-  Double_t xend=95.5;
+  Double_t xbegin=63.;
+  Double_t xcenter=73.;
+  Double_t xbegin2=86.5;
+  Double_t xcenter2=96.5;
+  Double_t xcenter1=86.5;
+  Double_t xend=96.5;
   Double_t ybegin=55.;
   Double_t yend=85.;
   

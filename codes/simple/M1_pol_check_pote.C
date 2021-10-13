@@ -64,7 +64,10 @@ double func_R0(double *qqq,double *par){
   double R1;
   //double q1=qqq[0];
   //double E1=pow(hbar*q1,2)/8./m_nc2nm;
-  double qc=1.36239E-01;
+  //double qc=1.36239E-01;
+  double qc=1.30030e-01;
+  double mm2=5.88427e+00 ;
+
   double ww=2.5E-03;//par[1];
   double R0=1.;
   
@@ -76,7 +79,8 @@ double func_R0(double *qqq,double *par){
   double qc_up=0.217;
 
   double mm=5.2;
-  double mm2=5.83252E+00;
+  // 5.88427e+00 
+  //double mm2=5.83252E+00;
   //double R1;
 
 
@@ -147,7 +151,7 @@ double func_R0(double *qqq,double *par){
       //R1=(R1_nume/R1_deno)*(funcP-0.5);
 
 
-      R1=(R1_nume/R1_deno)*(1-Rdown)+funcdown*Rdown;
+      R1=(R1_nume/R1_deno)*(1.-Rdown)+funcdown*Rdown;
       //R1=(R1_nume/R1_deno)*(1.5-funcP)+funcdown*(funcP-0.5);
       
     }
@@ -163,7 +167,7 @@ double func_R0(double *qqq,double *par){
         double R1_deno=pow((k0*alpha+alpha*k2)*cosh(alpha*d1),2)+pow((alpha*alpha-k0*k2)*sinh(alpha*d1),2);
         //R1=(R1_nume/R1_deno)*(1.5-funcP);//k1a*k1a-k0*k2 k0*k2-k1a*k1a
         //R1=(R1_nume/R1_deno)*(funcP-0.5);
-        R1=(R1_nume/R1_deno)*(1-Rdown)+funcdown*Rdown;
+        R1=(R1_nume/R1_deno)*(1.-Rdown)+funcdown*Rdown;
         //R1=(R1_nume/R1_deno)*(1.5-funcP)+funcdown*(funcP-0.5);
       }
       else{
@@ -171,7 +175,7 @@ double func_R0(double *qqq,double *par){
         //R1=1*(funcP-0.5);
 
 
-        R1=1.*(1-Rdown)+funcdown*Rdown;
+        R1=1.*(1.-Rdown)+funcdown*Rdown;
         //R1=1.*(1.5-funcP)+funcdown*(funcP-0.5);
         
       
@@ -194,7 +198,10 @@ double func_R00(double *qqq,double *par){
   double V_Fe_m=V_Fe-mu_n*in_mag;
   //double q1=qqq[0];
   //double E1=pow(hbar*q1,2)/8./m_nc2nm;
-  double qc=1.36239E-01;
+  //double qc=1.36239E-01;
+  double qc=1.30030e-01;
+  double mm2=5.88427e+00 ;
+
   double ww=2.5E-03;//par[1];
   double R0=1.;
   
@@ -206,7 +213,7 @@ double func_R00(double *qqq,double *par){
   double qc_up=0.217;
 
   double mm=5.2;
-  double mm2=5.83252E+00;
+  //double mm2=5.83252E+00;
   
   //double R1;
 
@@ -278,7 +285,7 @@ double func_R00(double *qqq,double *par){
 
 
       //R1=(R1_nume/R1_deno)*(funcP-0.5)+funcdown*(1.5-funcP);
-      R1=(R1_nume/R1_deno)*Rdown+funcdown*(1-Rdown);
+      R1=(R1_nume/R1_deno)*Rdown+funcdown*(1.-Rdown);
       
     }
     
@@ -294,7 +301,7 @@ double func_R00(double *qqq,double *par){
         //R1=(R1_nume/R1_deno)*(1.5-funcP);//k1a*k1a-k0*k2 k0*k2-k1a*k1a
         //R1=(R1_nume/R1_deno)*(funcP-0.5);
         //R1=(R1_nume/R1_deno)*(funcP-0.5)+funcdown*(1.5-funcP);
-        R1=(R1_nume/R1_deno)*Rdown+funcdown*(1-Rdown);
+        R1=(R1_nume/R1_deno)*Rdown+funcdown*(1.-Rdown);
       }
       else{
         //R1=1.*(1.5-funcP);
@@ -302,7 +309,7 @@ double func_R00(double *qqq,double *par){
 
 
         //R1=1.*(funcP-0.5)+funcdown*(1.5-funcP);
-        R1=1.*Rdown+funcdown*(1-Rdown);
+        R1=1.*Rdown+funcdown*(1.-Rdown);
         
       
       }
@@ -970,12 +977,16 @@ Int_t M1_pol_check_pote(){
     //else hq[i]->Draw("ehsames");
     
     //f0->SetParLimits(0,80.e-9,100.e-9);
-    f0->FixParameter(0.,90.e-9);//nm 
+    
     //f0->SetParameter(0.,30.);//nm 
     //f0->SetParameter(1,2.);
-    //f0->SetParLimits(1,1.8,2.2);
-    f0->FixParameter(1.,2.);//nm 
-    f0->FixParameter(2.,209);//nm 
+    //f0->SetParLimits(0,80.e-9,100.e-9);
+    f0->SetParLimits(1,1.8,2.2);
+    f0->SetParLimits(2,190,211);
+    f0->FixParameter(0.,90.e-9);//nm 
+    //f0->FixParameter(1.,2.);//nm 
+    //f0->FixParameter(2.,209);//nm 
+
     //f0->SetParLimits(2,190,211);
     //hq[i]->Fit("f0","R","10000",0.173,0.5);
     f0->SetNpx(10000);
@@ -988,10 +999,11 @@ Int_t M1_pol_check_pote(){
 
     //f1->SetParLimits(0,80.e-9,100.e-9);
     f1->FixParameter(0.,90.e-9);
+    f1->SetParLimits(1,1.5,2.2);
+    f1->SetParLimits(2,110,220);
     //f0->SetParameter(0.,30.);//nm 
     //f0->SetParameter(1,2.);
-    f1->SetParLimits(1,1.8,2.2);
-    f1->SetParLimits(2,190,220);
+    
     //f1->SetParLimits(1,1.8,1.999);
     f1->SetNpx(10000);
     f1->SetLineColor(4);
@@ -1019,9 +1031,33 @@ Int_t M1_pol_check_pote(){
   }
 
     c1->cd(2);
-    if(i==0)hlambda[i]->Draw("eh");
+    if(i!=0){
+    if(i==1){
+      hq[i]->Draw("eh");
+      //hq11[i]->Draw("ehsame");
+    }
+    if(i==2){
+      hq[i]->Draw("ehsame");
+      //hq11[i]->Draw("ehsame");
+    }
+    
+    if(i==1){
+      //hq[1]->Fit("f0","","",0.252,0.5);
+      hq[i]->Fit(f0,"+","",0.1,0.5);
+    }
+    if(i==2){
+      //hq[2]->Fit("f1","","",0.252,0.5);
+      hq[i]->Fit(f1,"+","",0.1,0.5);
+    }
+    gStyle->SetOptFit(1111);
+    
+  
+
+  }
+
+    /*if(i==0)hlambda[i]->Draw("eh");
     else hlambda[i]->Draw("ehsames");
-    leg->Draw();
+    leg->Draw();*/
 
     
 /*
@@ -1266,7 +1302,7 @@ Int_t M1_pol_check_pote(){
   leg4->Draw();
 
   c1->cd(1); gPad->SetGrid();//gPad->SetLogy();
-  c1->cd(2); gPad->SetGrid();//gPad->SetLogy();
+  c1->cd(2); gPad->SetGrid();gPad->SetLogy();
   
   c1->cd(3); gPad->SetGrid();//gPad->SetLogy();
   // c1->cd(4); gPad->SetGrid();//gPad->SetLogy();

@@ -998,7 +998,9 @@ Int_t M1_pol_check_pote_AFP(){
     //f0->SetParLimits(0,.e-9,100.e-9);
     f0->SetParLimits(1,1.8,2.3);
     //f0->SetParLimits(2,190,211);
-    f0->FixParameter(0.,90.e-9);//nm 
+    f0->FixParameter(0.,94.37e-9);//nm 
+
+
     //f0->FixParameter(1.,2.);//nm 
     f0->FixParameter(2.,209.0602);//nm 
 
@@ -1013,7 +1015,7 @@ Int_t M1_pol_check_pote_AFP(){
     //f1->SetParameter(1,2.);
 
     //f1->SetParLimits(0,80.e-9,100.e-9);
-    f1->FixParameter(0.,90e-9);
+    f1->FixParameter(0.,94.37e-9);
     f1->SetParLimits(1,1.5,2.2);
     //f1->SetParLimits(2,150,220);
     //f1->FixParameter(1.,2.);//nm 

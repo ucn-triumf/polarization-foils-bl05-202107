@@ -14,12 +14,14 @@ TString path_R = "results/";
 // definition of shared parameter
 // background function
 int iparB[2] = { 1,      // exp amplitude in B histo
-                 2    // exp common parameter
+                 2,
+                 3    // exp common parameter
 };
  
 // signal + background function
-int iparSB[2] = { 1, // exp amplitude in S+B histo
-                  2 // exp common parameter
+int iparSB[2] = { 1, //thickness
+                  2, //B(T)
+                  3  //V_Fe
           
 };
 struct GlobalChi2 {
@@ -1024,11 +1026,88 @@ Int_t M1_pol_check_ichi2(){
     }*/
     
     //else hq[i]->Draw("ehsames");
-
-    // (specify optionally data size and flag to indicate that is a chi2 fit)
+   
+   // 10/17
+   // (specify optionally data size and flag to indicate that is a chi2 fit)
    //fitter.FitFCN(6,globalChi2,0,dataB.Size()+dataSB.Size(),true);
+   //TH1D * hB = new TH1D("hB","histo B",100,0,100);
+   //TH1D * hSB = new TH1D("hSB","histo S+B",100, 0,100);
+ 
+   //TF1 * fB = new TF1("fB","expo",0,100);
+   fB->SetParameters(1,-0.05);
+   //hB->FillRandom("fB");
+ 
+   //TF1 * fS = new TF1("fS","gaus",0,100);
+   fS->SetParameters(1,30,5);
+ 
+   //hSB->FillRandom("fB",2000);
+   //hSB->FillRandom("fS",1000);
+ 
+   // perform now global fit
+ 
+   //TF1 * fSB = new TF1("fSB","expo + gaus(2)",0,100);
+ 
+   ROOT::Math::WrappedMultiTF1 wfB(*f0,1);//??
+   ROOT::Math::WrappedMultiTF1 wfSB(*f1,1);
+ 
+   ROOT::Fit::DataOptions opt;
+   ROOT::Fit::DataRange rangeB;
+   // set the data range
+   rangeB.SetRange(10,90);
+   ROOT::Fit::BinData dataB(opt,rangeB);
+   ROOT::Fit::FillData(dataB, hB);
+ 
+   ROOT::Fit::DataRange rangeSB;
+   rangeSB.SetRange(10,50);
+   ROOT::Fit::BinData dataSB(opt,rangeSB);
+   ROOT::Fit::FillData(dataSB, hSB);
+ 
+   ROOT::Fit::Chi2Function chi2_B(dataB, wfB);
+   ROOT::Fit::Chi2Function chi2_SB(dataSB, wfSB);
+ 
+   GlobalChi2 globalChi2(chi2_B, chi2_SB);
+ 
    ROOT::Fit::Fitter fitter;
+ 
+   const int Npar = 3;
+   double par0[Npar] = { 90.e-9,2.,209.0602};
+ 
+   // create before the parameter settings in order to fix or set range on them
+   fitter.Config().SetParamsSettings(6,par0);
+   // fix 5-th parameter
+   fitter.Config().ParSettings(4).Fix();
+   // set limits on the third and 4-th parameter
+   fitter.Config().ParSettings(2).SetLimits(-10,-1.E-4);
+   fitter.Config().ParSettings(3).SetLimits(0,10000);
+   fitter.Config().ParSettings(3).SetStepSize(5);
+ 
+   fitter.Config().MinimizerOptions().SetPrintLevel(0);
+   fitter.Config().SetMinimizer("Minuit2","Migrad");
+ 
+   // fit FCN function directly
+   // (specify optionally data size and flag to indicate that is a chi2 fit)
+   fitter.FitFCN(6,globalChi2,0,dataB.Size()+dataSB.Size(),true);
    ROOT::Fit::FitResult result = fitter.Result();
+   result.Print(std::cout);
+ 
+   TCanvas * c1 = new TCanvas("Simfit","Simultaneous fit of two histograms",
+                              10,10,700,700);
+   c1->Divide(1,2);
+   c1->cd(1);
+   gStyle->SetOptFit(1111);
+ 
+   fB->SetFitResult( result, iparB);
+   fB->SetRange(rangeB().first, rangeB().second);
+   fB->SetLineColor(kBlue);
+   hB->GetListOfFunctions()->Add(fB);
+   hB->Draw();
+ 
+   c1->cd(2);
+   fSB->SetFitResult( result, iparSB);
+   fSB->SetRange(rangeSB().first, rangeSB().second);
+   fSB->SetLineColor(kRed);
+   hSB->GetListOfFunctions()->Add(fSB);
+   hSB->Draw()
    result.Print(std::cout);
  
 
@@ -1152,19 +1231,6 @@ Int_t M1_pol_check_ichi2(){
     double xmin1=0.4;
 
 
-//9/6
-/*
-    TBox* b2 = new TBox(0.287,0,0.5,2.); 
-    b2->SetFillColor( 7  ); 
-    b2->SetFillStyle(3004); 
-    b2->Draw();
-    TBox* b3 = new TBox(0.15,0,0.173,2.); 
-    b3->SetFillColor( kOrange); 
-    b3->SetFillStyle(3004); 
-    b3->Draw("same"); 
-    leg2->Draw();
-    }
-*/
     c1->cd(3);
     /*if(i==1){
       hq2[i]->Draw("eh");

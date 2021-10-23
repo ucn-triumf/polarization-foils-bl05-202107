@@ -10,43 +10,6 @@ TString path_R = "results/";
 // Bool_t useMRfirst = 0; //use only MR events to avoid frame overlap
 // Bool_t useThinout = 0; //thinning out the event <1e4.
 
-
-// definition of shared parameter
-// background function
-int iparB[2] = { 1,      // exp amplitude in B histo
-                 2,
-                 3    // exp common parameter
-};
- 
-// signal + background function
-int iparSB[2] = { 1, //thickness
-                  2, //B(T)
-                  3  //V_Fe
-          
-};
-struct GlobalChi2 {
-   GlobalChi2(  ROOT::Math::IMultiGenFunction & f1,
-                ROOT::Math::IMultiGenFunction & f2) :
-      fChi2_1(&f1), fChi2_2(&f2) {}
- 
-   // parameter vector is first background (in common 1 and 2)
-   // and then is signal (only in 2)
-   double operator() (const double *par) const {
-      double p1[2];
-      for (int i = 0; i < 2; ++i) p1[i] = par[iparB[i] ];
- 
-      double p2[2];
-      for (int i = 0; i < 2; ++i) p2[i] = par[iparSB[i] ];
- 
-      return (*fChi2_1)(p1) + (*fChi2_2)(p2);
-   }
- 
-   const  ROOT::Math::IMultiGenFunction * fChi2_1;
-   const  ROOT::Math::IMultiGenFunction * fChi2_2;
-};
- 
-
-
 //8/29 add
 const double c=299792458; //[m/s]
 const double c_nm=299792458.e9; //[nm/s]
@@ -357,100 +320,7 @@ double func_R00(double *qqq,double *par){
   }
   TF1 *f1 = new TF1("",func_R00,0.01,0.5,3);
 
-  //E>V1(-V)
-  /*
-  double func_R1(double *qqq,double *par){
-    double q1=qqq[0];
-    double E1=pow(hbar*q1,2)/8./m_nc2nm;
-    double d1=par[0];
-    double in_mag=par[1];
-    double R1;
 
-    double funcP;
-    if(q1<qc){
-      funcP=R0;  
-    }
-    
-    else{
-      if(q1>qc){
-        double up_R=uprate*0.5*R0*(1.-tanh((q1-mm*qc_up)/ww))*(1.-alpha*(q1-qc_up));
-        double down_R=downrate*R0*(1.-tanh((q1-qc)/ww))*(1.-alpha*(q1-qc));
-        funcP=up_R+down_R;
-      }
-    }
-
-    if(E1>V_Fe_m){
-      double k0=sqrt(2.*m_nc2*E1)/hbar;//nm^-1
-      //double k1a=sqrt(2.*m_nc2*(E1-(V_Fe+mu_n*in_mag)))/hbar;//nm^-1
-      double k1a=sqrt(2.*m_nc2*(E1-(V_Fe+mu_n2*in_mag)))/hbar;//nm^-1
-      double k2=sqrt(2.*m_nc2*(E1-V_Si))/hbar;//nm^-1
-
-      double R1_nume=pow((k0*k1a-k1a*k2)*cos(k1a*d1),2)+pow((k0*k2-k1a*k1a)*sin(k1a*d1),2);
-      double R1_deno=pow((k0*k1a+k1a*k2)*cos(k1a*d1),2)+pow((k1a*k1a+k0*k2)*sin(k1a*d1),2);
-      R1=(R1_nume/R1_deno)*(funcP-0.5);//k1a*k1a-k0*k2 k0*k2-k1a*k1a
-      
-    }
-    else{
-      if(E1>V_Si){
-        double k0=sqrt(2.*m_nc2*E1)/hbar;//nm^-1
-        //double k1a=sqrt(2.*m_nc2*(E1-(V_Fe+mu_n*in_mag)))/hbar;//nm^-1
-        double alpha=sqrt(2.*m_nc2*((V_Fe+mu_n2*in_mag)-E1))/hbar;//nm^-1
-        double k2=sqrt(2.*m_nc2*(E1-V_Si))/hbar;//nm^-1
-
-        double R1_nume=pow((k0*alpha-alpha*k2)*cosh(alpha*d1),2)+pow((k0*k2+alpha*alpha)*sinh(alpha*d1),2);
-        double R1_deno=pow((k0*alpha+alpha*k2)*cosh(alpha*d1),2)+pow((alpha*alpha-k0*k2)*sinh(alpha*d1),2);
-        //R1=(R1_nume/R1_deno)*(1.5-funcP);//k1a*k1a-k0*k2 k0*k2-k1a*k1a
-        R1=(R1_nume/R1_deno)*(funcP-0.5);
-        //R1=(R1_nume/R1_deno);//k1a*k1a-k0*k2 k0*k2-k1a*k1a
-      }
-      else{
-        R1=1.*(funcP-0.5);
-      }
-    }
-
-    return R1;
-
-  }
-  //TF1 *f1 = new TF1("",func_R1,0.01,0.5,2);
-
-  //E>V1(-V)
-  double func_R2(double *qqq,double *par){
-    double q1=qqq[0];
-    double E1=pow(hbar*q1,2)/8./m_nc2nm;
-    double d1=par[0];
-    double in_mag=par[1];
-    double R1;
-
-    if(E1>V_Fe_p){
-      double k0=sqrt(2.*m_nc2*E1)/hbar;//nm^-1
-      //double k1a=sqrt(2.*m_nc2*(E1-(V_Fe+mu_n*in_mag)))/hbar;//nm^-1
-      double k1a=sqrt(2.*m_nc2*(E1-(V_Fe+mu_n*in_mag)))/hbar;//nm^-1
-      //double k2=sqrt(2.*m_nc2*(E1-V_Si))/hbar;//nm^-1
-
-      double R1_nume=pow((k0*k0-k1a*k1a)*sin(k1a*d1),2);
-      double R1_deno=pow((k0*k1a+k1a*k0)*cos(k1a*d1),2)+pow((k1a*k1a+k0*k0)*sin(k1a*d1),2);
-      //R1=(R1_nume/R1_deno);//k1a*k1a-k0*k2 k0*k2-k1a*k1a
-      R1=(R1_nume/R1_deno);//*(funcP-0.5);
-      
-    }
-    else{
-      
-        double k0=sqrt(2.*m_nc2*E1)/hbar;//nm^-1
-        //double k1a=sqrt(2.*m_nc2*(E1-(V_Fe+mu_n*in_mag)))/hbar;//nm^-1
-        double alpha=sqrt(2.*m_nc2*((V_Fe+mu_n*in_mag)-E1))/hbar;//nm^-1
-        //double k2=sqrt(2.*m_nc2*(E1-V_Si))/hbar;//nm^-1
-
-        double R1_nume=pow((k0*k0+alpha*alpha)*sinh(alpha*d1),2);
-        double R1_deno=pow((k0*alpha+alpha*k0)*cosh(alpha*d1),2)+pow((k0*k0-alpha*alpha)*sinh(alpha*d1),2);
-        //R1=(R1_nume/R1_deno);//k1a*k1a-k0*k2 k0*k2-k1a*k1a
-        R1=1.;//*(funcP-0.5);
-    }
-
-    return R1;
-
-  }
-  TF1 *f2 = new TF1("",func_R2,0.01,0.5,2);
-*/
 
 Double_t Distance = 18.101;//[m]
 Double_t Conversion = 395.6;
@@ -975,7 +845,7 @@ Int_t M1_pol_check_ichi2(){
       //hx[i]->SetLineColor(i+2);
       hlambda[i]->SetLineColor(i+2);
       //hratio[i]->SetLineColor(i+2);
-      hq[i]->SetLineColor(i+2);
+      //hq[i]->SetLineColor(i+2);
       hq0[i]->SetLineColor(i+2);
       hq2[i]->SetLineColor(i+2);
       hqBG[i]->SetLineColor(i+2);
@@ -1013,10 +883,13 @@ Int_t M1_pol_check_ichi2(){
     leg->Draw();
     if(i!=0){
     if(i==1){
+      hq[i]->SetLineColor(2);
       hq[i]->Draw("eh");
+
       //hq11[i]->Draw("ehsame");
     }
     if(i==2){
+      hq[i]->SetLineColor(4);
       hq[i]->Draw("ehsame");
       //hq11[i]->Draw("ehsame");
     }
@@ -1026,101 +899,15 @@ Int_t M1_pol_check_ichi2(){
     }*/
     
     //else hq[i]->Draw("ehsames");
-   
-   // 10/17
-   // (specify optionally data size and flag to indicate that is a chi2 fit)
-   //fitter.FitFCN(6,globalChi2,0,dataB.Size()+dataSB.Size(),true);
-   //TH1D * hB = new TH1D("hB","histo B",100,0,100);
-   //TH1D * hSB = new TH1D("hSB","histo S+B",100, 0,100);
- 
-   //TF1 * fB = new TF1("fB","expo",0,100);
-   fB->SetParameters(1,-0.05);
-   //hB->FillRandom("fB");
- 
-   //TF1 * fS = new TF1("fS","gaus",0,100);
-   fS->SetParameters(1,30,5);
- 
-   //hSB->FillRandom("fB",2000);
-   //hSB->FillRandom("fS",1000);
- 
-   // perform now global fit
- 
-   //TF1 * fSB = new TF1("fSB","expo + gaus(2)",0,100);
- 
-   ROOT::Math::WrappedMultiTF1 wfB(*f0,1);//??
-   ROOT::Math::WrappedMultiTF1 wfSB(*f1,1);
- 
-   ROOT::Fit::DataOptions opt;
-   ROOT::Fit::DataRange rangeB;
-   // set the data range
-   rangeB.SetRange(10,90);
-   ROOT::Fit::BinData dataB(opt,rangeB);
-   ROOT::Fit::FillData(dataB, hB);
- 
-   ROOT::Fit::DataRange rangeSB;
-   rangeSB.SetRange(10,50);
-   ROOT::Fit::BinData dataSB(opt,rangeSB);
-   ROOT::Fit::FillData(dataSB, hSB);
- 
-   ROOT::Fit::Chi2Function chi2_B(dataB, wfB);
-   ROOT::Fit::Chi2Function chi2_SB(dataSB, wfSB);
- 
-   GlobalChi2 globalChi2(chi2_B, chi2_SB);
- 
-   ROOT::Fit::Fitter fitter;
- 
-   const int Npar = 3;
-   double par0[Npar] = { 90.e-9,2.,209.0602};
- 
-   // create before the parameter settings in order to fix or set range on them
-   fitter.Config().SetParamsSettings(6,par0);
-   // fix 5-th parameter
-   fitter.Config().ParSettings(4).Fix();
-   // set limits on the third and 4-th parameter
-   fitter.Config().ParSettings(2).SetLimits(-10,-1.E-4);
-   fitter.Config().ParSettings(3).SetLimits(0,10000);
-   fitter.Config().ParSettings(3).SetStepSize(5);
- 
-   fitter.Config().MinimizerOptions().SetPrintLevel(0);
-   fitter.Config().SetMinimizer("Minuit2","Migrad");
- 
-   // fit FCN function directly
-   // (specify optionally data size and flag to indicate that is a chi2 fit)
-   fitter.FitFCN(6,globalChi2,0,dataB.Size()+dataSB.Size(),true);
-   ROOT::Fit::FitResult result = fitter.Result();
-   result.Print(std::cout);
- 
-   TCanvas * c1 = new TCanvas("Simfit","Simultaneous fit of two histograms",
-                              10,10,700,700);
-   c1->Divide(1,2);
-   c1->cd(1);
-   gStyle->SetOptFit(1111);
- 
-   fB->SetFitResult( result, iparB);
-   fB->SetRange(rangeB().first, rangeB().second);
-   fB->SetLineColor(kBlue);
-   hB->GetListOfFunctions()->Add(fB);
-   hB->Draw();
- 
-   c1->cd(2);
-   fSB->SetFitResult( result, iparSB);
-   fSB->SetRange(rangeSB().first, rangeSB().second);
-   fSB->SetLineColor(kRed);
-   hSB->GetListOfFunctions()->Add(fSB);
-   hSB->Draw()
-   result.Print(std::cout);
- 
-
-    f0->SetFitResult( result, iparB);
     
-    f0->SetParLimits(0,80.e-9,100.e-9);
+    //f0->SetParLimits(0,80.e-9,100.e-9);
     
     //f0->SetParameter(0.,30.);//nm 
     //f0->SetParameter(1,2.);
     //f0->SetParLimits(0,.e-9,100.e-9);
     f0->SetParLimits(1,1.8,2.3);
     //f0->SetParLimits(2,190,211);
-    //f0->FixParameter(0.,94.37e-9);//nm 
+    f0->FixParameter(0.,94.37e-9);//nm 
 
 
     //f0->FixParameter(1.,2.);//nm 
@@ -1136,7 +923,6 @@ Int_t M1_pol_check_ichi2(){
     //f1->SetParameter(0.,30.);//nm 
     //f1->SetParameter(1,2.);
 
-    f1->SetFitResult( result, iparSB);
     f1->SetParLimits(0,80.e-9,100.e-9);
     //f1->FixParameter(0.,94.37e-9);
     f1->SetParLimits(1,1.5,2.2);
@@ -1160,6 +946,17 @@ Int_t M1_pol_check_ichi2(){
     //f2->SetNpx(10000);
     //f2->Draw("sames");
 
+    double qq;
+    double qq1;
+    double EE1;
+    qq=sqrt(8*m_nc2*(209.062+60.3*1.98))/hbar;
+    qq1=sqrt(8*m_nc2*(60.3*0.007))/hbar;
+    EE1=pow(hbar*0.25,2)/(8*m_nc2);
+    cout<<"qqqqq"<<qq<<endl;
+    cout<<"qqqqq1"<<qq1<<endl;
+    cout<<"EE1"<<EE1<<endl;
+
+
     if(i==1){
       //hq[1]->Fit("f0","","",0.252,0.5);
       hq[i]->Fit(f0,"+","",0.1,0.47);
@@ -1168,11 +965,11 @@ Int_t M1_pol_check_ichi2(){
       //hq[2]->Fit("f1","","",0.252,0.5);
       hq[i]->Fit(f1,"+","",0.1,0.47);
     }
-    gStyle->SetOptFit(1111);
+    gStyle->SetOptFit(0101);
     
   
 
-  }
+   }
 
     c1->cd(2);
     leg->Draw();
@@ -1194,36 +991,29 @@ Int_t M1_pol_check_ichi2(){
       //hq[2]->Fit("f1","","",0.252,0.5);
       hq[i]->Fit(f1,"+","",0.1,0.5);
     }
-    gStyle->SetOptFit(1111);
+    //gStyle->SetOptFit(0101);
     
+    hq[i]->SetStats(0); //非表示
   
 
   }
-
-    /*if(i==0)hlambda[i]->Draw("eh");
-    else hlambda[i]->Draw("ehsames");
-    leg->Draw();*/
-
+    ofstream ofs(path_R+Form("hq_Rup_Rdown_%s.csv", scan_id.c_str()));  // ファイルパスを指定する
     
-/*
-    TBox* b = new TBox(0.287,0,0.5,2.); 
-    b->SetFillColor( 7 ); 
-    b->SetFillStyle(3004); 
-    b->Draw(); 
-    TBox* b1 = new TBox(0.15,0,0.173,2.); 
-    b1->SetFillColor( kOrange ); 
-    b1->SetFillStyle(3004); 
-    b1->Draw("same");
-    leg->Draw();
-    */
+    ofs << q_cut_i << "," << hq[1]  << ","<< hq[2] << endl;
 
-//9/6
-/*
-    if(i==1)hq2[i]->Draw("eh");
-    else hq2[i]->Draw("ehsames");
-    // if(i==1)hq2[i]->Draw("ah");
-    // else hq2[i]->Draw("ahsames");
-  */  
+    for (Int_t i=0; i<num_pol; i++){
+    ibin_pol[i]= Int_t((q_cuts[i]-q_min)*nbin_q/(q_max-q_min));
+    Double_t q_cut_i = q_min + (q_max-q_min)*ibin_pol[i]/nbin_q;
+    for (Int_t j=0; j<num; j++){
+      pol_at_qcut[j] = hq11[j]->GetBinContent(ibin_pol[i]);
+      error_pol_at_qcut[j] = hq11[j]->GetBinError(ibin_pol[i]);
+      ofs << q_cut_i << "," << B11[j] << ","<< pol_at_qcut[j] << ","<< error_pol_at_qcut[j] << endl;
+      cout<<"B11_"<<B11[j]<<endl;
+
+      // cout <<   pol_at_qcut[j] << endl;
+      // count << Form("At q=%.2f nm^{-1}, B=%.3f mT: Polarization power=", q_cuts[i], B[i])<<  pol_at_qcut[i] << endl;
+    }
+
 
     double ymax=1.1;//gPad->GetUymax();
     double ymin=0.;//gPad->GetUymin();
@@ -1245,21 +1035,7 @@ Int_t M1_pol_check_ichi2(){
     }*/
     
     else hq2[i]->Draw("ehsames");
-    /*
-    if(i!=0){
-    if(i==1)hpolratio[i]->Draw("eh");
-    else hpolratio[i]->Draw("ehsames");
-    */
-/*
-    if(i==0){
-      hq0BG[i]->Draw("eh");
-      //hq02BG[i]->Draw("ehsame");
-    }
-    else hqBG[i]->Draw("ehsames");
-    //hq2BG[i]->Draw("ehsames");
-    leg->Draw();
-   */ 
-
+  
     TBox* b4 = new TBox(0.15,-1,0.173,1.); 
     b4->SetFillColor( kOrange ); 
     b4->SetFillStyle(3004); 
@@ -1272,12 +1048,7 @@ Int_t M1_pol_check_ichi2(){
 
     //}
     
-/*
-    c1->cd(3);
-    if(i==1)hpolrhqtio[i]->Draw("eh");
-    else hpolratio[i]->Draw("ehsames");
-    leg->Draw();
-*/
+
     
     hpolratio[i]->GetXaxis()->SetRangeUser(q_min,q_max);
     hpolratio[i]->GetYaxis()->SetRangeUser(-1.,1.);
@@ -1443,14 +1214,16 @@ Int_t M1_pol_check_ichi2(){
   c1->SaveAs(path_R+"pol_90nm.root");
 
 #if 1
-  TFile *outfile = TFile::Open(path_R+"pol_90nm_BG.root","RECREATE");
+  TFile *outfile = TFile::Open(path_R+"pol_check_ichi2_90nm.root","RECREATE");
+  //TFile *outfile = TFile::Open(path_R+"pol_check_ichi2_90nm.csv","RECREATE");
   for(Int_t i=0; i<num; i++){
     //hx[i]->Write();
     //hlambda[i]->Write();
     //hratio[i]->Write();
-    hq[i]->Write();
+    if(i==1)hq[i]->Write();
+    if(i==2)hq[i]->Write();
     //hxylambda[i]->Write();
-    hq2[i]->Write();
+    //hq2[i]->Write();
   }
   outfile->Close();
 #endif

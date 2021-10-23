@@ -922,8 +922,6 @@ Int_t M1_pol_check_ichi3(){
     
     //hxylambda[i]->Scale(25./kp[i]);
     
-    
-    
     //hratio[i]=(TH1F*)hlambda[i]->Clone(Form("hratio%d",i));
     //hratio[i]->Divide(hlambda[0]);
     //hratio[i]->GetYaxis()->SetTitle("Reflectivity");
@@ -1050,6 +1048,10 @@ Int_t M1_pol_check_ichi3(){
   
     //TF1 * fSB = new TF1("fSB","expo + gaus(2)",0,100);
   
+    f0->SetParameters(1,90.e-9);
+    f0->SetParameters(1,90.e-9);
+
+    f1->SetParameters(1,90.e-9);
     ROOT::Math::WrappedMultiTF1 wfB(*f0,3);//??
     ROOT::Math::WrappedMultiTF1 wfSB(*f1,3);
   

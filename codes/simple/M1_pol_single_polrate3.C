@@ -47,7 +47,7 @@ const double mu_n2=-60.3;//[neV T^-1]
   //E>V1(+V)
 
   //E>V1(+V)
-double qc=0.132968;//par[2];
+//double qc=0.132968;//par[2];
 double ww=7.16389E-02;//par[3];
 double R0=9.90621E-01;//par[4];
 

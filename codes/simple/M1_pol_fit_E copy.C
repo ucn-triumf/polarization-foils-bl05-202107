@@ -240,7 +240,6 @@ Int_t M1_pol_fit_E(){
   TString namestr[num];
 
   TH1F* hq3[num];
-
   TH1F* hqplus[num];
 
 
@@ -532,7 +531,6 @@ Int_t M1_pol_fit_E(){
     hratio2[i]->Divide(hlambda2[0]);
     hratio2[i]->GetYaxis()->SetTitle("Reflectivity");
     hq2[i]->Divide(hq02[i]);
-
     hq2[i]->GetYaxis()->SetTitle("Reflectivity");
     //hq2[i]->Add(hq2[i], hq[i],1., 1.);
 
@@ -556,20 +554,32 @@ Int_t M1_pol_fit_E(){
         BBE[i1]=hq2[i]->GetBinError(i1);
         
         //E1[i1]=sqrt(pow(AA[i1]*BBE[i1],2)/pow((AA[i1]+BB[i1]),4)+pow(BB[i1]*AAE[i1],2)/pow((AA[i1]+BB[i1]),4));
-        
-        //E1[i1]=sqrt(pow(AA[i1]*BBE[i1],2)+pow(BB[i1]*AAE[i1],2))/pow((AA[i1]+BB[i1]),2);
+        /*
+        if(AAE[i1]<0.000001){
+          E1[i1]=0.;
+        }
+        else{
+          E1[i1]=sqrt(pow(AA[i1]*BBE[i1],2)+pow(BB[i1]*AAE[i1],2))/pow((AA[i1]+BB[i1]),2);
+        }*/
         
         //cout<<"AA_"<<AA[i1]<<"_BB_"<<BB[i1]<<endl;
-        cout<<"AA_"<<AA[i1]+BB[i1]<<endl;
-        //cout<<"E1_"<<E1[i1]<<endl;
-
+        //cout<<"AA_"<<AA[i1]+BB[i1]<<endl;
+        //cout<<"EA_"<<AAE[i1]<<endl;
+        //cout<<"EB_"<<BBE[i1]<<endl;
+        cout<<"E1_"<<E1[i1]<<endl;
         hq[i]->SetError(E1);
+       
       }
     }
+     
+     //hq[i]->SetError(E1);
     //hq2[i]->Divide(hq3[i]); 
     //hq[i]->Divide(hq3[i]);
     
     //const Double_t *error=1.;
+    for(Int_t i1=0; i1<nbin_q; i1++){
+      hq[2]->SetError(E1);
+    }
 
     
 
@@ -661,7 +671,7 @@ Int_t M1_pol_fit_E(){
       }
     }*/
     c1->cd(3);
-    if(i==2)hq0[i]->Draw("eh");
+    if(i==2)hq02[i]->Draw("eh");
     /*if(i!=0){
       if(i!=6){
         if(i!=1){
@@ -721,7 +731,7 @@ Int_t M1_pol_fit_E(){
     //leg->Draw();
 
     c1->cd(4);
-    if(i==2)hq2[i]->Draw("eh");
+    if(i==2)hq[i]->Draw("eh");
     
     /*if(i!=0){
       if(i!=6){

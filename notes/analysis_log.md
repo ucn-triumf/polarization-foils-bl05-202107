@@ -130,6 +130,25 @@ if(useMRfirst) kp2[i] = tup2[i]->GetMaximum("mp");//"mp2"->"mp"
   ## 2021-10-05  AH
   - Add M1_q_R_I_trans_ref_4.C to write x-I,lambda-I,q-R,q-T graph throgh with M1 angular scan 
 
+  ## 2021-10-24  AH
+  - M1_pol_potential.C 
+  model M1 polarization
+  RPMT correction is not considered.!!(from Ichikawa)
+
+  - fit_check_lambda.C
+  lamda_vs_R のhistを描きたかったが失敗
+
+  - M1_qc_m2_det_lam.C
+  入射角度に依存しないモデル化　(4pi/lambda)
+  
+  - M1_lam_correct.C 
+  After meeting, 変数をラムダにした関数でフィットするプログラム　
+  パラメータ　λc(lmc) , m2(mm2)
+  誤差も修正済み
+  
+
+
+
 
 
 

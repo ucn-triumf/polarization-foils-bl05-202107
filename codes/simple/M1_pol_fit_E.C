@@ -553,7 +553,7 @@ Int_t M1_pol_fit_E(){
         BB[i1]=hq2[i]->GetBinContent(i1);
         BBE[i1]=hq2[i]->GetBinError(i1);
         
-        //E1[i1]=sqrt(pow(AA[i1]*BBE[i1],2)/pow((AA[i1]+BB[i1]),4)+pow(BB[i1]*AAE[i1],2)/pow((AA[i1]+BB[i1]),4));
+        E1[i1]=sqrt(pow(AA[i1]*BBE[i1],2)/pow((AA[i1]+BB[i1]),4)+pow(BB[i1]*AAE[i1],2)/pow((AA[i1]+BB[i1]),4));
         /*
         if(AAE[i1]<0.000001){
           E1[i1]=0.;
@@ -567,7 +567,7 @@ Int_t M1_pol_fit_E(){
         //cout<<"EA_"<<AAE[i1]<<endl;
         //cout<<"EB_"<<BBE[i1]<<endl;
         cout<<"E1_"<<E1[i1]<<endl;
-        hq[i]->SetError(E1);
+        //hq[i]->SetError(E1);
        
       }
     }

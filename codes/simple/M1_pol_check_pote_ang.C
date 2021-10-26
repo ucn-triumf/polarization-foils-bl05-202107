@@ -465,7 +465,7 @@ const string run_id="20210717002421";
 const Int_t num1 = 5; // this should be the half of the number of the files obtained by the scan 
 
 
-Int_t M1_pol_check_pote(){
+Int_t M1_pol_check_pote_ang(){
   // load CSV file with magnetic field
   vector<Int_t> vec_index;
   vector<Double_t> vec_I, vec_H; 

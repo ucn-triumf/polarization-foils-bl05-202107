@@ -72,13 +72,13 @@ double func_R0(double *qqq,double *par){
 
     
     else if(q1>=qc){
-        if(q1<qc_up){
-          double up_R=uprate*R0*0.5;//*(1.-alpha*(q1-qc_up));
-          //
-          double down_R=downrate*R0/pow((1.+mm2*(q1-qc)),4);
-          //double down_R=downrate*R0*0.5*(1.-tanh((q1-mm2*qc)/ww))*(1.-alpha*(q1-qc));
-          R1=up_R+down_R;
-        }
+      if(q1<qc_up){
+        double up_R=uprate*R0*0.5;//*(1.-alpha*(q1-qc_up));
+        //
+        double down_R=downrate*R0/pow((1.+mm2*(q1-qc)),4);
+        //double down_R=downrate*R0*0.5*(1.-tanh((q1-mm2*qc)/ww))*(1.-alpha*(q1-qc));
+        R1=up_R+down_R;
+      }
     }
     
   

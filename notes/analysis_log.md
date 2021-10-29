@@ -145,7 +145,9 @@ if(useMRfirst) kp2[i] = tup2[i]->GetMaximum("mp");//"mp2"->"mp"
   After meeting, 変数をラムダにした関数でフィットするプログラム　
   パラメータ　λc(lmc) , m2(mm2)
   誤差も修正済み
-  
+
+  - M1_lam_correct1.C
+  tanhxで減衰する横橋修論の式(f1)を用いたフィットと、q^-4で減衰する式(f0)でフィットした
 
 
 

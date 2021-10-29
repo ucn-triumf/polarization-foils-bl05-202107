@@ -107,11 +107,17 @@ double func_R0(double *qqq,double *par){
 
   }
 
-TF1 *f1 = new TF1("",func_R0,0.01,0.5,3);
+TF1 *f1 = new TF1("",func_R0,0.01,2.,3);
 
 double func_R0_tan(double *qqq,double *par){
   //double q1=qqq[0];
   double lam1=qqq[0];
+  double lmc=par[0];
+  double R0=par[1];
+  double mm2=par[2];
+  double mm=par[3];//5.2;
+  double alpha=par[4];
+  double ww=par[5];//2.5E-03;//par[1];
   
   //double q1=4*TMath::Pi()*(xdirect1-45.1074)/(2*dist_det1*lam1);
   double q1=4*TMath::Pi()*(xdirect-65.4023)/(2*dist_det*lam1);
@@ -119,20 +125,20 @@ double func_R0_tan(double *qqq,double *par){
   //(xdirect-65.4023)/(2*dist_det*lam1);//upの角度を用いた
   //double E1=pow(hbar*q1,2)/8./m_nc2nm;
   
-  double lmc=par[0];
+  
   double qc=4*TMath::Pi()*(xdirect-65.4023)/(2*dist_det*lmc);//par[0];
-  double ww=2.5E-03;//par[1];
-  double R0=par[1];
+  
   
   //double mm=par[3];
-  double alpha=0.28;//par[3];
+  //0.28;//par[3];
 
   double uprate=0.5;//par[3];
   double downrate=0.5;//par[4];
   double qc_up=0.217;
 
-  double mm=5.2;
-  double mm2=par[2];
+  
+  
+  
   double R1;
 
   double Rup;
@@ -151,26 +157,26 @@ double func_R0_tan(double *qqq,double *par){
     double Rdown;
     if(q1<qc){
        //Rdown=downrate*R0;  
-       double R_down=downrate*0.5*R0*(1.-tanh((q1-mm*qc_up)/ww))*(1.-alpha*(q1-qc_up));
+       double R_down=uprate*0.5*R0*(1.-tanh((q1-mm*qc)/ww));//*(1.-alpha*(q1-qc));
        //double down_R=downrate*R0*(1.-tanh((q1-qc)/ww))*(1.-alpha*(q1-qc));
     }
     
-    else{
+    //else{
       if(q1>=qc){
         //double up_R=uprate*0.5*R0*(1.-tanh((q1-mm*qc_up)/ww))*(1.-alpha*(q1-qc_up));
         double down_R=downrate*R0/pow((1.+mm2*(q1-qc)),4);
         Rdown=down_R;//+down_R;
       }
-    }
     R1=Rup+Rdown;
 
     return R1;
 
   }
 
-TF1 *f0 = new TF1("",func_R0_tan,0.01,2.,3);
 
-Int_t M1_lam_correct1(){
+TF1 *f0 = new TF1("",func_R0_tan,0.01,2.,6);
+
+Int_t M1_lam_correct_deg(){
 
   InitColor();
   TH1::SetDefaultSumw2();
@@ -301,8 +307,11 @@ Int_t M1_lam_correct1(){
   angle[0] = TMath::Abs(70.5 - xdirect)/dist_det; //rad
   
   //angle[2] = TMath::Abs(68.1399 - xdirect)/dist_det; //rad
+  
   angle[1] = TMath::Abs(65.4023 - xdirect)/dist_det; //rad
   angle[2] = TMath::Abs(65.4023 - xdirect)/dist_det; //rad
+
+  //angle[2] = TMath::Abs(60.4483 - xdirect)/dist_det; //rad
   angle[3] = TMath::Abs(68.0634 - xdirect)/dist_det; //rad
   angle[4] = TMath::Abs(68.0634 - xdirect)/dist_det; //rad
   angle[5] = TMath::Abs(68.0634 - xdirect)/dist_det; //rad
@@ -591,22 +600,39 @@ Int_t M1_lam_correct1(){
     //if(i==2)hq[i]->Draw("eh");
     //f0->SetParLimits(0,0.16,0.19);
     //f0->SetParLimits(0,0.11,0.19);
-    f0->SetParLimits(0,0.6,0.9);
+    f0->SetParLimits(0,0.7,0.8);
 
     //f0->FixParameter(1,1.);
     f0->SetParLimits(1,0.9,1.0);
 
     f0->SetParLimits(2,1.,20.);
+    f0->SetParLimits(4,0.,1.);
+    f0->SetParLimits(5,0.00001,1.);
     //hq[i]->Fit("f0","R","10000",0.173,0.5);
     f0->SetNpx(10000);
+
+    f1->SetParLimits(0,0.7,0.8);
+
+    //f0->FixParameter(1,1.);
+    f1->SetParLimits(1,0.9,1.0);
+
+    f1->SetParLimits(2,1.,20.);
+    f1->SetNpx(10000);
+
     //f0->SetParLimits(1,1.8,1.999);
 
     //if(i==2) hq[i]->Fit(f0,"+","",0.1,0.47);
-    if(i==2) hq[i]->Fit(f0,"+","",0.23,1.1);
+    //if(i==2) hq[i]->Fit(f0,"+","",0.23,1.07);
+    if(i==2) hq[i]->Fit(f1,"+","",0.23,1.07);
+    //gStyle->SetOptStat(1111111111);
+    gStyle->SetOptFit(1111);
+    
+
+
     //if(i==2) hq[i]->Fit(f0,"+","",0.23,0.88,0.9,1.1);
     
-    double lambda_c=f0->GetParameter(0);
-    double qcc=4*TMath::Pi()*(xdirect1-45.1074)/(2*dist_det1*lambda_c);
+    double lambda_c=f1->GetParameter(0);
+    double qcc=4.*TMath::Pi()*(xdirect1-45.1074)/(2.*dist_det1*lambda_c*1.215834234);
 
     cout<<"qcc_"<<qcc<<endl;
 

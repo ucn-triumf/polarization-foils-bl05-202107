@@ -38,19 +38,24 @@ const double V_Fe_m1=V_Fe1-mu_n*in_T;//neV
   double alpha2=k1b=sqrt(2*m_nc2*((V_Fe+mu_n*in_T)-E1))/hbar;
 */
   //E>V1(+V)
-double qc=0.13;//par[2];
-double ww=7.16389E-02;//par[3];
-double R0=1.;//par[4];
+//double qc=0.13;//par[2];
+//double ww=7.16389E-02;//par[3];
+//double R0=1.;//par[4];
 
 //double mm=par[3];
-double alpha=-8.03288E-02;//par[5];
+//double alpha=-8.03288E-02;//par[5];
 
 double uprate=0.5;//par[3];
 double downrate=0.5;//par[4];
 
 double mm=5.;
 double qc_up=0.22;
-double mm2=6.24502;
+//double mm2=6.24502;
+
+double qc=1.88418e-1;
+//double qc=1.58418e-1;
+double mm2=6.72226;
+//double mm2=16.72226;
 
 double func_R0(double *qqq,double *par){
   double q1=qqq[0];
@@ -69,8 +74,8 @@ double func_R0(double *qqq,double *par){
   //double mm2=5.88427e+00 ;
   //double mm2=6.25737;
   //double qc=1.70382e-01;//
-  double qc=1.88418e-1;
-  double mm2=6.72226;
+  
+  
 
   double ww=2.5E-03;//par[1];
   double R0=1.;
@@ -94,7 +99,7 @@ double func_R0(double *qqq,double *par){
   if(E1>V_Fe_m){
       double k0=sqrt(2.*m_nc2nm*E1)/hbar;//nm^-1
       //double k1a=sqrt(2.*m_nc2*(E1-(V_Fe+mu_n*in_mag)))/hbar;//nm^-1
-      double k1a=sqrt(2.*m_nc2nm*(E1-(V_Fe+mu_n2*in_mag)))/hbar;//nm^-1
+      double k1a=sqrt(2.*m_nc2nm*(E1-(V_Fe-mu_n*in_mag)))/hbar;//nm^-1
       double k2=sqrt(2.*m_nc2nm*(E1-V_Si))/hbar;//nm^-1
 
       double R1_nume=pow((k0*k1a-k1a*k2)*cos(k1a*d1),2)+pow((k0*k2-k1a*k1a)*sin(k1a*d1),2);
@@ -106,7 +111,7 @@ double func_R0(double *qqq,double *par){
       if(E1>V_Si){
         double k0=sqrt(2.*m_nc2nm*E1)/hbar;//nm^-1
         //double k1a=sqrt(2.*m_nc2*(E1-(V_Fe+mu_n*in_mag)))/hbar;//nm^-1
-        double alpha=sqrt(2.*m_nc2nm*((V_Fe+mu_n2*in_mag)-E1))/hbar;//nm^-1
+        double alpha=sqrt(2.*m_nc2nm*((V_Fe-mu_n*in_mag)-E1))/hbar;//nm^-1
         double k2=sqrt(2.*m_nc2nm*(E1-V_Si))/hbar;//nm^-1
 
         double R1_nume=pow((k0*alpha-alpha*k2)*cosh(alpha*d1),2)+pow((k0*k2+alpha*alpha)*sinh(alpha*d1),2);
@@ -203,8 +208,7 @@ double func_R00(double *qqq,double *par){
   //double E1=pow(hbar*q1,2)/8./m_nc2nm;
   //double qc=1.36239E-01;
   //double qc=1.30030e-01;
-  double qc=1.70382e-01;
-  double mm2=3.41561;
+  
   //double qc=1.24590e-01*sin(0.0231098/2.)/sin(0.0159505/2.);
   //double mm2=5.88427e+00 ;
   //double mm2=6.24502;
@@ -229,7 +233,7 @@ double func_R00(double *qqq,double *par){
   if(E1>V_Fe_m){
       double k0=sqrt(2.*m_nc2nm*E1)/hbar;//nm^-1
       //double k1a=sqrt(2.*m_nc2*(E1-(V_Fe+mu_n*in_mag)))/hbar;//nm^-1
-      double k1a=sqrt(2.*m_nc2nm*(E1-(V_Fe+mu_n2*in_mag)))/hbar;//nm^-1
+      double k1a=sqrt(2.*m_nc2nm*(E1-(V_Fe-mu_n*in_mag)))/hbar;//nm^-1
       double k2=sqrt(2.*m_nc2nm*(E1-V_Si))/hbar;//nm^-1
 
       double R1_nume=pow((k0*k1a-k1a*k2)*cos(k1a*d1),2)+pow((k0*k2-k1a*k1a)*sin(k1a*d1),2);
@@ -241,7 +245,7 @@ double func_R00(double *qqq,double *par){
       if(E1>V_Si){
         double k0=sqrt(2.*m_nc2nm*E1)/hbar;//nm^-1
         //double k1a=sqrt(2.*m_nc2*(E1-(V_Fe+mu_n*in_mag)))/hbar;//nm^-1
-        double alpha=sqrt(2.*m_nc2nm*((V_Fe+mu_n2*in_mag)-E1))/hbar;//nm^-1
+        double alpha=sqrt(2.*m_nc2nm*((V_Fe-mu_n*in_mag)-E1))/hbar;//nm^-1
         double k2=sqrt(2.*m_nc2nm*(E1-V_Si))/hbar;//nm^-1
 
         double R1_nume=pow((k0*alpha-alpha*k2)*cosh(alpha*d1),2)+pow((k0*k2+alpha*alpha)*sinh(alpha*d1),2);
@@ -387,7 +391,7 @@ const string run_id="20210717002421";
 const Int_t num1 = 5; // this should be the half of the number of the files obtained by the scan 
 
 
-Int_t fit_check_correct(){
+Int_t fit_check_lm(){
   // load CSV file with magnetic field
   vector<Int_t> vec_index;
   vector<Double_t> vec_I, vec_H; 
@@ -426,6 +430,8 @@ Int_t fit_check_correct(){
   TTree* tup2[num];
   TH1F* hx[num];
   TH1F* hlambda[num];
+  TH1F* hlm0[num];
+  TH1F* hlm[num];
   TH1F* hratio[num];
   TH1F* hq[num];
   TH1F* hq0[num];
@@ -755,6 +761,12 @@ Int_t fit_check_correct(){
 
     //hx[i] = new TH1F(Form("hx%d",i),Form("%s;X [mm];count/bin/25kp",degstr[i].Data()),nbin,0.,range);
     hlambda[i] = new TH1F(Form("hlambda%d",i),Form("%s;Wavelength [nm];count/bin/25k",degstr[i].Data()),nbin_lambda,0.,lambda_max);
+    
+    hlm0[i] = new TH1F(Form("hlm0%d",i),Form("%s;Wavelength [nm];count/bin/25k",degstr[i].Data()),nbin_lambda,0.,lambda_max);
+    hlm[i] = new TH1F(Form("hlm%d",i),Form("%s;Wavelength [nm];count/bin/25k",degstr[i].Data()),nbin_lambda,0.,lambda_max);
+    
+    
+    
     hq0[i] = new TH1F(Form("hq0%d",i),Form("%s;q [nm^{-1}];count/bin/25kp",degstr[i].Data()),nbin_q,q_min,q_max);
     hq[i] = new TH1F(Form("hq%d",i),Form("%s;q [nm^{-1}];count/bin/25kp",degstr[i].Data()),nbin_q,q_min,q_max);
     hq0BG[i] = new TH1F(Form("hq0BG%d",i),Form("%s;q [nm^{-1}];count/bin/25kp",degstr[i].Data()),nbin_q,q_min,q_max);
@@ -764,12 +776,17 @@ Int_t fit_check_correct(){
   
     //tup[i]->Draw(Form("x*%f>>hx%d",range,i), thecut,"goff");
     if(i==0) tup[i]->Draw(Form("toffo*%f>>hlambda%d",lambda_coeff,i), thecut && cut_dir,"goff");
-    else tup[i]->Draw(Form("toffo*%f>>hlambda%d",lambda_coeff,i), thecut1 && cut_ref,"goff");
+    else tup[i]->Draw(Form("toffo*%f>>hlambda%d",lambda_coeff,i), thecut && cut_ref,"goff");
     tup[0]->Draw(Form("%f/(toffo*%f)>>hq0%d",twopirad,lambda_coeff,i), thecut0 && cut_dir,"goff");
     tup[i]->Draw(Form("%f/(toffo*%f)>>hq%d",twopirad,lambda_coeff,i), thecut && cut_ref,"goff");
     tup[0]->Draw(Form("%f/(toffo*%f)>>hq0BG%d",twopirad,lambda_coeff,i), thecut01 && cut_dir,"goff");
     tup[i]->Draw(Form("%f/(toffo*%f)>>hqBG%d",twopirad,lambda_coeff,i), thecut1 && cut_ref1,"goff");
     
+    tup[0]->Draw(Form("toffo*%f>>hlm0%d",lambda_coeff,i), thecut0 && cut_dir,"goff");
+    tup[i]->Draw(Form("toffo*%f>>hlm%d",lambda_coeff,i), thecut && cut_ref,"goff");
+    
+
+
     // tup[i]->Draw(Form("toffo*%f:y*%f:x*%f>>hxylambda%d",lambda_coeff,range,range,i),cut_rpmt_basic && MRcut,"goff");
 
     
@@ -798,21 +815,38 @@ Int_t fit_check_correct(){
     hq0[i]->Add(hq0[i], hq0BG[i],1., -1.);
 
     hlambda[i]->Scale(25./kp[i]);
+    hlm0[i]->Scale(25./kp[i]);
+    hlm[i]->Scale(25./kp[i]);
     hq[i]->Scale(25./kp[i]);
     hq0[i]->Scale(25./kp[0]);
     hqBG[i]->Scale(25./kp[i]);
     hq0BG[i]->Scale(25./kp[0]);
+
+    for(int i11=0; i11<nbin; i11++){
+      double ff[nbin];
+      double ff1[nbin];
+      if(i==1){
+        ff[i11]=hlm[i]->GetBinContent(i11);
+        ff1[i11]=hlm0[i]->GetBinContent(i11);
+      }
+      cout<<"hlm_"<<ff[i11]<<"_hlm0_"<<ff1[i11]<<endl;
+    }
+
+    
+    
+
 
     
     //hxylambda[i]->Scale(25./kp[i]);
     
     
     
-    //hratio[i]=(TH1F*)hlambda[i]->Clone(Form("hratio%d",i));
-    //hratio[i]->Divide(hlambda[0]);
-    //hratio[i]->GetYaxis()->SetTitle("Reflectivity");
+    hratio[i]=(TH1F*)hlambda[i]->Clone(Form("hratio%d",i));
+    hratio[i]->Divide(hlambda[0]);
+    hratio[i]->GetYaxis()->SetTitle("Reflectivity");
     
-
+    hlm[i]->Divide(hlm0[i]);
+    hlm[i]->GetYaxis()->SetTitle("Reflectivity");
     hq[i]->Divide(hq0[i]);
     hq[i]->GetYaxis()->SetTitle("Reflectivity");
     //hq[i]->SetTitle("Reflectivity (SF OFF)");
@@ -855,10 +889,15 @@ Int_t fit_check_correct(){
     hpolratio[i]->GetYaxis()->SetTitle("Polarization power (R_{off}-R_{on})/(R_{off}+R_{on})");    
     hpolratio[i]->SetTitle("Polarization power");
 
+    
+    
+
     if(i==9){
       //hx[i]->SetLineColor(i+2);
       hlambda[i]->SetLineColor(i+2);
-      //hratio[i]->SetLineColor(i+2);
+      hlm0[i]->SetLineColor(i+2);
+      hlm[i]->SetLineColor(i+2);
+      hratio[i]->SetLineColor(i+2);
       //hq[i]->SetLineColor(i+2);
       hq0[i]->SetLineColor(i+2);
       hq2[i]->SetLineColor(i+2);
@@ -869,10 +908,13 @@ Int_t fit_check_correct(){
 
       hpolratio[i]->SetLineColor(i+2);
       hpolratio2[i]->SetLineColor(i+2);
-    } else {
+    } 
+    else {
       //hx[i]->SetLineColor(i+1);
       hlambda[i]->SetLineColor(i+1);
-      //hratio[i]->SetLineColor(i+1);
+      hlm0[i]->SetLineColor(i+1);
+      hlm[i]->SetLineColor(i+1);
+      hratio[i]->SetLineColor(i+1);
       hq[i]->SetLineColor(i+1);
       hq0[i]->SetLineColor(i+1);
       hq2[i]->SetLineColor(i+1);
@@ -919,7 +961,13 @@ Int_t fit_check_correct(){
     //f0->SetParameter(0.,30.);//nm 
     //f0->SetParameter(1,2.);
     //f0->SetParLimits(0,.e-9,100.e-9);
-    f0->SetParLimits(1,1.8,2.3);
+    
+    //f0->SetParLimits(1,1.8,2.3);
+    //f1->SetParLimits(1,1.5,2.2);
+    f0->FixParameter(1.,2.);//nm 
+    f1->FixParameter(1.,2.);//nm 
+    
+
     //f0->SetParLimits(2,190,211);
     f0->FixParameter(0.,94.37);//nm 
 
@@ -939,7 +987,7 @@ Int_t fit_check_correct(){
 
     f1->SetParLimits(0,80.,100.);
     //f1->FixParameter(0.,94.37e-9);
-    f1->SetParLimits(1,1.5,2.2);
+    
     //f1->SetParLimits(2,150,220);
     //f1->FixParameter(1.,2.);//nm 
     //
@@ -1026,33 +1074,25 @@ Int_t fit_check_correct(){
 
 
     c1->cd(3);
-    /*if(i==1){
-      hq2[i]->Draw("eh");
-    }*/
-    if(i==1){
-      hq2[i]->Draw("ehsame");
-      hq211[i]->Draw("ehsame");
+    hratio[i]->SetStats(0); //非表示
+    if(i!=0){
+      if(i==1){
+        //hlm[i]->Draw("eh");
+        
+        hratio[i]->Draw("eh");
+        //hq11[i]->Draw("ehsame");
+      }
+      if(i==2){
+        hratio[i]->SetLineColor(4);
+        hratio[i]->Draw("ehsame");
+        //hlm[i]->Draw("ehsame");
+        //hq11[i]->Draw("ehsame");
+      }
     }
-    /*if(i==0){
-      //hq[i]->Draw("ehsame");
-      hq11[i]->Draw("ehsame");
-    }*/
-    
-    else hq2[i]->Draw("ehsames");
   
-    TBox* b4 = new TBox(0.15,-1,0.173,1.); 
-    b4->SetFillColor( kOrange ); 
-    b4->SetFillStyle(3004); 
-    //b4->Draw();
-    TBox* b5 = new TBox(0.287,-1,0.5,1.); 
-    b5->SetFillColor(7); 
-    b5->SetFillStyle(3004); 
-    //b5->Draw("same");
-    leg3->Draw();
+    leg->Draw();
 
     //}
-    
-
     
     hpolratio[i]->GetXaxis()->SetRangeUser(q_min,q_max);
     hpolratio[i]->GetYaxis()->SetRangeUser(-1.,1.);
@@ -1101,7 +1141,7 @@ Int_t fit_check_correct(){
 
   c1->cd(4); 
 
-  ofstream ofs(path_R+Form("B_RdataOFF_q225_%s.csv", scan_id.c_str()));  // ファイルパスを指定する
+  //ofstream ofs(path_R+Form("B_RdataOFF_q225_%s.csv", scan_id.c_str()));  // ファイルパスを指定する
 
 
   for (Int_t i=0; i<num_pol; i++){
@@ -1110,7 +1150,7 @@ Int_t fit_check_correct(){
     for (Int_t j=0; j<num; j++){
       pol_at_qcut[j] = hq11[j]->GetBinContent(ibin_pol[i]);
       error_pol_at_qcut[j] = hq11[j]->GetBinError(ibin_pol[i]);
-      ofs << q_cut_i << "," << B11[j] << ","<< pol_at_qcut[j] << ","<< error_pol_at_qcut[j] << endl;
+      //ofs << q_cut_i << "," << B11[j] << ","<< pol_at_qcut[j] << ","<< error_pol_at_qcut[j] << endl;
       cout<<"B11_"<<B11[j]<<endl;
 
       // cout <<   pol_at_qcut[j] << endl;
@@ -1120,23 +1160,10 @@ Int_t fit_check_correct(){
     for (Int_t j=0; j<num; j++){
       pol_at_qcut211[j] = hq211[j]->GetBinContent(ibin_pol[i]);
       error_pol_at_qcut211[j] = hq211[j]->GetBinError(ibin_pol[i]);
-      ofs << q_cut_i << "," << B211[j] << ","<< pol_at_qcut211[j] << ","<< error_pol_at_qcut211[j] << endl;
+      //ofs << q_cut_i << "," << B211[j] << ","<< pol_at_qcut211[j] << ","<< error_pol_at_qcut211[j] << endl;
     }  
 
-    /*
-    ofstream ofs1(path_R+Form("B_RdataOFF_scan_%s.csv", scan_id.c_str()));  // ファイルパスを指定する
-  
-    //for (Int_t i=0; i<num_pol; i++){
-    ibin_pol11[i]= Int_t((q_cuts11[i]-q_min)*nbin_q/(q_max-q_min));
-    Double_t q_cut_i11 = q_min + (q_max-q_min)*ibin_pol11[i]/nbin_q;
-    for (Int_t j=0; j<num11; j++){
-      pol_at_qcut11[j] = hq11[j]->GetBinContent(ibin_pol11[i]);
-      error_pol_at_qcut11[j] = hq11[j]->GetBinError(ibin_pol11[i]);
-      ofs1 << q_cut_i11 << "," << B11[j] << ","<< pol_at_qcut11[j] << ","<< error_pol_at_qcut11[j] << endl;
-      // cout <<   pol_at_qcut[j] << endl;
-      // count << Form("At q=%.2f nm^{-1}, B=%.3f mT: Polarization power=", q_cuts[i], B[i])<<  pol_at_qcut[i] << endl;
-    }
-    */
+    
   }
 
 
@@ -1206,6 +1233,7 @@ Int_t fit_check_correct(){
     gr211[i]->SetTitle("");
     leg4->AddEntry(gr[i],Form("q=%.3f nm^{-1}",q_min + (q_max-q_min)*ibin_pol[i]/nbin_q),"p");
 
+  
   }
   leg4->Draw();
 
@@ -1236,3 +1264,4 @@ Int_t fit_check_correct(){
 
   return 0 ;
 }
+

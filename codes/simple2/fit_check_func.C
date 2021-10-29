@@ -38,19 +38,24 @@ const double V_Fe_m1=V_Fe1-mu_n*in_T;//neV
   double alpha2=k1b=sqrt(2*m_nc2*((V_Fe+mu_n*in_T)-E1))/hbar;
 */
   //E>V1(+V)
-double qc=0.13;//par[2];
-double ww=7.16389E-02;//par[3];
-double R0=1.;//par[4];
+//double qc=0.13;//par[2];
+//double ww=7.16389E-02;//par[3];
+//double R0=1.;//par[4];
 
 //double mm=par[3];
-double alpha=-8.03288E-02;//par[5];
+//double alpha=-8.03288E-02;//par[5];
 
 double uprate=0.5;//par[3];
 double downrate=0.5;//par[4];
 
 double mm=5.;
 double qc_up=0.22;
-double mm2=6.24502;
+//double mm2=6.24502;
+
+double qc=1.88418e-1;
+//double qc=1.58418e-1;
+double mm2=6.72226;
+//double mm2=16.72226;
 
 double func_R0(double *qqq,double *par){
   double q1=qqq[0];
@@ -69,8 +74,8 @@ double func_R0(double *qqq,double *par){
   //double mm2=5.88427e+00 ;
   //double mm2=6.25737;
   //double qc=1.70382e-01;//
-  double qc=1.88418e-1;
-  double mm2=6.72226;
+  
+  
 
   double ww=2.5E-03;//par[1];
   double R0=1.;
@@ -94,7 +99,7 @@ double func_R0(double *qqq,double *par){
   if(E1>V_Fe_m){
       double k0=sqrt(2.*m_nc2nm*E1)/hbar;//nm^-1
       //double k1a=sqrt(2.*m_nc2*(E1-(V_Fe+mu_n*in_mag)))/hbar;//nm^-1
-      double k1a=sqrt(2.*m_nc2nm*(E1-(V_Fe+mu_n2*in_mag)))/hbar;//nm^-1
+      double k1a=sqrt(2.*m_nc2nm*(E1-(V_Fe-mu_n*in_mag)))/hbar;//nm^-1
       double k2=sqrt(2.*m_nc2nm*(E1-V_Si))/hbar;//nm^-1
 
       double R1_nume=pow((k0*k1a-k1a*k2)*cos(k1a*d1),2)+pow((k0*k2-k1a*k1a)*sin(k1a*d1),2);
@@ -106,7 +111,7 @@ double func_R0(double *qqq,double *par){
       if(E1>V_Si){
         double k0=sqrt(2.*m_nc2nm*E1)/hbar;//nm^-1
         //double k1a=sqrt(2.*m_nc2*(E1-(V_Fe+mu_n*in_mag)))/hbar;//nm^-1
-        double alpha=sqrt(2.*m_nc2nm*((V_Fe+mu_n2*in_mag)-E1))/hbar;//nm^-1
+        double alpha=sqrt(2.*m_nc2nm*((V_Fe-mu_n*in_mag)-E1))/hbar;//nm^-1
         double k2=sqrt(2.*m_nc2nm*(E1-V_Si))/hbar;//nm^-1
 
         double R1_nume=pow((k0*alpha-alpha*k2)*cosh(alpha*d1),2)+pow((k0*k2+alpha*alpha)*sinh(alpha*d1),2);
@@ -203,8 +208,7 @@ double func_R00(double *qqq,double *par){
   //double E1=pow(hbar*q1,2)/8./m_nc2nm;
   //double qc=1.36239E-01;
   //double qc=1.30030e-01;
-  double qc=1.70382e-01;
-  double mm2=3.41561;
+  
   //double qc=1.24590e-01*sin(0.0231098/2.)/sin(0.0159505/2.);
   //double mm2=5.88427e+00 ;
   //double mm2=6.24502;
@@ -229,7 +233,7 @@ double func_R00(double *qqq,double *par){
   if(E1>V_Fe_m){
       double k0=sqrt(2.*m_nc2nm*E1)/hbar;//nm^-1
       //double k1a=sqrt(2.*m_nc2*(E1-(V_Fe+mu_n*in_mag)))/hbar;//nm^-1
-      double k1a=sqrt(2.*m_nc2nm*(E1-(V_Fe+mu_n2*in_mag)))/hbar;//nm^-1
+      double k1a=sqrt(2.*m_nc2nm*(E1-(V_Fe-mu_n*in_mag)))/hbar;//nm^-1
       double k2=sqrt(2.*m_nc2nm*(E1-V_Si))/hbar;//nm^-1
 
       double R1_nume=pow((k0*k1a-k1a*k2)*cos(k1a*d1),2)+pow((k0*k2-k1a*k1a)*sin(k1a*d1),2);
@@ -241,7 +245,7 @@ double func_R00(double *qqq,double *par){
       if(E1>V_Si){
         double k0=sqrt(2.*m_nc2nm*E1)/hbar;//nm^-1
         //double k1a=sqrt(2.*m_nc2*(E1-(V_Fe+mu_n*in_mag)))/hbar;//nm^-1
-        double alpha=sqrt(2.*m_nc2nm*((V_Fe+mu_n2*in_mag)-E1))/hbar;//nm^-1
+        double alpha=sqrt(2.*m_nc2nm*((V_Fe-mu_n*in_mag)-E1))/hbar;//nm^-1
         double k2=sqrt(2.*m_nc2nm*(E1-V_Si))/hbar;//nm^-1
 
         double R1_nume=pow((k0*alpha-alpha*k2)*cosh(alpha*d1),2)+pow((k0*k2+alpha*alpha)*sinh(alpha*d1),2);
@@ -387,7 +391,7 @@ const string run_id="20210717002421";
 const Int_t num1 = 5; // this should be the half of the number of the files obtained by the scan 
 
 
-Int_t fit_check_correct(){
+Int_t fit_check_func(){
   // load CSV file with magnetic field
   vector<Int_t> vec_index;
   vector<Double_t> vec_I, vec_H; 
@@ -919,7 +923,13 @@ Int_t fit_check_correct(){
     //f0->SetParameter(0.,30.);//nm 
     //f0->SetParameter(1,2.);
     //f0->SetParLimits(0,.e-9,100.e-9);
-    f0->SetParLimits(1,1.8,2.3);
+    
+    //f0->SetParLimits(1,1.8,2.3);
+    //f1->SetParLimits(1,1.5,2.2);
+    f0->FixParameter(1.,2.);//nm 
+    f1->FixParameter(1.,2.);//nm 
+    
+
     //f0->SetParLimits(2,190,211);
     f0->FixParameter(0.,94.37);//nm 
 
@@ -939,7 +949,7 @@ Int_t fit_check_correct(){
 
     f1->SetParLimits(0,80.,100.);
     //f1->FixParameter(0.,94.37e-9);
-    f1->SetParLimits(1,1.5,2.2);
+    
     //f1->SetParLimits(2,150,220);
     //f1->FixParameter(1.,2.);//nm 
     //

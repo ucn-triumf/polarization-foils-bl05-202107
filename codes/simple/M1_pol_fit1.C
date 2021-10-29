@@ -70,9 +70,6 @@ double func_R0(double *qqq,double *par){
       R1=R0;  
     }
 
-    
-    
-  
     else{
       if(q1>=qc){
         double up_R=uprate*R0*0.5*(1.-alpha*(q1-qc_up));//(1.-tanh((q1-mm*qc_up)/ww));//*(1.-alpha*(q1-qc_up));

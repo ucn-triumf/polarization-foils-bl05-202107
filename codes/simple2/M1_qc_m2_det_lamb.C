@@ -471,8 +471,10 @@ Int_t M1_qc_m2_det_lamb(){
     
     //TLine *l2 = new TLine (xend,1e-3,xend, 1e3);
     
-    if(i==2)hx[i]->Draw("eh");
+    if(i==0)hx[i]->Draw("eh");
+    //if(i==2)hx[i]->Draw("ehsame");
     if(i==3)hx[i]->Draw("ehsame");
+    
     
     //else if(i!=6)hx[i]->Draw("ehsames");
     
@@ -481,18 +483,18 @@ Int_t M1_qc_m2_det_lamb(){
     TLine *l2 = new TLine (xcenter,1e-3,xcenter, 1e3);
     l1->SetLineColor(6);
     l2->SetLineColor(6);
-    l1->Draw("ehsames");
-    l2->Draw("ehsames");
+    //l1->Draw("ehsames");
+    //l2->Draw("ehsames");
     
     TLine *l3 = new TLine (xend,1e-3,xend, 1e3);
     TLine *l4 = new TLine (xcenter1,1e-3,xcenter1, 1e3);
     l3->SetLineColor(1);
     l4->SetLineColor(1);
-    l3->Draw("ehsames");
-    l4->Draw("ehsames");
+    //l3->Draw("ehsames");
+    //l4->Draw("ehsames");
 
     //if(i==7)hx[i]->Draw("ehsames");
-    leg->Draw();
+    //leg->Draw();
 
     c1->cd(2);
     //if(i==0)hlambda[i]->Draw("eh");

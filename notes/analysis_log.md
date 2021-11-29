@@ -149,7 +149,8 @@ if(useMRfirst) kp2[i] = tup2[i]->GetMaximum("mp");//"mp2"->"mp"
   - M1_lam_correct1.C
   tanhxで減衰する横橋修論の式(f1)を用いたフィットと、q^-4で減衰する式(f0)でフィットした
 
-
+  - fit_check_Spline_global2.C
+  global fit to extract "saturation magnetization B(T)", V_Fe, sample thickness
 
 
 

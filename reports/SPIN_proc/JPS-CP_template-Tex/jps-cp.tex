@@ -1,0 +1,82 @@
+\documentclass{jps-cp}
+\usepackage{txfonts} %Please comment out this line unless the txfonts package is availabe in your LaTeX system.
+
+\title{First Letter of Each Word Should be Capitalized Except for Articles and Conjunctions}
+
+\author{Hanako \textsc{Butsuri}$^{1}$ and Taro \textsc{Butsuri}$^{2}$}
+
+\inst{$^{1}$Physical Society of Japan, 2-31-22-5F Yushima, Bunkyo, Tokyo 113-0034, Japan \\
+$^{2}$JPSJ Editorial Division, Physical Society of Japan, 2-31-22-5F Yushima, Bunkyo, Tokyo 113-0034, Japan}
+
+\email{jpsj{\_}edit@jps.or.jp}
+
+\recdate{February 21, 2019}
+
+\abst{Abstract should state briefly the general aspects of the subject and the main conclusions. It should not contain equations. It is not part of the text and should be complete in itself: no table numbers, figure numbers or references should be given. Keywords below should be chosen as they best describe the contents of the paper. Each keyword, except proper nouns and acronyms, should be typed in lower-case letters and followed by a comma.}
+
+\kword{keyword1, keyword2, keyword3, \ldots}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+
+You can use this file as a template to prepare your manuscript for JPS Conference Proceedings\cite{cp,jpsj,ptep,instructions,format}.
+
+Copy \verb|jps-cp.cls| and \verb|cite.sty| onto an arbitrary directory under the texmf tree, for example, \verb|$texmf/tex/latex/jpsj|. If you have already obtained \verb|cite.sty|, you do not need to copy it.
+
+Many useful commands for equations are available because \verb|jps-cp.cls| automatically loads the \verb|amsmath| package. Please refer to reference books on \LaTeX\ for details on the \verb|amsmath| package.
+
+The \verb|twocolumn| option is not available in this class file.
+
+\section{Another Section}
+\subsection{Subsection}
+\subsubsection{Subsubsection}
+
+
+\begin{table}[tbh]
+\caption{Captions to tables and figures should be sentences.}
+\label{t1}
+\begin{tabular}{ll}
+\hline
+AAA & BBB \\
+CCC & DDD \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsubsection{Equation numbers}
+
+The \verb|seceq| option resets the equation numbers at the start of each section.
+
+\begin{figure}[tbh]
+\includegraphics{fig01.eps}
+\caption{You can embed figures using the \texttt{\textbackslash includegraphics} command. Basically, figures should appear where they are cited in the text. You do not need to separate figures from the main text when you use \LaTeX\ for preparing your manuscript.}
+\label{f1}
+\end{figure}
+
+Label figures, tables, and equations appropriately using the \verb|\label| command, and use the \verb|\ref| command to cite them in the text as ``\verb|as shown in Fig. \ref{f1}|". This automatically labels the numbers in numerical order.
+
+The \verb|minipage| environment can be used to place figures horizontally.
+
+\begin{equation}
+E = mc^{2}
+\label{e1}
+\end{equation}
+
+\appendix
+\section{}
+
+Use the \verb|\appendix| command if you need an appendix(es). The \verb|\section| command should follow even though there is no title for the appendix (see above in the source of this file).
+
+
+\begin{thebibliography}{9}
+\bibitem{cp} The abbreviation for JPS Conference Proceedings should be ``JPS Conf. Proc." in the reference list.
+\bibitem{jpsj} The abbreviation for the Journal of the Physical Society of Japan should be ``J. Phys. Soc. Jpn." in the reference list.
+\bibitem{ptep} The abbreviation for the Progress of Theoretical and Experimental Physics should be ``Prog. Theor. Exp. Phys." in the reference list.
+\bibitem{instructions} More abbreviations of journal titles are listed in ``Instructions for Preparation of Manuscript", which is available at our Web site (http://jpsj.jps.or.jp).
+\bibitem{format} F. Author, S. Author, and T. Author, Abbreviated journal title \textbf{volume in bold face}, initial page or article number (year of publication).
+\end{thebibliography}
+
+\end{document}
+

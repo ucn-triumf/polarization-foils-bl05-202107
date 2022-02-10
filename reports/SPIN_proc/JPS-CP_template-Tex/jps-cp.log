@@ -1,4 +1,4 @@
-This is e-pTeX, Version 3.14159265-p3.8.3-191112-2.6 (utf8.euc) (TeX Live 2020) (preloaded format=platex 2020.12.12)  11 JAN 2022 12:46
+This is e-pTeX, Version 3.14159265-p3.8.3-191112-2.6 (utf8.euc) (TeX Live 2020) (preloaded format=platex 2020.12.12)  13 JAN 2022 23:04
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -206,7 +206,7 @@ LaTeX Font Info:    Overwriting symbol font `largesymbolsA' in version `bold'
 LaTeX Font Info:    Redeclaring math symbol \mathsterling on input line 164.
 LaTeX Info: Redefining \not on input line 1043.
 )
-LaTeX Font Info:    Trying to load font information for OT1+txr on input line 1
+LaTeX Font Info:    Trying to load font information for OT1+txr on input line 2
 9.
  (/usr/local/texlive/2020/texmf-dist/tex/latex/txfonts/ot1txr.fd
 File: ot1txr.fd 2000/12/15 v3.1
@@ -224,115 +224,197 @@ File: l3backend-dvips.def 2020-09-24 L3 backend support: dvips
 (./jps-cp.aux)
 \openout1 = `jps-cp.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/txmi/m/it on input line 19.
+LaTeX Font Info:    Checking defaults for OML/txmi/m/it on input line 29.
 LaTeX Font Info:    Trying to load font information for OML+txmi on input line 
-19.
+29.
  (/usr/local/texlive/2020/texmf-dist/tex/latex/txfonts/omltxmi.fd
 File: omltxmi.fd 2000/12/15 v3.1
 )
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OMS/txsy/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for OMS/txsy/m/n on input line 29.
 LaTeX Font Info:    Trying to load font information for OMS+txsy on input line 
-19.
+29.
  (/usr/local/texlive/2020/texmf-dist/tex/latex/txfonts/omstxsy.fd
 File: omstxsy.fd 2000/12/15 v3.1
 )
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OMX/txex/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for OMX/txex/m/n on input line 29.
 LaTeX Font Info:    Trying to load font information for OMX+txex on input line 
-19.
+29.
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/txfonts/omxtxex.fd
 File: omxtxex.fd 2000/12/15 v3.1
 )
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for U/txexa/m/n on input line 19.
-LaTeX Font Info:    Trying to load font information for U+txexa on input line 1
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for U/txexa/m/n on input line 29.
+LaTeX Font Info:    Trying to load font information for U+txexa on input line 2
 9.
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/txfonts/utxexa.fd
 File: utxexa.fd 2000/12/15 v3.1
 )
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for JY1/mc/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for JT1/mc/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for JY1/mc/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for JT1/mc/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
 LaTeX Font Info:    Font shape `JT1/mc/b/n' in size <17.28> not available
-(Font)              Font shape `JT1/mc/bx/n' tried instead on input line 20.
+(Font)              Font shape `JT1/mc/bx/n' tried instead on input line 30.
 LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <17.28> not available
-(Font)              Font shape `JT1/gt/m/n' tried instead on input line 20.
+(Font)              Font shape `JT1/gt/m/n' tried instead on input line 30.
 LaTeX Font Info:    Font shape `JY1/mc/b/n' in size <17.28> not available
-(Font)              Font shape `JY1/mc/bx/n' tried instead on input line 20.
+(Font)              Font shape `JY1/mc/bx/n' tried instead on input line 30.
 LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <17.28> not available
-(Font)              Font shape `JY1/gt/m/n' tried instead on input line 20.
+(Font)              Font shape `JY1/gt/m/n' tried instead on input line 30.
 LaTeX Font Info:    Font shape `OT1/txr/b/n' in size <17.28> not available
-(Font)              Font shape `OT1/txr/bx/n' tried instead on input line 20.
-LaTeX Font Info:    Trying to load font information for U+txsya on input line 2
+(Font)              Font shape `OT1/txr/bx/n' tried instead on input line 30.
+LaTeX Font Info:    Trying to load font information for U+txsya on input line 3
 0.
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/txfonts/utxsya.fd
 File: utxsya.fd 2000/12/15 v3.1
 )
-LaTeX Font Info:    Trying to load font information for U+txsyb on input line 2
+LaTeX Font Info:    Trying to load font information for U+txsyb on input line 3
 0.
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/txfonts/utxsyb.fd
 File: utxsyb.fd 2000/12/15 v3.1
 )
-LaTeX Font Info:    Trying to load font information for U+txmia on input line 2
+LaTeX Font Info:    Trying to load font information for U+txmia on input line 3
 0.
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/txfonts/utxmia.fd
 File: utxmia.fd 2000/12/15 v3.1
 )
-LaTeX Font Info:    Trying to load font information for U+txsyc on input line 2
+LaTeX Font Info:    Trying to load font information for U+txsyc on input line 3
 0.
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/txfonts/utxsyc.fd
 File: utxsyc.fd 2000/12/15 v3.1
 )
 LaTeX Font Info:    Kanji font shape `JY1/mc/m/sc' undefined
-(Font)              No change on input line 20.
+(Font)              No change on input line 30.
 LaTeX Font Info:    Kanji font shape `JY1/mc/m/sc' undefined
-(Font)              No change on input line 20.
+(Font)              No change on input line 30.
 LaTeX Font Info:    Kanji font shape `JY1/mc/m/it' undefined
-(Font)              No change on input line 20.
+(Font)              No change on input line 30.
 LaTeX Font Info:    Kanji font shape `JY1/mc/m/it' undefined
-(Font)              No change on input line 20.
+(Font)              No change on input line 30.
 LaTeX Font Info:    Trying to load font information for OT1+txss on input line 
-20.
+30.
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/txfonts/ot1txss.fd
 File: ot1txss.fd 2000/12/15 v3.1
 )
 LaTeX Font Info:    Font shape `OT1/txss/m/n' will be
-(Font)              scaled to size 9.49997pt on input line 20.
+(Font)              scaled to size 9.49997pt on input line 30.
 LaTeX Font Info:    Font shape `JT1/mc/b/n' in size <10> not available
-(Font)              Font shape `JT1/mc/bx/n' tried instead on input line 20.
+(Font)              Font shape `JT1/mc/bx/n' tried instead on input line 30.
 LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <10> not available
-(Font)              Font shape `JT1/gt/m/n' tried instead on input line 20.
+(Font)              Font shape `JT1/gt/m/n' tried instead on input line 30.
 LaTeX Font Info:    Font shape `JY1/mc/b/n' in size <10> not available
-(Font)              Font shape `JY1/mc/bx/n' tried instead on input line 20.
+(Font)              Font shape `JY1/mc/bx/n' tried instead on input line 30.
 LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <10> not available
-(Font)              Font shape `JY1/gt/m/n' tried instead on input line 20.
+(Font)              Font shape `JY1/gt/m/n' tried instead on input line 30.
 LaTeX Font Info:    Font shape `OT1/txss/b/n' will be
-(Font)              scaled to size 9.49997pt on input line 20.
+(Font)              scaled to size 9.49997pt on input line 30.
 LaTeX Font Info:    Font shape `JT1/mc/b/n' in size <12> not available
-(Font)              Font shape `JT1/mc/bx/n' tried instead on input line 22.
+(Font)              Font shape `JT1/mc/bx/n' tried instead on input line 32.
 LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <12> not available
-(Font)              Font shape `JT1/gt/m/n' tried instead on input line 22.
+(Font)              Font shape `JT1/gt/m/n' tried instead on input line 32.
 LaTeX Font Info:    Font shape `JY1/mc/b/n' in size <12> not available
-(Font)              Font shape `JY1/mc/bx/n' tried instead on input line 22.
+(Font)              Font shape `JY1/mc/bx/n' tried instead on input line 32.
 LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <12> not available
-(Font)              Font shape `JY1/gt/m/n' tried instead on input line 22.
+(Font)              Font shape `JY1/gt/m/n' tried instead on input line 32.
 LaTeX Font Info:    Font shape `OT1/txr/b/n' in size <12> not available
-(Font)              Font shape `OT1/txr/bx/n' tried instead on input line 22.
+(Font)              Font shape `OT1/txr/bx/n' tried instead on input line 32.
+LaTeX Font Info:    Kanji font shape `JY1/mc/m/it' undefined
+(Font)              No change on input line 33.
 LaTeX Font Info:    Font shape `JT1/mc/b/n' in size <10.95> not available
-(Font)              Font shape `JT1/mc/bx/n' tried 
+(Font)              Font shape `JT1/mc/bx/n' tried instead on input line 38.
+LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <10.95> not available
+(Font)              Font shape `JT1/gt/m/n' tried instead on input line 38.
+LaTeX Font Info:    Font shape `JY1/mc/b/n' in size <10.95> not available
+(Font)              Font shape `JY1/mc/bx/n' tried instead on input line 38.
+LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <10.95> not available
+(Font)              Font shape `JY1/gt/m/n' tried instead on input line 38.
+LaTeX Font Info:    Font shape `OT1/txr/b/n' in size <10.95> not available
+(Font)              Font shape `OT1/txr/bx/n' tried instead on input line 38.
+
+
+LaTeX Warning: Citation `SM' on page 1 undefined on input line 38.
+
+
+LaTeX Warning: Citation `prediction' on page 1 undefined on input line 38.
+
+
+LaTeX Warning: Citation `PSI' on page 1 undefined on input line 38.
+
+
+LaTeX Warning: Reference `overall' on page 1 undefined on input line 38.
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [1]
+
+LaTeX Warning: Citation `Ramsey' on page 2 undefined on input line 57.
+
+LaTeX Font Info:    Kanji font shape `JY1/mc/m/it' undefined
+(Font)              No change on input line 75.
+LaTeX Font Info:    Kanji font shape `JY1/mc/m/it' undefined
+(Font)              No change on input line 88.
+LaTeX Font Info:    Kanji font shape `JY1/mc/m/it' undefined
+(Font)              No change on input line 92.
+LaTeX Font Info:    Kanji font shape `JY1/mc/m/it' undefined
+(Font)              No change on input line 105.
+[2]
+
+LaTeX Warning: Reference `RM' on page 3 undefined on input line 138.
+
+
+LaTeX Warning: Reference `sec:beam-pol' on page 3 undefined on input line 215.
+
+
+LaTeX Warning: Reference `sec:sample' on page 3 undefined on input line 215.
+
+[3]
+
+LaTeX Warning: File `figs/BL05_exp_layout_proc.pdf' not found on input line 237
+.
+
+
+./jps-cp.tex:237: LaTeX Error: Cannot determine size of graphic in figs/BL05_ex
+p_layout_proc.xbb (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.237 ...dth=130mm]{figs/BL05_exp_layout_proc.pdf}
+                                                  
+? 
+./jps-cp.tex:237: Emergency stop.
+ ...                                              
+                                                  
+l.237 ...dth=130mm]{figs/BL05_exp_layout_proc.pdf}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+ 
+Here is how much of TeX's memory you used:
+ 2889 strings out of 479887
+ 37705 string characters out of 5883000
+ 323387 words of memory out of 5000000
+ 20129 multiletter control sequences out of 15000+600000
+ 445019 words of font info for 154 fonts, out of 8000000 for 9000
+ 929 hyphenation exceptions out of 8191
+ 80i,13n,85p,906b,316s stack positions out of 5000i,500n,10000p,200000b,80000s
+Output written on jps-cp.dvi (3 pages, 16668 bytes).

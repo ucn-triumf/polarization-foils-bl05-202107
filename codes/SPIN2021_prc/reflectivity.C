@@ -941,11 +941,12 @@ Int_t reflectivity(){
     leg->Draw();
  */  
     c1->cd(1);
-    leg->Draw();
+    //leg->Draw();
     if(i!=0){
     if(i==1){
       hq[i]->SetLineColor(2);
       hq[i]->Draw("eh");
+      
 
       //hq11[i]->Draw("ehsame");
     }
@@ -975,8 +976,8 @@ Int_t reflectivity(){
     
 
     //f0->SetParLimits(2,190,211);
-    f0->FixParameter(0.,94.37);//nm 
-
+    //f0->FixParameter(0.,94.37);//nm 89.066
+    f0->FixParameter(0.,89.066);
 
     //f0->FixParameter(1.,2.);//nm 
     //f0->FixParameter(2.,209.0602);//nm 
@@ -993,6 +994,7 @@ Int_t reflectivity(){
     //f1->SetParameter(1,2.);
 
     f1->SetParLimits(0,80.,100.);
+    f1->FixParameter(0.,89.066);
     //f1->FixParameter(0.,94.37e-9);
     
     //f1->SetParLimits(2,150,220);
@@ -1028,17 +1030,27 @@ Int_t reflectivity(){
 
     if(i==1){
       //hq[1]->Fit("f0","","",0.252,0.5);
-      hq[i]->Fit(f0,"+","",0.1,0.47);
+      //hq[i]->Fit(f0,"+","",0.1,0.47);
+      
+      
     }
     if(i==2){
       //hq[2]->Fit("f1","","",0.252,0.5);
-      hq[i]->Fit(f1,"+","",0.1,0.47);
+      //hq[i]->Fit(f1,"+","",0.1,0.47);
+      f0->GetXaxis()->SetLimits(0.1,0.5);
+      f1->GetXaxis()->SetLimits(0.1,0.5);
+      f0->Draw();
+      f1->Draw("same");
+      
+      f1->GetXaxis()->SetLabelSize(0.06);
+      f1->GetYaxis()->SetLabelSize(0.06);
     }
     gStyle->SetOptFit(0101);
     
   
 
    }
+    
 
     c1->cd(2);
     leg->Draw();

@@ -142,6 +142,190 @@ double func_R0(double *qqq,double *par){
 
 TF1 *f1 = new TF1("",func_R0,0.01,2.,4);
 
+double func_R02(double *qqq,double *par){
+  //double q1=qqq[0];
+  double lam1=qqq[0];
+  
+  //double q1=4*TMath::Pi()*(xdirect1-45.1074)/(2*dist_det1*lam1);
+  double q1=4*TMath::Pi()*(xdirect-65.4023)/(2*dist_det*lam1);
+  //double q1=4*TMath::Pi()*(xdirect-60.4583)/(2*dist_det*lam1);
+  //60.4583
+
+  //(xdirect-65.4023)/(2*dist_det*lam1);//upの角度を用いた
+  //double E1=pow(hbar*q1,2)/8./m_nc2nm;
+  
+  //double lmc=par[0];//critical value (lambda )
+  double qc=par[0];
+  //double qc=4*TMath::Pi()*(xdirect-65.4023)/(2*dist_det*lmc);//par[0];
+  double ww=3.E-03;//par[1];
+  double R0=par[1];
+  double alpha=par[3];
+  
+  //double mm=par[3];
+  //double alpha=0.28;//par[3];
+
+  double uprate=0.5;//par[3];
+  double downrate=0.5;//par[4];
+  double qc_up=0.217;
+
+  double mm=5.;
+  double mm2=par[2];
+  double R1;
+
+  double Rup;
+  double q13=0.13*0.8284697312;
+  double q145=0.145*0.8284697312;
+
+    if(q1<qc_up){
+      if(q1<q13){
+       Rup=uprate*R0;
+      }
+      if(q1>=q13){
+       if(q1<q145){
+        Rup=0.9909*uprate;
+       }
+       else if(q1>=q145){
+        //
+        Rup=uprate*R0;
+        //Rdown=0.99*downrate;
+       }
+      }
+       //Rup=uprate*R0;  
+    }
+    
+    else{
+      if(q1>=qc_up){
+        double up_R=uprate*0.5*R0*(1.-tanh((q1-mm*qc_up)/ww))*(1.-alpha*(q1-qc_up));
+        //double down_R=downrate*R0*(1.-tanh((q1-qc)/ww))*(1.-alpha*(q1-qc));
+        Rup=up_R;//+down_R;
+      }
+    }
+
+    double Rdown;
+    if(q1<q13){
+       Rdown=downrate*R0;
+    }
+    if(q1>=q13){
+       if(q1<q145){
+        Rdown=0.9909*downrate;
+       }
+       else if(q1<qc){
+        //
+        Rdown=downrate*R0;
+        //Rdown=0.99*downrate;
+        
+       }
+       else{
+        if(q1>=qc){
+          //double up_R=uprate*0.5*R0*(1.-tanh((q1-mm*qc_up)/ww))*(1.-alpha*(q1-qc_up));
+          Rdown=downrate*R0/pow((1.+(q1-qc)/mm2),4);
+          //Rdown=downrate*pow((q1-mm2*pow((q1*q1-qc*qc),0.5))/(q1+mm2*pow((q1*q1-qc*qc),0.5)),2);
+          //double down_R=downrate*pow((q1-R0*pow((q1*q1-qc*qc),0.5))/(q1+R0*pow((q1*q1-qc*qc),0.5)),2);
+          //Rdown=down_R;//+down_R;
+        }
+      }
+    }
+    R1=Rup;
+    //R1=Rup;//+Rdown;
+    //R1=Rdown;
+    return R1;
+
+}
+
+TF1 *f2 = new TF1("",func_R02,0.01,2.,4);
+
+double func_R03(double *qqq,double *par){
+  //double q1=qqq[0];
+  double lam1=qqq[0];
+  
+  //double q1=4*TMath::Pi()*(xdirect1-45.1074)/(2*dist_det1*lam1);
+  double q1=4*TMath::Pi()*(xdirect-65.4023)/(2*dist_det*lam1);
+  //double q1=4*TMath::Pi()*(xdirect-60.4583)/(2*dist_det*lam1);
+  //60.4583
+
+  //(xdirect-65.4023)/(2*dist_det*lam1);//upの角度を用いた
+  //double E1=pow(hbar*q1,2)/8./m_nc2nm;
+  
+  //double lmc=par[0];//critical value (lambda )
+  double qc=par[0];
+  //double qc=4*TMath::Pi()*(xdirect-65.4023)/(2*dist_det*lmc);//par[0];
+  double ww=3.E-03;//par[1];
+  double R0=par[1];
+  double alpha=par[3];
+  
+  //double mm=par[3];
+  //double alpha=0.28;//par[3];
+
+  double uprate=0.5;//par[3];
+  double downrate=0.5;//par[4];
+  double qc_up=0.217;
+
+  double mm=5.;
+  double mm2=par[2];
+  double R1;
+
+  double Rup;
+  double q13=0.13*0.8284697312;
+  double q145=0.145*0.8284697312;
+
+    if(q1<qc_up){
+      if(q1<q13){
+       Rup=uprate*R0;
+      }
+      if(q1>=q13){
+       if(q1<q145){
+        Rup=0.9909*uprate;
+       }
+       else if(q1>=q145){
+        //
+        Rup=uprate*R0;
+        //Rdown=0.99*downrate;
+       }
+      }
+       //Rup=uprate*R0;  
+    }
+    
+    else{
+      if(q1>=qc_up){
+        double up_R=uprate*0.5*R0*(1.-tanh((q1-mm*qc_up)/ww))*(1.-alpha*(q1-qc_up));
+        //double down_R=downrate*R0*(1.-tanh((q1-qc)/ww))*(1.-alpha*(q1-qc));
+        Rup=up_R;//+down_R;
+      }
+    }
+
+    double Rdown;
+    if(q1<q13){
+       Rdown=downrate*R0;
+    }
+    if(q1>=q13){
+       if(q1<q145){
+        Rdown=0.9909*downrate;
+       }
+       else if(q1<qc){
+        //
+        Rdown=downrate*R0;
+        //Rdown=0.99*downrate;
+        
+       }
+       else{
+        if(q1>=qc){
+          //double up_R=uprate*0.5*R0*(1.-tanh((q1-mm*qc_up)/ww))*(1.-alpha*(q1-qc_up));
+          Rdown=downrate*R0/pow((1.+(q1-qc)/mm2),4);
+          //Rdown=downrate*pow((q1-mm2*pow((q1*q1-qc*qc),0.5))/(q1+mm2*pow((q1*q1-qc*qc),0.5)),2);
+          //double down_R=downrate*pow((q1-R0*pow((q1*q1-qc*qc),0.5))/(q1+R0*pow((q1*q1-qc*qc),0.5)),2);
+          //Rdown=down_R;//+down_R;
+        }
+      }
+    }
+    R1=Rdown;
+    //R1=Rup;//+Rdown;
+    //R1=Rdown;
+    return R1;
+
+}
+
+TF1 *f3 = new TF1("",func_R03,0.01,2.,4);
+
 double func_R0_tan(double *qqq,double *par){
   //double q1=qqq[0];
   double lam1=qqq[0];
@@ -663,11 +847,52 @@ Int_t alpha_lam(){
     //f1->SetParameter(3,0.3);
     f1->SetNpx(10000);
 
+    f2->FixParameter(0,1.35980e-01 );
+    //f1->FixParameter(0,0.14);
+    //f0->FixParameter(1,1.);
+    f2->FixParameter(1,9.92348e-01);
+    //f1->SetParameter(1,0.99);
+    //f1->FixParameter(2,1.);
+    f2->FixParameter(2,1.52362e-01 );
+    //f1->SetParLimits(3,0.,0.4);
+    f2->FixParameter(3,0.2);
+    //f1->SetParLimits(3,2.,5.);
+    //f1->SetParameter(3,0.3);
+    f2->SetNpx(300);
+
+    f3->FixParameter(0,1.35980e-01 );
+    //f1->FixParameter(0,0.14);
+    //f0->FixParameter(1,1.);
+    f3->FixParameter(1,9.92348e-01 );
+    //f1->SetParameter(1,0.99);
+    //f1->FixParameter(2,1.);
+    f3->FixParameter(2,1.52362e-01 );
+    //f1->SetParLimits(3,0.,0.4);
+    f3->FixParameter(3,0.2);
+    //f1->SetParLimits(3,2.,5.);
+    //f1->SetParameter(3,0.3);
+    f3->SetNpx(300);
+
     //f0->SetParLimits(1,1.8,1.999);
 
     //if(i==2) hq[i]->Fit(f0,"+","",0.1,0.47);
     //if(i==2) hq[i]->Fit(f0,"+","",0.23,1.07);
-    if(i==2) hq[i]->Fit(f1,"+","",0.23,1.07);
+    if(i==2){
+      f1->SetLineColor(1);
+      f2->SetLineColor(kRed);
+      f3->SetLineColor(kBlue);
+      f2->SetLineStyle(5);
+      f3->SetLineStyle(2);
+      
+
+      hq[i]->Fit(f1,"+","",0.23,1.07);
+      hq[i]->Fit(f2,"+","",0.23,1.07);
+      hq[i]->Fit(f3,"+","",0.23,1.07);
+      
+      //f2->Draw("same");
+      //f3->Draw("same");
+
+    }
     //gStyle->SetOptStat(1111111111);
     //gStyle->SetOptFit(1111);
     gStyle->SetOptStat("stat");

@@ -365,7 +365,8 @@ double func_R0(double *qqq,double *par){
   TF1 *f0 = new TF1("",func_R0,0.01,0.5,3);
 
 double Spl2(double *x, double *par){
-  double x1=x[0];
+  double x1=2*TMath::Pi()* ((89.3295-65.4023)/1439.)/x[0];
+  //double x1=4*TMath::Pi()*((60.4483-45.1074)/666.)/x[0];
   double RR;
   //double R0=0.99;
   double ww=3.E-03;//par[1];
@@ -411,7 +412,8 @@ double Spl2(double *x, double *par){
   return RR;
 }
 double Spl3(double *x, double *par){
-  double x1=x[0];
+  double x2=2*TMath::Pi()* ((89.3295-65.4023)/1439.)/x[0];
+  double x1=x2;//4*TMath::Pi()*((60.4483-45.1074)/666.)/x2;
   double RR;
   //double R0=0.99;
   double ww=3.E-03;//par[1];
@@ -430,7 +432,7 @@ double Spl3(double *x, double *par){
     if(x1<qc_up){
        Rup=uprate*R0;
     }
-    
+
     else{
       if(x1>=qc_up){
         double up_R=uprate*0.5*R0*(1.-tanh((x1-mm*qc_up)/ww))*(1.-alpha*(x1-qc_up));
@@ -462,8 +464,10 @@ double Spl3(double *x, double *par){
   return RR1;
 }
 
-TF1 *sp2 = new TF1("",Spl2,0.1,0.5,0);
-TF1 *sp3 = new TF1("",Spl3,0.1,0.5,0);
+//TF1 *sp2 = new TF1("",Spl2,0.1,0.5,0);
+//TF1 *sp3 = new TF1("",Spl3,0.1,0.5,0);
+TF1 *sp2 = new TF1("",Spl2,0.23,1.07,0);
+TF1 *sp3 = new TF1("",Spl3,0.23,1.07,0);
   
 double func_R00(double *qqq,double *par){
   double q1=qqq[0];
@@ -1264,7 +1268,10 @@ Int_t global_proc_nospline(){
     ROOT::Fit::Fitter fitter;
 
     const int Npar = 3;
-    double par0[Npar] = {89.066,2., 209.0602};
+    //double par0[Npar] = {89.066,2., 209.0602};
+    //double par0[Npar] = {93.3737,2., 209.0602};
+    double par0[Npar] = {89.,2., 209.0602};
+    
   
     // create before the parameter settings in order to fix or set range on them
     fitter.Config().SetParamsSettings(3,par0);
@@ -1309,6 +1316,13 @@ Int_t global_proc_nospline(){
     if(i==2)hq[i]->SetLineColor(4);
     if(i==2)hq[i]->GetListOfFunctions()->Add(f1);
     if(i==2)hq[i]->Draw("ehsame");
+    hq[i]->SetStats(0);
+    //hx[i]->SetStats(0);
+    hq[i]->GetYaxis()->SetTitleOffset(1.2);
+    hq[i]->GetXaxis()->SetLabelSize(0.06);
+    hq[i]->GetYaxis()->SetLabelSize(0.06);
+    hq[i]->GetXaxis()->SetTitleSize(0.06);
+    hq[i]->GetYaxis()->SetTitleSize(0.06);
 
     
     
@@ -1441,12 +1455,7 @@ Int_t global_proc_nospline(){
   }
     
 
-    
-
-   
-    
-
-
+  
     double ymax=1.1;//gPad->GetUymax();
     double ymin=0.;//gPad->GetUymin();
     double xmax1=0.2;
@@ -1485,6 +1494,16 @@ Int_t global_proc_nospline(){
     //sp3->SetLineColor(2);
     sp3->Draw("same");
 
+    sp2->GetXaxis()->SetLimits(0.1,1.2);
+    sp3->GetXaxis()->SetLimits(0.1,1.2);
+    
+    //gStyle->SetLabelSize(Float_t size = 0.06, Option_t* axis = "X");  
+    //gStyle->SetLabelSize(Float_t size = 0.06, Option_t* axis = "Y");  
+
+    //hq[i]->GetYaxis()->SetRangeUser(0.,1.);
+    sp2->GetXaxis()->SetLabelSize(0.06);
+    sp2->GetYaxis()->SetLabelSize(0.06);
+
     //}
     
     hratio[i]->GetXaxis()->SetRangeUser(q_min,q_max);
@@ -1494,6 +1513,9 @@ Int_t global_proc_nospline(){
     hq[i]->GetYaxis()->SetRangeUser(1.e-3,1.1);
     hq2[i]->GetXaxis()->SetRangeUser(q_min,q_max);
     hq2[i]->GetYaxis()->SetRangeUser(1.e-3,1.1);
+
+    
+
     // hq[i]->SaveAs(path_R + Form("hq_off_%d.root", i));
     // hq2[i]->SaveAs(path_R + Form("hq_on_%d.root", i));
     //cout<<"in_"<<angledeg[i]<<"_deg"<<endl;

@@ -634,8 +634,8 @@ Int_t alpha(){
     //if(i==2) hq[i]->Fit(f0,"+","",0.23,1.07);
     if(i==2) hq[i]->Fit(f1,"+","",0.23,1.07);
     //gStyle->SetOptStat(1111111111);
-    //gStyle->SetOptFit(1111);
-    gStyle->SetOptStat(1000000001) 
+    gStyle->SetOptFit(1111);
+    
 
     //if(i==2) hq[i]->Fit(f0,"+","",0.23,0.88,0.9,1.1);
     

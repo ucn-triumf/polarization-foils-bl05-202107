@@ -39,7 +39,6 @@ Characterization measruement recorded on p.37 of the logbook
 | 1000 | 2.64813 |
 
 
-
 List of measurements with AFP-SF OFF (the last part of beam alignment)
 
 | run # |theta_m2 (deg) |x_m2(mm) |comments |

@@ -14,7 +14,7 @@ Double_t Distance = 18.101;//[m]
 Double_t Conversion = 395.6;
 Double_t dist_det   = 1439.; //sample to detector [mm]
 //Double_t xdirect    = 92.4685;//92.4685 92.4736
-Double_t xdirect    = 88.3551;
+Double_t xdirect    = 60.4402;
 //Double_t xdirect    = 93.4728;
 Bool_t useMRfirst = 0; //use only MR events to avoid frame overlap
 Bool_t useThinout = 0; //thinning out the event <1e4.
@@ -135,10 +135,6 @@ double func_R0_tan(double *qqq,double *par){
   double uprate=0.5;//par[3];
   double downrate=0.5;//par[4];
   double qc_up=0.217;
-
-  
-  
-  
   double R1;
 
   double Rup;
@@ -204,13 +200,14 @@ Int_t M1_lam_Spline(){
   TH1F* hqplus[num];
 
 
-  namestr[0]="20210713202138_list.root"; 
+  namestr[0]="20210714184125_list.root"; 
   //namestr[0]="20210713212050_list.root"; //M1 reflect (direct) 1hour
   //namestr[0]="20210713203803_list.root";
   namestr[1]="20210713225533_list.root";
 
   //namestr[2]="20210713215303_list.root";
-  namestr[2]="20210713224531_list.root"; 
+  namestr[2]="20210714185238_list.root"; //20210714185238_list 
+  //20210714215803_list 反射波が割れている
 
   namestr[3]="20210713230326_list.root"; //Fe 30 nm, theta = 0.69 deg., x = 0.0 mm, B = 1 mT from -8 mT  with AFP 760 mV
   namestr[4]="20210713230941_list.root"; //Fe 30 nm, theta = 0.69 deg., x = 0.0 mm, B = 1.5 mT from -8 mT  with AFP 760 mV
@@ -309,7 +306,7 @@ Int_t M1_lam_Spline(){
   //angle[2] = TMath::Abs(68.1399 - xdirect)/dist_det; //rad
   
   angle[1] = TMath::Abs(65.4023 - xdirect)/dist_det; //rad
-  angle[2] = TMath::Abs(65.4023 - xdirect)/dist_det; //rad
+  angle[2] = TMath::Abs(54.9106 - xdirect)/dist_det; //rad
 
   //angle[2] = TMath::Abs(60.4483 - xdirect)/dist_det; //rad
   angle[3] = TMath::Abs(68.0634 - xdirect)/dist_det; //rad
@@ -354,12 +351,12 @@ Int_t M1_lam_Spline(){
 
   //  Double_t xbegin=54.;
  
-  Double_t xbegin=63.;
-  Double_t xcenter=73.;
+  Double_t xbegin=55.;//63.;
+  Double_t xcenter=61.;//73.;
   Double_t xbegin2=86.5;
   Double_t xcenter2=96.5;
-  Double_t xcenter1=86.5;
-  Double_t xend=96.5;
+  Double_t xcenter1=61.;//86.5;
+  Double_t xend=65;//96.5;
   Double_t ybegin=55.;
   Double_t yend=85.;
   
@@ -395,7 +392,7 @@ Int_t M1_lam_Spline(){
 
     tup[i] = GetTree(namestr[i]);
     // tup[i]->SetAlias("toffo","(tof>9.e3)*(tof)+(tof<9.e3)*(tof+40.e3)");
-    tup[i]->SetAlias("toffo","(tof>9.3e3)*(tof)+(tof<9.3e3)*(tof+40.e3)"); // edited based on suggestion by KM on the August 3rd
+    tup[i]->SetAlias("toffo","(tof>10.3e3)*(tof)+(tof<10.3e3)*(tof+40.e3)"); // edited based on suggestion by KM on the August 3rd
 
     //    tup[i]->SetAlias("toffo","tof");
     if(useMRfirst) kp[i] = tup[i]->GetMaximum("mp");
@@ -437,10 +434,10 @@ Int_t M1_lam_Spline(){
     if(i==0) tup[i]->Draw(Form("toffo*%f>>hlambda%d",lambda_coeff,i), thecut && cut_dir,"goff");
     else tup[i]->Draw(Form("toffo*%f>>hlambda%d",lambda_coeff,i), thecut && cut_ref,"goff");
     
-    tup[0]->Draw(Form("toffo*%f>>hq0%d",lambda_coeff,i), thecut && cut_dir,"goff");
+    tup[0]->Draw(Form("toffo*%f>>hq0%d",lambda_coeff,i), thecut0 && cut_dir,"goff");
     tup[i]->Draw(Form("toffo*%f>>hq%d",lambda_coeff,i), thecut && cut_ref,"goff");
 
-    tup[0]->Draw(Form("toffo*%f>>hq02%d",lambda_coeff,i), thecut && cut_dir,"goff");
+    tup[0]->Draw(Form("toffo*%f>>hq02%d",lambda_coeff,i), thecut0 && cut_dir,"goff");
     tup[i]->Draw(Form("toffo*%f>>hq2%d",lambda_coeff,i), thecut && cut_ref2,"goff");
     //tup[0]->Draw(Form("%f/(toffo*%f)>>hq0%d",twopirad,lambda_coeff,i), thecut0 && cut_dir,"goff");
     //tup[i]->Draw(Form("%f/(toffo*%f)>>hq%d",twopirad,lambda_coeff,i), thecut && cut_ref,"goff");
@@ -450,12 +447,10 @@ Int_t M1_lam_Spline(){
     tup[i]->Draw(Form("toffo*%f:y*%f:x*%f>>hxylambda%d",lambda_coeff,range,range,i),cut_rpmt_basic && MRcut,"goff");
 
     
-    
     if(i!=6){
       leg->AddEntry(hx[i],degstr[i],"l");
     }
     
-
     hx[i]->Scale(25./kp[i]);
     hlambda[i]->Scale(25./kp[i]);
     hq[i]->Scale(25./kp[i]);
@@ -479,18 +474,15 @@ Int_t M1_lam_Spline(){
     hratio2[i]->Divide(hlambda2[0]);
     hratio2[i]->GetYaxis()->SetTitle("Reflectivity");
     hq2[i]->Divide(hq02[i]);
-    hq[i]->Divide(hq0[i]);
+    //hq[i]->Divide(hq0[i]);
     hq4[i]->Divide(hq0[i]);
     hq3[i]->Add(hq2[i], hq[i],1., 1.);
     //hq4[i]=hq[i];
     //hq4[i]->Divide(hq3[i]);
 
-    hq[i]->Divide(hq3[i]);
+    if(i==2)hq[i]->Divide(hq0[i-2]);
+    //hq[i]->Divide(hq3[i]);
     
-    
-
-
-
     Double_t E1[nbin_q];//={0.001};
     if(i==2){
       double AA[nbin_q];
@@ -499,11 +491,17 @@ Int_t M1_lam_Spline(){
       double BBE[nbin_q];
       
       for(Int_t i1=0; i1<nbin_q; i1++){
+        /*
         AA[i1]=hq4[i]->GetBinContent(i1);
         AAE[i1]=hq4[i]->GetBinError(i1);
         BB[i1]=hq2[i]->GetBinContent(i1);
         BBE[i1]=hq2[i]->GetBinError(i1);
-        
+        */
+        AA[i1]=hq0[i]->GetBinContent(i1);
+        AAE[i1]=hq0[i]->GetBinError(i1);
+        BB[i1]=hq[i]->GetBinContent(i1);
+        BBE[i1]=hq[i]->GetBinError(i1);
+
         //E1[i1]=sqrt(pow(AA[i1]*BBE[i1],2)/pow((AA[i1]+BB[i1]),4)+pow(BB[i1]*AAE[i1],2)/pow((AA[i1]+BB[i1]),4));
         
         if(AAE[i1]==0){
@@ -512,7 +510,7 @@ Int_t M1_lam_Spline(){
           }
         }
         else{
-            E1[i1]=sqrt(pow(AA[i1]*BBE[i1],2)+pow(BB[i1]*AAE[i1],2))/pow((AA[i1]+BB[i1]),2);
+            E1[i1]=sqrt(pow(BB[i1]*AAE[i1],2))/pow((AA[i1]),2);
         }
         
         //cout<<"AA_"<<AA[i1]<<"_BB_"<<BB[i1]<<endl;
@@ -520,7 +518,9 @@ Int_t M1_lam_Spline(){
         cout<<"AAE_"<<AAE[i1]<<"_BBE_"<<BBE[i1]<<"_E1_"<<E1[i1]<<endl;
         //cout<<"AA_"<<AA[i1]+BB[i1]<<endl;
         //cout<<"E1_"<<E1[i1]<<endl;
-        hq[i]->SetError(E1);
+        
+        // 
+        //hq[i]->SetError(E1);
         
       }
       
@@ -531,8 +531,8 @@ Int_t M1_lam_Spline(){
     hq2[i]->GetYaxis()->SetTitle("Reflectivity");
     //hq2[i]->Add(hq2[i], hq[i],1., 1.);
 
-    
     hq2[i]->Divide(hq3[i]);
+    
 
     //hq[i]->SetError(E1);
 
@@ -567,7 +567,8 @@ Int_t M1_lam_Spline(){
     
     //TLine *l2 = new TLine (xend,1e-3,xend, 1e3);
     
-    if(i==2)hx[i]->Draw("eh");
+    if(i==0)hx[i]->Draw("eh");
+    if(i==2)hx[i]->Draw("ehsame");
     
     //else if(i!=6)hx[i]->Draw("ehsames");
     
@@ -595,7 +596,8 @@ Int_t M1_lam_Spline(){
     //if(i==0)hlambda[i]->Draw("eh");
     //if(i==2)hlambda[i]->Draw("ehsames");
     if(i==0)hlambda[i]->Draw("eh");
-    else if(i!=6)hlambda[i]->Draw("ehsames");
+    if(i==2)hlambda[i]->Draw("ehsame");
+    //else if(i!=6)hlambda[i]->Draw("ehsames");
     //if(i==7)hlambda[i]->Draw("ehsames");
     leg->Draw();
 
@@ -604,7 +606,6 @@ Int_t M1_lam_Spline(){
     //f0->SetParLimits(0,0.16,0.19);
     //f0->SetParLimits(0,0.11,0.19);
     f0->SetParLimits(0,0.7,0.8);
-
     //f0->FixParameter(1,1.);
     f0->SetParLimits(1,0.9,1.0);
 
@@ -626,7 +627,10 @@ Int_t M1_lam_Spline(){
 
     //if(i==2) hq[i]->Fit(f0,"+","",0.1,0.47);
     //if(i==2) hq[i]->Fit(f0,"+","",0.23,1.07);
-    if(i==2) hq[i]->Fit(f1,"+","",0.23,1.07);
+    
+    //if(i==2)hq0[i]->Draw("eh");
+    if(i==2)hq[i]->Draw("ehsame");
+    //if(i==2) hq[i]->Fit(f1,"+","",0.23,1.07);
     //gStyle->SetOptStat(1111111111);
     gStyle->SetOptFit(1111);
 
@@ -637,11 +641,13 @@ Int_t M1_lam_Spline(){
 
     cout<<"qcc_"<<qcc<<endl;
 
+    /*
     if(i==2){
       TSpline3 *spl1 = new TSpline3( hq[i],0,0,0 );	
-      spl1->Draw("ehsame");
+      //spl1->Draw("ehsame");
       spl1->SaveAs(path_R+"Spl1.C");
     }
+    */
 
 
 
@@ -653,7 +659,7 @@ Int_t M1_lam_Spline(){
     //leg->Draw();
 
     c1->cd(4);
-    if(i==2)hq4[i]->Draw("eh");   
+    if(i==2)hq4[i]->Draw("eh");  
     
     hratio[i]->GetYaxis()->SetRangeUser(0.,2.);
     //hq[i]->GetYaxis()->SetRangeUser(0.1,0.9);
